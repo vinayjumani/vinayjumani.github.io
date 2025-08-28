@@ -11,23 +11,40 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
   <meta name="description" content="Vinay R Jumani — AI Hardware & Deep Learning Engineer. Projects in Transformers, ResNet, RAG, OpenCV, and more.">
-  <meta name="keywords" content="AI Hardware, Deep Learning, Edge AI, CUDA, PyTorch, Robotics, BITS Pilani, HPC">
-  <link rel="icon" href="favicon.ico">
 
   <style>
     /* --- small, readable styling (easy to edit) --- */
-    html { scroll-behavior: smooth; }
-    :root{ --accent: #1677ff; --muted:#6b7280; --card:#ffffff; --bg:#fbfdff; --text:#071226; --radius:12px; --gap:1rem; }
+    :root{
+      --accent: #1677ff;
+      --muted:#6b7280;
+      --card:#ffffff;
+      --bg:#ffffff;
+      --text:#0b1220;
+      --radius:10px;
+      --gap:1rem;
+    }
     body { background:var(--bg); color:var(--text); font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
-    header { border-bottom: 1px solid rgba(22,119,255,0.06); background:transparent }
-    .hero { padding: 56px 0; }
-    .avatar { display:none; }
-    .hero-centered { display:flex; align-items:center; justify-content:center; text-align:center; }
-    .card { border:1px solid rgba(16,24,40,0.04); border-radius:var(--radius); box-shadow:0 8px 30px rgba(16,24,40,.04); background:var(--card); }
-    .chip { background:#ffffff; border:1px solid rgba(16,24,40,0.03); color:var(--muted); padding:.35rem .6rem; border-radius:999px; }
+    a { color:var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    header { border-bottom: 1px solid #eef2ff; }
+    .nav-link { color: var(--muted) !important; font-weight:600; }
+    .hero { padding: 48px 0; }
+    .avatar { width:120px; height:120px; border-radius:50%; object-fit:cover; border:4px solid #f3f6ff; box-shadow: 0 6px 24px rgba(16,24,40,0.08); }
+    .tagline { color:var(--muted); margin-bottom:0.75rem; }
+    .chip { display:inline-block; background:#f8fafc; border:1px solid #eef2ff; color:var(--muted); padding:.35rem .6rem; border-radius:999px; font-weight:600; margin-right:.45rem; font-size:.86rem; }
+    .card { border:1px solid #eef2ff; border-radius:var(--radius); box-shadow:0 6px 30px rgba(16,24,40,.03); background:var(--card); }
+    .project-card { padding:18px; }
+    .meta { color:var(--muted); font-size:.92rem; }
+    .badge-soft { background:#f1f8ff; color:var(--accent); border-radius:8px; padding:.25rem .5rem; font-weight:700; font-size:.78rem; border:1px solid #e6f0ff; }
+    .section-title { display:flex; justify-content:space-between; align-items:end; gap:1rem; }
     .small-muted { color:var(--muted); font-size:.95rem; }
-    footer { border-top:1px solid rgba(16,24,40,0.03); padding:28px 0; color:var(--muted); }
-    @media (max-width:767px){ .hero { text-align:center } .hero .row > * { margin-bottom:1rem } }
+    footer { border-top:1px solid #eef2ff; padding:28px 0; color:var(--muted); }
+
+    /* easy edit hints */
+    /* -- add projects by duplicating .project-card blocks -- */
+    .project-actions a { margin-right:.5rem; font-weight:600; }
+    @media (max-width:767px){ .hero { text-align:center } .hero .row > * { margin-bottom:1rem } .hero .avatar { margin:0 auto } }
   </style>
 </head>
 <body>
@@ -56,31 +73,35 @@
   <!-- HERO -->
   <main class="container">
     <section class="hero">
-      <div class="row justify-content-center">
-        <div class="col-lg-10">
-          <div class="hero-centered">
-            <div>
-              <p class="tagline">B.E. Electronics & Instrumentation — BITS Pilani — Aspiring AI Hardware & Deep Learning Engineer</p>
-              <h1 style="margin-bottom:.5rem">Hi — I'm <strong>Vinay R Jumani</strong></h1>
-              <p style="font-size:1.05rem; color:var(--muted); max-width:72ch; margin:0 auto;">
-                I build and experiment at the intersection of Deep Learning, AI hardware, HPC, and embedded systems. I focus on practical systems that move ML to constrained devices and optimize real workloads. I publish and document my journey openly — projects, experiments, and the lessons learned.
-              </p>
+      <div class="row align-items-center">
+        <div class="col-lg-8">
+          <p class="tagline">B.E. Electronics & Instrumentation — BITS Pilani (Goa) • Aspiring AI Hardware & Deep Learning Engineer</p>
+          <h1 style="margin-bottom:.5rem">Hi — I'm <strong>Vinay R Jumani</strong></h1>
+          <p style="font-size:1.05rem; color:var(--muted); max-width:72ch;">
+            I build and experiment at the intersection of Deep Learning, AI hardware, and embedded systems. I focus on practical systems that move ML to constrained devices and optimize real workloads. I publish and document my journey openly — projects, experiments, and the failures that teach me the most.
+          </p>
 
-              <div class="mt-3">
-                <a class="btn btn-outline-primary btn-sm me-2" href="#projects"><i class="fa-solid fa-code"></i> Projects</a>
-                <a class="btn btn-outline-secondary btn-sm me-2" href="timeline.html"><i class="fa-regular fa-clock"></i> Timeline</a>
-                <a class="btn btn-primary btn-sm" href="mailto:vinayrjumani@gmail.com"><i class="fa-regular fa-envelope"></i> Email</a>
-              </div>
-
-              <div class="mt-3">
-                <span class="chip">PyTorch</span>
-                <span class="chip">CUDA</span>
-                <span class="chip">Edge AI</span>
-                <span class="chip">Robotics</span>
-                <span class="chip">MERN</span>
-              </div>
-            </div>
+          <div class="mt-3">
+            <!-- quick links -->
+            <a class="btn btn-outline-primary btn-sm me-2" href="#projects"><i class="fa-solid fa-code"></i> Projects</a>
+            <a class="btn btn-outline-secondary btn-sm me-2" href="timeline.html"><i class="fa-regular fa-clock"></i> Timeline</a>
+            <a class="btn btn-primary btn-sm" href="mailto:vinayrjumani@gmail.com"><i class="fa-regular fa-envelope"></i> Email</a>
           </div>
+
+          <div class="mt-3">
+            <span class="chip">PyTorch</span>
+            <span class="chip">CUDA</span>
+            <span class="chip">Edge AI</span>
+            <span class="chip">Robotics</span>
+            <span class="chip">MERN</span>
+          </div>
+        </div>
+
+        <!-- Avatar -->
+        <div class="col-lg-4 text-lg-end text-center">
+          <!-- Replace 'avatar.jpg' with your headshot file. Keep filename same or update src -->
+          <img src="avatar.jpg" alt="Vinay Jumani" class="avatar">
+          <div class="small-muted mt-2">B.E. Electronics & Instrumentation — BITS Goa</div>
         </div>
       </div>
     </section>
@@ -89,26 +110,21 @@
     <section id="about" class="mb-4">
       <div class="card p-4">
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-9">
             <h4>About</h4>
             <p class="small-muted">
-              I’m Vinay R Jumani — a B.E. student at BITS Pilani building robust ML systems that bridge models and hardware. I work on model implementations, GPU-aware optimizations, HPC workloads, and embedded deployments — while exploring quant and startup ideas.
+              I’m Vinay R Jumani — a B.E. student at BITS Goa building robust ML systems that bridge models and hardware. I work on model implementations, GPU-aware optimizations, and embedded deployments — while exploring quant, fintech, and startup ideas.
             </p>
             <div class="mt-2 small-muted">
-              <strong>Education:</strong> BITS Pilani, B.E. Electronics & Instrumentation (expected 2028)
+              <strong>Location:</strong> Goa, India &nbsp; • &nbsp;
+              <strong>Education:</strong> BITS Pilani, Goa (B.E. E&I, expected 2028)
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- EDUCATION (new) -->
-    <section id="education" class="mb-4">
-      <div class="card p-4">
-        <h4>Education</h4>
-        <div class="small-muted mt-2">
-          <strong>B.E. Electronics & Instrumentation</strong> — BITS Pilani (expected 2028)<br>
-          Relevant coursework: Digital Design, Computer Architecture, Parallel Computing, Machine Learning, Numerical Methods.
+          <div class="col-md-3 text-md-end mt-3 mt-md-0">
+            <div class="mb-1"><a href="https://github.com/Vinay12345-neutron" target="_blank" class="small-muted"><i class="fa-brands fa-github"></i> github.com/Vinay12345-neutron</a></div>
+            <div class="mb-1"><a href="https://www.linkedin.com/in/vinay-r-jumani-39489a210" target="_blank" class="small-muted"><i class="fa-brands fa-linkedin"></i> linkedin.com/in/vinay-r-jumani-39489a210</a></div>
+            <div><a href="mailto:vinayrjumani@gmail.com" class="small-muted"><i class="fa-regular fa-envelope"></i> vinayrjumani@gmail.com</a></div>
+          </div>
         </div>
       </div>
     </section>
@@ -155,7 +171,7 @@
               </div>
               <p class="mt-2 small-muted">Trained ResNet-18 with augmentations, LR scheduling, and mixed-precision. Reached ~90% accuracy using proper training pipelines and optimization techniques.</p>
               <div class="project-actions mt-2">
-                <a href="https://github.com/Vinay12345-neutron/RestNet" target="_blank" class="me-2">GitHub ↗</a>
+                <a href="https://github.com/Vinay12345-neutron/ResNet-CIFAR10" target="_blank" class="me-2">GitHub ↗</a>
                 <span class="small-muted">Tags: CV • PyTorch • AMP</span>
               </div>
             </div>
@@ -312,10 +328,16 @@
     <!-- EXPERIENCE / LEADERSHIP -->
     <section id="experience" class="mb-4">
       <div class="card p-4">
-        <div>
-          <div class="small-muted">Experience & leadership</div>
-          <h4 class="mb-1">Roles</h4>
-          <p class="small-muted">Campus Ambassador (Perplexity). Core member — Electronics & Robotics Club; SEDS Celestia Simulations (CUDA); Developer’s Society Syscal (GPU programming); Center for Entrepreneurial Leadership (CEL), BITS Pilani. Founder of a developer community (300+ members).</p>
+        <div class="d-flex justify-content-between align-items-start">
+          <div>
+            <div class="small-muted">Experience & leadership</div>
+            <h4 class="mb-1">Roles</h4>
+            <p class="small-muted">Campus Ambassador (Perplexity). Core member — Electronics & Robotics Club; SEDS Celestia Simulations (CUDA); Developer’s Society Syscal (GPU programming); Center for Entrepreneurial Leadership (CEL), BITS Goa. Founder of a developer community (300+ members).</p>
+          </div>
+          <div class="text-end small-muted">
+            <strong>Phone</strong><br>+91-7550056701
+            <div class="mt-2"><a href="https://www.instructables.com/member/ElectronicSciTech/" target="_blank">Instructables</a></div>
+          </div>
         </div>
       </div>
     </section>
@@ -357,7 +379,7 @@
         © <span id="year"></span> Vinay R Jumani · <a href="extra.html">Extra</a> · <a href="timeline.html">Timeline</a>
       </div>
       <div class="col-md-6 text-md-end small-muted">
-        <!-- phone and instructables removed per request -->
+        Phone: +91-7550056701 · Instructables: <a href="https://www.instructables.com/member/ElectronicSciTech/" target="_blank">ElectronicSciTech</a>
       </div>
     </div>
   </footer>

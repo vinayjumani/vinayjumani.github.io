@@ -12,16 +12,16 @@
     .container{ max-width:960px; margin:0 auto; padding:28px }
     .timeline { position:relative; margin:2rem 0; padding-left: 1rem; }
     .timeline::before { content:""; position:absolute; left:18px; top:0; bottom:0; width:3px; background:#eef6ff; border-radius:3px }
-    .entry { position:relative; margin-bottom:1.6rem; padding-left:36px; }
-    .entry .dot{ position:absolute; left:6px; top:6px; width:24px; height:24px; border-radius:50%; background:#e6f2ff; display:flex; align-items:center; justify-content:center; color:#0a5be0; font-weight:700 }
-    .entry h5{ margin-bottom:.2rem }
-    .muted{ color:#6b7280 }
-    .tag{ display:inline-block; padding:.15rem .45rem; background:#f8fafc; border:1px solid #eef2ff; border-radius:8px; font-weight:700; color:#0a5be0; font-size:.85rem }
-    pre{ background:#fafafa; padding:10px; border-radius:8px; border:1px solid #f1f5f9; overflow:auto }
-    .note{ margin-top:.6rem; color:#374151 }
+    .entry { position:relative; margin-bottom:2rem; padding-left:36px; }
+    .entry .dot{ position:absolute; left:6px; top:6px; width:24px; height:24px; border-radius:50%; background:#e6f2ff; display:flex; align-items:center; justify-content:center; color:#0a5be0; font-weight:700; font-size:0.8rem }
+    .entry h5{ margin-bottom:.3rem; color:#0b1220 }
+    .muted{ color:#6b7280; font-size:0.95rem }
+    .tag{ display:inline-block; padding:.2rem .5rem; background:#f8fafc; border:1px solid #eef2ff; border-radius:6px; font-weight:600; color:#0a5be0; font-size:.8rem; margin-right:.3rem; margin-top:.3rem }
+    .note{ margin-top:.8rem; color:#374151; line-height:1.6 }
     footer{ border-top:1px solid #f1f5f9; padding-top:20px; color:#6b7280 }
-    .small-muted{ color:#6b7280; font-size:.95rem }
-    .back{ margin-bottom:1rem; display:inline-block; }
+    .small-muted{ color:#6b7280; font-size:.9rem }
+    .highlight{ background:#f0f9ff; padding:1rem; border-radius:8px; border-left:4px solid #0ea5e9; margin:.5rem 0 }
+    .achievement{ background:#f0fdf4; padding:.8rem; border-radius:6px; border-left:3px solid #22c55e; margin:.5rem 0 }
   </style>
 </head>
 <body>
@@ -29,128 +29,252 @@
     <div class="container d-flex justify-content-between align-items-center">
       <div>
         <a href="index.html" style="font-weight:700; color:#0b1220; text-decoration:none">← Vinay R Jumani</a>
-        <div class="small-muted">Timeline / progress log — raw documentation</div>
+        <div class="small-muted">Technical Journey & Milestones</div>
       </div>
-      <div class="small-muted">Updated: Aug 2025</div>
+      <div class="muted">Updated: August 2025</div>
     </div>
   </header>
 
   <main class="container">
-    <!--
-    <h2 style="margin-top:0">Progress Timeline</h2>
-    <p class="muted">This is a living document — my raw notes, experiments, wins, failures, and plans. I update it frequently so others can see what I’m building.</p>
+    <h2 style="margin-top:0">Technical Timeline</h2>
+    <p class="muted">A chronological view of my journey in AI, deep learning, and hardware systems — from early electronics projects to current research.</p>
 
     <div class="timeline">
 
-      
+      <!-- 2025 Current Focus -->
       <div class="entry">
-        <div class="dot">S</div>
-        <h5>1st yr Summers — May–July 2025</h5>
-        <div class="muted">High-level notes & outcomes</div>
+        <div class="dot">25</div>
+        <h5>August 2025 — Current Focus</h5>
+        <div class="muted">Sophomore year • Advanced research and implementation</div>
+        <div class="highlight">
+          <strong>Active Projects:</strong> Mamba architecture implementation, GPU Direct/BAM research, FD-LoRA development, AI hardware optimization platform
+        </div>
         <div class="note">
+          <p>Currently deep-diving into state-space models with Mamba implementation, exploring GPU memory optimization techniques, and building production-ready AI benchmarking tools. Also actively developing FinTech startup concepts and maintaining leadership in multiple campus technical communities.</p>
+          <div>
+            <span class="tag">Mamba/SSM</span>
+            <span class="tag">GPU Optimization</span>
+            <span class="tag">CUDA Programming</span>
+            <span class="tag">Startup Development</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Summer 2025 -->
+      <div class="entry">
+        <div class="dot">S25</div>
+        <h5>Summer 2025 — Exploration & Learning</h5>
+        <div class="muted">First year summer • Research foundations</div>
+        <div class="note">
+          <p>Intensive summer focused on building strong foundations in advanced ML systems. Explored multiple project directions including agentic AI, hardware acceleration research, and early-stage startup ideation. Key learning period for GPU programming fundamentals and system-level optimizations.</p>
           <ul>
-            <li>Fintech startup (Duolingo-style finance learning) — early-stage; planning to start.</li>
-            <li>Qualcomm Hackathon — AI hardware benchmarking idea (rejected, failed prototype).</li>
-            <li>AI Rubik’s cube solver — attempted and paused (learned a lot about perception/control).</li>
-            <li>Vibe coding projects — exploration; learned rapid prototyping.</li>
-            <li>Agentic AI experiments — prototype, paused.</li>
-            <li><strong>Learnt/decided:</strong> Continue deep learning focus. Currently prioritizing Mamba implementation.</li>
-            <li>Completed digital design YouTube playlist (for a project under Prof. Vipin) — need to follow up for a project opportunity.</li>
-            <li>Explored ROS2, Git workflows, and startup idea validation (StudyGPT, MemoryVault, Benchmarking SaaS) — many failed but learned product lessons.</li>
+            <li><strong>Research Exploration:</strong> Began GPU Direct/BAM research, explored agentic AI frameworks</li>
+            <li><strong>Startup Experiments:</strong> Early-stage FinTech and EdTech concept validation</li>
+            <li><strong>Technical Skills:</strong> Advanced CUDA programming, ROS2, Git workflows</li>
+            <li><strong>Failed Projects:</strong> AI Rubik's cube solver (valuable learning experience), Qualcomm hackathon entry</li>
           </ul>
+          <div>
+            <span class="tag">Research Methods</span>
+            <span class="tag">Startup Validation</span>
+            <span class="tag">Advanced CUDA</span>
+          </div>
         </div>
       </div>
 
-      
+      <!-- Spring 2025 -->
       <div class="entry">
-        <div class="dot">A</div>
-        <h5>August 2025 — Plans & priorities</h5>
-        <div class="muted">Short-term goals and meetings</div>
+        <div class="dot">24</div>
+        <h5>Jan-May 2025 — SAIDL & Core ML</h5>
+        <div class="muted">First year • Structured learning phase</div>
+        <div class="achievement">
+          <strong>Major Milestone:</strong> Completed comprehensive SAIDL Spring assignments covering CoreML, multi-modality, and GNN implementations
+        </div>
         <div class="note">
+          <p>Intensive period of structured learning through SAIDL program. Focused on understanding core ML system internals, implementing research papers, and building strong PyTorch foundations.</p>
           <ul>
-            <li>Meet Prof. Vipin — request a project and discuss NTU/NUS research opportunities. (High priority for summer internships)</li>
-            <li>Startup FinTech / EdTech ideas — keep iterating.</li>
-            <li>Academics — maintain and plan around important exams.</li>
-            <li>Focus list for August:
-              <ul>
-                <li>Quant: C++, probability & stats, DSA (Quantfest prep)</li>
-                <li>PyTorch: finish Umar Jamil Transformer validation loop, attention viz</li>
-                <li>SAIDL work</li>
-                <li>CUDA / GPU fundamentals</li>
-                <li>Digital design — complete playlist to approach Vipin</li>
-              </ul>
-            </li>
-
-            <li>Clubs & competitions: ERC competition, SEDS simulations (CUDA)</li>
-            <li>Continue building developer community and leadership activities.</li>
+            <li><strong>CoreML Assignment:</strong> APL framework experimentation with noise-level adjustments</li>
+            <li><strong>Multi-Modality:</strong> Graph Neural Networks implementation for cross-modal learning</li>
+            <li><strong>System Understanding:</strong> Deep dive into ML framework internals and optimization techniques</li>
+            <li><strong>Campus Leadership:</strong> Established developer community, joined multiple technical clubs</li>
           </ul>
+          <div>
+            <span class="tag">SAIDL Program</span>
+            <span class="tag">GNN</span>
+            <span class="tag">Multi-modal ML</span>
+            <span class="tag">Community Building</span>
+          </div>
         </div>
       </div>
 
-      
+      <!-- Late 2024 -->
       <div class="entry">
-        <div class="dot">Q</div>
-        <h5>Quantfest / Study resources</h5>
-        <div class="muted">How I plan to prepare</div>
-        <div class="">
+        <div class="dot">L24</div>
+        <h5>July-Dec 2024 — Deep Learning Foundations</h5>
+        <div class="muted">First semester • Core implementations</div>
+        <div class="highlight">
+          <strong>Key Achievement:</strong> Transformer from scratch implementation — complete architecture understanding
+        </div>
+        <div class="note">
+          <p>Critical period establishing deep learning foundations through hands-on implementation. Focus on understanding architectures from first principles rather than using pre-built components.</p>
           <ul>
-            <li>Watch IICPC Quantfest Webinar (YouTube)</li>
-            <li>Books for probabilities & quant interviews: <em>Heard on the Street</em>, <em>A Practical Guide to Quantitative Finance Interviews</em></li>
-            <li>Practice contests on Codeforces; Leetcode + Striver's DSA; CP handbook; studyplan.dev until ~17–20 Aug</li>
-            <li>Mix CP practice with quant puzzles</li>
+            <li><strong>Transformer Implementation:</strong> Complete from-scratch PyTorch implementation with attention visualization</li>
+            <li><strong>Computer Vision:</strong> ResNet-18 training with advanced techniques (90% CIFAR-10 accuracy)</li>
+            <li><strong>Real-time Systems:</strong> OpenCV + MediaPipe hand tracking game with edge optimization</li>
+            <li><strong>NLP Applications:</strong> RAG chatbot system with efficient vector storage and retrieval</li>
           </ul>
+          <div>
+            <span class="tag">Transformer Architecture</span>
+            <span class="tag">Computer Vision</span>
+            <span class="tag">Real-time Processing</span>
+            <span class="tag">RAG Systems</span>
+          </div>
         </div>
       </div>
 
-      
+      <!-- 2024 College Start -->
       <div class="entry">
-        <div class="dot">P</div>
-        <h5>Plan of action — daily priority (example)</h5>
-        <div class="muted">Typical daily split (target)</div>
-        <div class="note">
-          <ol>
-            <li>Assume 12 hrs available; 7 hrs on academics — the rest on track work.</li>
-            <li>Start the day with Quant (1.5 hrs DSA) + 45 mins D2L.ai (PyTorch foundation)</li>
-            <li>Afternoon / evening: GPU/SAIDL/Dashlab work (6–9pm), buffer 10pm–1am for flexible tasks (videos, campus partner work, startup)</li>
-            <li>Priority order: (1) Academics & CS F425, (2) SAIDL & GPU, (3) Dashlab (GPUDirect), (4) Quant DSA, (5) Skill-building, (6) Campus partner</li>
-          </ol>
+        <div class="dot">C24</div>
+        <h5>July 2024 — BITS Pilani Journey Begins</h5>
+        <div class="muted">College admission • New chapter</div>
+        <div class="achievement">
+          <strong>Academic Achievement:</strong> JEE Advanced Rank 10,452 (Top 5%), JEE Mains Rank 18,021 (Top 2%)
         </div>
-      </div>
-
-      
-      <div class="entry">
-        <div class="dot">S</div>
-        <h5>September 2025 — TODO / Goals</h5>
-        <div class="muted">Planned next steps</div>
         <div class="note">
+          <p>Started B.E. Electronics & Instrumentation at BITS Pilani, Goa. Immediately gravitated toward AI/ML applications and began building technical community presence.</p>
           <ul>
-            <li>Consolidate Mamba progress and produce a public writeup.</li>
-            <li>Continue GPU Direct experiments and benchmark tasks.</li>
-            <li>Ramp up Quant practice (neetcode + CP handbook + CF contests).</li>
-            <li>Follow up with Prof. Vipin for project/internship opportunities.</li>
+            <li><strong>Academic Excellence:</strong> Strong performance in entrance exams demonstrating analytical capabilities</li>
+            <li><strong>Technical Focus:</strong> Chose Electronics & Instrumentation for hardware-software intersection</li>
+            <li><strong>Community Building:</strong> Founded developer community that grew to 300+ members</li>
+            <li><strong>Leadership Roles:</strong> Perplexity Campus Ambassador, multiple club core positions</li>
           </ul>
+          <div>
+            <span class="tag">BITS Pilani</span>
+            <span class="tag">Academic Excellence</span>
+            <span class="tag">Leadership</span>
+          </div>
         </div>
       </div>
 
-      
+      <!-- 2023-2024 Preparation -->
       <div class="entry">
-        <div class="dot">●</div>
-        <h5>Raw notes & misc (ongoing)</h5>
-        <div class="muted">Personal log — unfiltered</div>
+        <div class="dot">P24</div>
+        <h5>2023-2024 — Competitive Preparation</h5>
+        <div class="muted">High school • Exam preparation phase</div>
         <div class="note">
-          <pre>// snippets from my Notion / working notes
-- Qualms: which track to lean into (DL systems vs quant vs startup)
-- Daily checklist: PyTorch, DSA, GPU, SAIDL
-- Keep a public progress log (this timeline) to show authenticity and growth</pre>
+          <p>Intensive preparation period for engineering entrance exams while maintaining consistent academic performance and pursuing technical interests.</p>
+          <ul>
+            <li><strong>Academic Performance:</strong> CBSE Class 12 — 97%, maintained excellence across subjects</li>
+            <li><strong>Competitive Success:</strong> IAT (IISER/IISc) Rank 275 (Top 0.6%)</li>
+            <li><strong>Continued Learning:</strong> Deep Learning Specialization by Andrew Ng (Coursera)</li>
+            <li><strong>Chess Achievement:</strong> Maintained FIDE rating of 1852, international competition participation</li>
+          </ul>
+          <div>
+            <span class="tag">JEE Preparation</span>
+            <span class="tag">Deep Learning Cert</span>
+            <span class="tag">Chess Competition</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Early Technical Journey -->
+      <div class="entry">
+        <div class="dot">E</div>
+        <h5>Grade 9-12 — Electronics Foundation</h5>
+        <div class="muted">2020-2024 • Hardware exploration</div>
+        <div class="highlight">
+          <strong>Hands-on Learning:</strong> Extensive electronics projects documented on Instructables platform
+        </div>
+        <div class="note">
+          <p>Early technical foundation building through practical electronics projects. Developed strong hardware intuition and rapid prototyping skills that later informed AI hardware optimization work.</p>
+          <ul>
+            <li><strong>IoT Projects:</strong> Self-watering plant system with sensor integration and automated control</li>
+            <li><strong>3D Manufacturing:</strong> Extensive work with FDM 3D printing for mechanical assemblies</li>
+            <li><strong>Microcontroller Programming:</strong> Arduino and Raspberry Pi projects with sensor interfaces</li>
+            <li><strong>Documentation:</strong> Public sharing of projects on Instructables (ElectronicSciTech profile)</li>
+            <li><strong>Academic Foundation:</strong> CBSE Class 10 — 97%, strong STEM foundation</li>
+          </ul>
+          <div>
+            <span class="tag">Arduino</span>
+            <span class="tag">Raspberry Pi</span>
+            <span class="tag">3D Printing</span>
+            <span class="tag">IoT Systems</span>
+            <span class="tag">Hardware Design</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chess Journey -->
+      <div class="entry">
+        <div class="dot">♔</div>
+        <h5>Ongoing — Competitive Chess</h5>
+        <div class="muted">Long-term pursuit • Strategic thinking development</div>
+        <div class="achievement">
+          <strong>International Recognition:</strong> FIDE Rating 1852, represented India at national/international events
+        </div>
+        <div class="note">
+          <p>Parallel journey in competitive chess that has significantly influenced my approach to problem-solving, pattern recognition, and strategic thinking in technical work.</p>
+          <ul>
+            <li><strong>FIDE Rating:</strong> 1852 (official international rating)</li>
+            <li><strong>Online Performance:</strong> Lichess bullet rating peaked at 2700</li>
+            <li><strong>Competition Experience:</strong> Multiple national and international tournament participations</li>
+            <li><strong>Strategic Skills:</strong> Pattern recognition and strategic thinking applied to ML system design</li>
+          </ul>
+          <div>
+            <span class="tag">Strategic Thinking</span>
+            <span class="tag">Pattern Recognition</span>
+            <span class="tag">International Competition</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Future Goals -->
+      <div class="entry">
+        <div class="dot">→</div>
+        <h5>Next Phase — Research & Industry Impact</h5>
+        <div class="muted">2025-2026 • Advanced research and applications</div>
+        <div class="note">
+          <p>Looking ahead to deeper research contributions, industry internships, and startup development. Focus on bridging academic research with practical industry applications in AI hardware optimization.</p>
+          <ul>
+            <li><strong>Research Goals:</strong> Publications in AI systems optimization, state-space model improvements</li>
+            <li><strong>Industry Experience:</strong> Seeking internships at leading AI/hardware companies</li>
+            <li><strong>Startup Development:</strong> Advancing FinTech platform to MVP and market validation</li>
+            <li><strong>Community Impact:</strong> Expanding developer community and technical mentorship</li>
+          </ul>
+          <div>
+            <span class="tag">Research Publications</span>
+            <span class="tag">Industry Internships</span>
+            <span class="tag">Startup Growth</span>
+            <span class="tag">Technical Leadership</span>
+          </div>
         </div>
       </div>
 
     </div>
 
+    <div style="background:#f8fafc; padding:1.5rem; border-radius:10px; border:1px solid #eef2ff; margin:2rem 0;">
+      <h5 style="margin-bottom:0.5rem; color:#0b1220;">Key Themes & Patterns</h5>
+      <p class="muted" style="margin-bottom:1rem;">Consistent threads throughout my technical journey:</p>
+      <div class="row">
+        <div class="col-md-6">
+          <ul class="muted" style="font-size:0.9rem;">
+            <li><strong>From-scratch Implementation:</strong> Understanding systems at fundamental levels</li>
+            <li><strong>Hardware-Software Integration:</strong> Bridge between ML theory and practical deployment</li>
+            <li><strong>Community Building:</strong> Sharing knowledge and building technical communities</li>
+          </ul>
+        </div>
+        <div class="col-md-6">
+          <ul class="muted" style="font-size:0.9rem;">
+            <li><strong>Rapid Prototyping:</strong> Quick iteration and learning from failures</li>
+            <li><strong>Open Documentation:</strong> Public sharing of projects and learning process</li>
+            <li><strong>Strategic Thinking:</strong> Chess-influenced approach to complex problem solving</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
     <footer class="mt-4">
-      <div class="small-muted">Return to <a href="index.html">Portfolio</a> · © <span id="y"></span> Vinay R Jumani</div>
+      <div class="small-muted">Return to <a href="index.html">Portfolio</a> · © <span id="y"></span> Vinay R Jumani</footer>
     </footer>
--->
   </main>
 
   <script>

@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Timeline — Vinay Jumani</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body{ font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial; background:white; color:#0b1220 }
+    header { border-bottom:1px solid #eef2ff }
+    .container{ max-width:960px; margin:0 auto; padding:28px }
+    .timeline { position:relative; margin:2rem 0; padding-left: 1rem; }
+    .timeline::before { content:""; position:absolute; left:18px; top:0; bottom:0; width:3px; background:#eef6ff; border-radius:3px }
+    .entry { position:relative; margin-bottom:1.6rem; padding-left:36px; }
+    .entry .dot{ position:absolute; left:6px; top:6px; width:24px; height:24px; border-radius:50%; background:#e6f2ff; display:flex; align-items:center; justify-content:center; color:#0a5be0; font-weight:700 }
+    .entry h5{ margin-bottom:.2rem }
+    .muted{ color:#6b7280 }
+    .tag{ display:inline-block; padding:.15rem .45rem; background:#f8fafc; border:1px solid #eef2ff; border-radius:8px; font-weight:700; color:#0a5be0; font-size:.85rem }
+    pre{ background:#fafafa; padding:10px; border-radius:8px; border:1px solid #f1f5f9; overflow:auto }
+    .note{ margin-top:.6rem; color:#374151 }
+    footer{ border-top:1px solid #f1f5f9; padding-top:20px; color:#6b7280 }
+    .small-muted{ color:#6b7280; font-size:.95rem }
+    .back{ margin-bottom:1rem; display:inline-block; }
+  </style>
+</head>
+<body>
+  <header class="py-3">
+    <div class="container d-flex justify-content-between align-items-center">
+      <div>
+        <a href="index.html" style="font-weight:700; color:#0b1220; text-decoration:none">← Vinay R Jumani</a>
+        <div class="small-muted">Timeline / progress log — raw documentation</div>
+      </div>
+      <div class="small-muted">Updated: Aug 2025</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <h2 style="margin-top:0">Progress Timeline</h2>
+    <p class="muted">This is a living document — my raw notes, experiments, wins, failures, and plans. I update it frequently so others can see what I’m building.</p>
+
+    <div class="timeline">
+
+      <!-- Summer 2025 -->
+      <div class="entry">
+        <div class="dot">S</div>
+        <h5>1st yr Summers — May–July 2025</h5>
+        <div class="muted">High-level notes & outcomes</div>
+        <div class="note">
+          <ul>
+            <li>Fintech startup (Duolingo-style finance learning) — early-stage; planning to start.</li>
+            <li>Qualcomm Hackathon — AI hardware benchmarking idea (rejected, failed prototype).</li>
+            <li>AI Rubik’s cube solver — attempted and paused (learned a lot about perception/control).</li>
+            <li>Vibe coding projects — exploration; learned rapid prototyping.</li>
+            <li>Agentic AI experiments — prototype, paused.</li>
+            <li><strong>Learnt/decided:</strong> Continue deep learning focus. Currently prioritizing Mamba implementation.</li>
+            <li>Completed digital design YouTube playlist (for a project under Prof. Vipin) — need to follow up for a project opportunity.</li>
+            <li>Explored ROS2, Git workflows, and startup idea validation (StudyGPT, MemoryVault, Benchmarking SaaS) — many failed but learned product lessons.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- August 2025 -->
+      <div class="entry">
+        <div class="dot">A</div>
+        <h5>August 2025 — Plans & priorities</h5>
+        <div class="muted">Short-term goals and meetings</div>
+        <div class="note">
+          <ul>
+            <li>Meet Prof. Vipin — request a project and discuss NTU/NUS research opportunities. (High priority for summer internships)</li>
+            <li>Startup FinTech / EdTech ideas — keep iterating.</li>
+            <li>Academics — maintain and plan around important exams.</li>
+            <li>Focus list for August:
+              <ul>
+                <li>Quant: C++, probability & stats, DSA (Quantfest prep)</li>
+                <li>PyTorch: finish Umar Jamil Transformer validation loop, attention viz</li>
+                <li>SAIDL work</li>
+                <li>CUDA / GPU fundamentals</li>
+                <li>Digital design — complete playlist to approach Vipin</li>
+              </ul>
+            </li>
+
+            <li>Clubs & competitions: ERC competition, SEDS simulations (CUDA)</li>
+            <li>Continue building developer community and leadership activities.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Plan & Study resources -->
+      <div class="entry">
+        <div class="dot">Q</div>
+        <h5>Quantfest / Study resources</h5>
+        <div class="muted">How I plan to prepare</div>
+        <div class="">
+          <ul>
+            <li>Watch IICPC Quantfest Webinar (YouTube)</li>
+            <li>Books for probabilities & quant interviews: <em>Heard on the Street</em>, <em>A Practical Guide to Quantitative Finance Interviews</em></li>
+            <li>Practice contests on Codeforces; Leetcode + Striver's DSA; CP handbook; studyplan.dev until ~17–20 Aug</li>
+            <li>Mix CP practice with quant puzzles</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Daily / weekly plan excerpt -->
+      <div class="entry">
+        <div class="dot">P</div>
+        <h5>Plan of action — daily priority (example)</h5>
+        <div class="muted">Typical daily split (target)</div>
+        <div class="note">
+          <ol>
+            <li>Assume 12 hrs available; 7 hrs on academics — the rest on track work.</li>
+            <li>Start the day with Quant (1.5 hrs DSA) + 45 mins D2L.ai (PyTorch foundation)</li>
+            <li>Afternoon / evening: GPU/SAIDL/Dashlab work (6–9pm), buffer 10pm–1am for flexible tasks (videos, campus partner work, startup)</li>
+            <li>Priority order: (1) Academics & CS F425, (2) SAIDL & GPU, (3) Dashlab (GPUDirect), (4) Quant DSA, (5) Skill-building, (6) Campus partner</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- September placeholder -->
+      <div class="entry">
+        <div class="dot">S</div>
+        <h5>September 2025 — TODO / Goals</h5>
+        <div class="muted">Planned next steps</div>
+        <div class="note">
+          <ul>
+            <li>Consolidate Mamba progress and produce a public writeup.</li>
+            <li>Continue GPU Direct experiments and benchmark tasks.</li>
+            <li>Ramp up Quant practice (neetcode + CP handbook + CF contests).</li>
+            <li>Follow up with Prof. Vipin for project/internship opportunities.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- raw logs / misc -->
+      <div class="entry">
+        <div class="dot">●</div>
+        <h5>Raw notes & misc (ongoing)</h5>
+        <div class="muted">Personal log — unfiltered</div>
+        <div class="note">
+          <pre>// snippets from my Notion / working notes
+- Qualms: which track to lean into (DL systems vs quant vs startup)
+- Daily checklist: PyTorch, DSA, GPU, SAIDL
+- Keep a public progress log (this timeline) to show authenticity and growth</pre>
+        </div>
+      </div>
+
+    </div>
+
+    <footer class="mt-4">
+      <div class="small-muted">Return to <a href="index.html">Portfolio</a> · © <span id="y"></span> Vinay R Jumani</div>
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

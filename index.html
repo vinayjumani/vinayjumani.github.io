@@ -1,415 +1,393 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Vinay R Jumani — Portfolio</title>
-  <meta name="description" content="Vinay R Jumani — AI Hardware & Deep Learning Engineer. Projects in Transformers, ResNet, RAG, OpenCV, and more." />
-  <meta property="og:title" content="Vinay R Jumani — Portfolio">
-  <meta property="og:description" content="AI Hardware & Deep Learning Engineer. Projects, skills, achievements, and contact.">
-  <meta property="og:type" content="website">
-  <meta name="theme-color" content="#0a0f1e">
 
-  <!-- Minimal, tasteful one-file styling -->
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome for icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+  <meta name="description" content="Vinay R Jumani — AI Hardware & Deep Learning Engineer. Projects in Transformers, ResNet, RAG, OpenCV, and more.">
+
   <style>
+    /* --- small, readable styling (easy to edit) --- */
     :root{
-      --bg:#0b1224;
-      --panel:#0f1830;
-      --soft:#111b36;
-      --text:#e6edf6;
-      --muted:#b5c0d0;
-      --accent:#65f0d5;
-      --accent-2:#68a2ff;
-      --shadow: 0 8px 30px rgba(0,0,0,.35);
-      --radius:16px;
-      --code:#0b1224;
-      --chip:#1a2444;
+      --accent: #1677ff;
+      --muted:#6b7280;
+      --card:#ffffff;
+      --bg:#ffffff;
+      --text:#0b1220;
+      --radius:10px;
+      --gap:1rem;
     }
-    * { box-sizing:border-box }
-    html,body { margin:0; padding:0; background:linear-gradient(180deg,#0a1020, #081026 60%, #0a1020); color:var(--text); font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji"; }
-    a { color: var(--accent); text-decoration: none }
-    a:hover { text-decoration: underline }
-    img { max-width:100%; height:auto; display:block }
-    .container{ width:min(1100px, 92vw); margin:0 auto; }
+    body { background:var(--bg); color:var(--text); font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
+    a { color:var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
 
-    /* Header / Nav */
-    header{ position:sticky; top:0; backdrop-filter:saturate(160%) blur(10px); background:rgba(10,16,32,.6); border-bottom:1px solid rgba(255,255,255,.06); z-index:10 }
-    .nav{ display:flex; align-items:center; justify-content:space-between; padding:.9rem 0 }
-    .brand{ font-weight:700; letter-spacing:.3px; display:flex; align-items:center; gap:.6rem }
-    .brand .dot{ width:.6rem; height:.6rem; background:var(--accent); border-radius:50% }
-    .links{ display:flex; gap:1rem; flex-wrap:wrap }
-    .links a{ color:var(--muted); font-weight:500 }
-    .links a:hover{ color:var(--text) }
+    header { border-bottom: 1px solid #eef2ff; }
+    .nav-link { color: var(--muted) !important; font-weight:600; }
+    .hero { padding: 48px 0; }
+    .avatar { width:120px; height:120px; border-radius:50%; object-fit:cover; border:4px solid #f3f6ff; box-shadow: 0 6px 24px rgba(16,24,40,0.08); }
+    .tagline { color:var(--muted); margin-bottom:0.75rem; }
+    .chip { display:inline-block; background:#f8fafc; border:1px solid #eef2ff; color:var(--muted); padding:.35rem .6rem; border-radius:999px; font-weight:600; margin-right:.45rem; font-size:.86rem; }
+    .card { border:1px solid #eef2ff; border-radius:var(--radius); box-shadow:0 6px 30px rgba(16,24,40,.03); background:var(--card); }
+    .project-card { padding:18px; }
+    .meta { color:var(--muted); font-size:.92rem; }
+    .badge-soft { background:#f1f8ff; color:var(--accent); border-radius:8px; padding:.25rem .5rem; font-weight:700; font-size:.78rem; border:1px solid #e6f0ff; }
+    .section-title { display:flex; justify-content:space-between; align-items:end; gap:1rem; }
+    .small-muted { color:var(--muted); font-size:.95rem; }
+    footer { border-top:1px solid #eef2ff; padding:28px 0; color:var(--muted); }
 
-    /* Hero */
-    .hero{ padding: clamp(2rem, 6vw, 4rem) 0 1rem; display:grid; grid-template-columns:1.1fr .9fr; gap:2rem; align-items:center }
-    @media (max-width:900px){ .hero{ grid-template-columns:1fr } }
-    .card{ background:linear-gradient(180deg, var(--panel), var(--soft)); border:1px solid rgba(255,255,255,.06); border-radius:var(--radius); box-shadow: var(--shadow); }
-    .hero-card{ padding:2rem }
-    h1{ margin:0 0 .5rem; font-size: clamp(1.8rem, 3vw, 2.4rem) }
-    .subtitle{ color:var(--muted); line-height:1.6 }
-    .chiprow{ display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1rem }
-    .chip{ background:var(--chip); color:var(--text); border:1px solid rgba(255,255,255,.07); border-radius:999px; padding:.35rem .7rem; font-size:.85rem }
-    .cta{ display:flex; gap:.8rem; margin-top:1.2rem; flex-wrap:wrap }
-    .btn{ display:inline-flex; align-items:center; gap:.5rem; border-radius:10px; border:1px solid rgba(255,255,255,.08); padding:.65rem .9rem; background:#111934; color:var(--text); font-weight:600 }
-    .btn:hover{ background:#132045 }
-    .btn.primary{ background: linear-gradient(90deg, #65f0d5, #68a2ff); color:#061022; border:none }
-    .btn.primary:hover{ filter:brightness(.95) }
-
-    /* Panels & sections */
-    section{ padding:2rem 0 }
-    .panel{ padding:1.2rem }
-    h2{ margin:0 0 1rem }
-    .kicker{ color:var(--accent); font-weight:700; font-size:.85rem; letter-spacing:.12em; text-transform:uppercase }
-    .grid{ display:grid; gap:1rem }
-    .grid.cols-3{ grid-template-columns:repeat(3, 1fr) }
-    .grid.cols-2{ grid-template-columns:repeat(2, 1fr) }
-    @media (max-width:900px){ .grid.cols-3{ grid-template-columns:1fr } .grid.cols-2{ grid-template-columns:1fr } }
-
-    .project-card{ padding:1rem; display:flex; flex-direction:column; gap:.6rem; min-height: 140px }
-    .meta{ display:flex; align-items:center; gap:.6rem; color:var(--muted); font-size:.9rem }
-    .badges{ display:flex; flex-wrap:wrap; gap:.4rem }
-    .badge{ background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08); padding:.2rem .5rem; border-radius:8px; font-size:.75rem; color:var(--muted) }
-
-    .switcher{ display:flex; gap:.6rem; background:#0c1530; border:1px solid rgba(255,255,255,.08); padding:.3rem; border-radius:12px; width:max-content }
-    .switcher button{ background:transparent; color:var(--muted); border:0; padding:.5rem .8rem; border-radius:9px; font-weight:600; cursor:pointer }
-    .switcher button.active{ background:#152044; color:var(--text) }
-
-    .skills{ display:flex; flex-wrap:wrap; gap:.5rem }
-    .skill{ padding:.45rem .7rem; background:#0d1732; border:1px solid rgba(255,255,255,.08); border-radius:10px; color:var(--muted); font-weight:600; font-size:.9rem }
-
-    .list{ display:grid; gap:.6rem }
-    .list li{ background:linear-gradient(180deg, #0f1830, #0c1530); border:1px solid rgba(255,255,255,.06); border-radius:12px; padding:.8rem 1rem; }
-    .tiny{ color:var(--muted); font-size:.92rem }
-
-    footer{ padding:2.2rem 0; color:var(--muted) }
-
-    /* Smooth scroll */
-    html{ scroll-behavior:smooth }
-
-    /* Tiny avatar circle */
-    .avatar{
-      width:120px; height:120px; border-radius:50%;
-      background: radial-gradient(100% 100% at 70% 20%, #71ffe7, #305fff);
-      box-shadow: 0 10px 40px rgba(104,162,255,.35);
-      border:3px solid rgba(255,255,255,.08)
-    }
-    .hero-right{ display:flex; align-items:center; justify-content:center }
-    .row{ display:flex; gap:1rem; align-items:center; flex-wrap:wrap }
-    .contact{ display:grid; gap:.4rem }
-    .muted{ color:var(--muted) }
-
-    /* Link pills */
-    .pill{ display:inline-flex; align-items:center; gap:.5rem; padding:.45rem .7rem; border-radius:999px; background:#0d1732; border:1px solid rgba(255,255,255,.08); color:var(--text) }
-    .pill:hover{ background:#122048 }
-
-    /* Code-like contact block */
-    pre{ margin:0; padding:.9rem 1rem; border-radius:12px; background:#0a1226; border:1px solid rgba(255,255,255,.07); overflow:auto }
-    code{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; color:#cfe6ff }
+    /* easy edit hints */
+    /* -- add projects by duplicating .project-card blocks -- */
+    .project-actions a { margin-right:.5rem; font-weight:600; }
+    @media (max-width:767px){ .hero { text-align:center } .hero .row > * { margin-bottom:1rem } .hero .avatar { margin:0 auto } }
   </style>
-
-  <!-- Structured data -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"Person",
-    "name":"Vinay R Jumani",
-    "jobTitle":"AI Hardware & Deep Learning Engineer (Student)",
-    "email":"mailto:vinayrjumani@gmail.com",
-    "telephone":"+91-7550056701",
-    "url":"https://vinayjumani.github.io",
-    "sameAs":[
-      "mailto:vinayrjumani@gmail.com",
-      "https://www.linkedin.com/in/vinay-r-jumani-39489a210",
-      "https://github.com/Vinay12345-neutron",
-      "https://vinay12345-neutron.github.io/",
-      "https://www.instructables.com/member/ElectronicSciTech/"
-    ]
-  }
-  </script>
 </head>
 <body>
+
   <!-- NAV -->
-  <header>
-    <div class="container nav">
-      <div class="brand"><span class="dot"></span> <span>Vinay R Jumani</span></div>
-      <nav class="links">
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#skills">Skills</a>
-        <a href="#achievements">Achievements</a>
-        <a href="#extra">Extra</a>
-        <a href="#contact">Contact</a>
+  <header class="sticky-top bg-white">
+    <div class="container py-3 d-flex align-items-center justify-content-between">
+      <div class="d-flex align-items-center gap-2">
+        <div style="width:12px;height:12px;border-radius:50%;background:var(--accent)"></div>
+        <a href="index.html" style="font-weight:700;color:var(--text);font-size:1.02rem;">Vinay R Jumani</a>
+      </div>
+
+      <nav>
+        <ul class="nav">
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
+          <li class="nav-item"><a class="nav-link" href="#achievements">Achievements</a></li>
+          <li class="nav-item"><a class="nav-link" href="timeline.html">Timeline</a></li>
+          <li class="nav-item"><a class="nav-link" href="extra.html">Extra</a></li>
+        </ul>
       </nav>
     </div>
   </header>
 
   <!-- HERO -->
-  <section class="hero container">
-    <div class="card hero-card">
-      <h1>AI Hardware & Deep Learning — building intelligent, efficient systems</h1>
-      <p class="subtitle">
-        Aspiring engineer focused on <strong>Edge AI</strong>, <strong>DL systems</strong>, and <strong>hardware-aware ML</strong>. 
-        Currently at <strong>BITS Pilani, Goa</strong> (B.E. E&I, CGPA 7.6/10; Expected May 2028).
-      </p>
-      <div class="chiprow">
-        <span class="chip">PyTorch</span>
-        <span class="chip">CUDA</span>
-        <span class="chip">OpenCV</span>
-        <span class="chip">Raspberry Pi</span>
-        <span class="chip">MERN</span>
-        <span class="chip">3D Printing</span>
-      </div>
-      <div class="cta">
-        <a class="btn primary" href="#projects">View Projects</a>
-        <a class="btn" href="mailto:vinayrjumani@gmail.com">Contact</a>
-        <a class="btn" href="https://github.com/Vinay12345-neutron" target="_blank" rel="noopener">GitHub</a>
-        <a class="btn" href="https://www.linkedin.com/in/vinay-r-jumani-39489a210" target="_blank" rel="noopener">LinkedIn</a>
-      </div>
-    </div>
-    <div class="hero-right">
-      <div class="avatar" title="Profile"></div>
-    </div>
-  </section>
+  <main class="container">
+    <section class="hero">
+      <div class="row align-items-center">
+        <div class="col-lg-8">
+          <p class="tagline">B.E. Electronics & Instrumentation — BITS Pilani (Goa) • Aspiring AI Hardware & Deep Learning Engineer</p>
+          <h1 style="margin-bottom:.5rem">Hi — I'm <strong>Vinay R Jumani</strong></h1>
+          <p style="font-size:1.05rem; color:var(--muted); max-width:72ch;">
+            I build and experiment at the intersection of Deep Learning, AI hardware, and embedded systems. I focus on practical systems that move ML to constrained devices and optimize real workloads. I publish and document my journey openly — projects, experiments, and the failures that teach me the most.
+          </p>
 
-  <!-- ABOUT -->
-  <section id="about" class="container">
-    <div class="card panel">
-      <div class="kicker">About</div>
-      <h2>Objective</h2>
-      <p class="tiny">
-        Passionate about building intelligent systems, solving real-world problems, and contributing to impactful technology.
-      </p>
-      <div class="row muted">
-        <span>📍 Goa, India</span>
-        <span>·</span>
-        <span>🎓 BITS Pilani, Goa Campus — B.E. in Electronics & Instrumentation</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROJECTS -->
-  <section id="projects" class="container">
-    <div class="row" style="justify-content:space-between; align-items:center; margin-bottom:.8rem">
-      <div>
-        <div class="kicker">Projects</div>
-        <h2>What I build</h2>
-      </div>
-      <div class="switcher" role="tablist" aria-label="Project view switch">
-        <button class="active" data-switch="completed" aria-selected="true">Completed</button>
-        <button data-switch="inprogress" aria-selected="false">In Progress</button>
-      </div>
-    </div>
-
-    <!-- COMPLETED -->
-    <div id="completed" class="grid cols-3">
-      <article class="card project-card">
-        <h3>Transformer from Scratch</h3>
-        <div class="meta"><a href="https://github.com/Vinay12345-neutron/transformer_from_scratch" target="_blank">GitHub ↗</a><span>· Jul 2024</span></div>
-        <p>Implemented the Transformer architecture in PyTorch from first principles.</p>
-        <div class="badges">
-          <span class="badge">PyTorch</span><span class="badge">NLP</span><span class="badge">From-scratch</span>
-        </div>
-      </article>
-
-      <article class="card project-card">
-        <h3>ResNet on CIFAR-10</h3>
-        <div class="meta">
-          <a href="https://github.com/Vinay12345-neutron/ResNet" target="_blank">GitHub ↗</a>
-          <span>· Mar 2024</span>
-        </div>
-        <p>ResNet-18 trained with augmentation, LR scheduling, and mixed precision. ~90% accuracy.</p>
-        <div class="badges">
-          <span class="badge">Computer Vision</span><span class="badge">PyTorch</span><span class="badge">AMP</span>
-        </div>
-      </article>
-
-      <article class="card project-card">
-        <h3>RAG Chatbot</h3>
-        <div class="meta"><a href="https://github.com/Vinay12345-neutron/RAG-chatbot" target="_blank">GitHub ↗</a><span>· May 2024</span></div>
-        <p>Retrieval-Augmented Generation on PDFs: retrieve → ground → generate contextually relevant answers.</p>
-        <div class="badges">
-          <span class="badge">LLMs</span><span class="badge">RAG</span><span class="badge">IR</span>
-        </div>
-      </article>
-
-      <article class="card project-card">
-        <h3>OpenCV + MediaPipe Game</h3>
-        <div class="meta"><a href="https://github.com/Vinay12345-neutron/Game_Using_Hand_Detection" target="_blank">GitHub ↗</a><span>· Apr 2024</span></div>
-        <p>Hand-tracking powered mini-game using OpenCV and MediaPipe.</p>
-        <div class="badges">
-          <span class="badge">OpenCV</span><span class="badge">MediaPipe</span>
-        </div>
-      </article>
-
-      <article class="card project-card">
-        <h3>SAIDL: CoreML Assignment</h3>
-        <div class="meta"><a href="https://github.com/Vinay12345-neutron/SAIDL-Spring-Assignment-2025" target="_blank">GitHub ↗</a><span>· Jan–Mar 2024</span></div>
-        <p>Experimented with the APL framework: noise scheduling and comparisons across frameworks.</p>
-        <div class="badges">
-          <span class="badge">ML Systems</span><span class="badge">Experimentation</span>
-        </div>
-      </article>
-
-      <article class="card project-card">
-        <h3>SAIDL: Multi-Modality (GNN)</h3>
-        <div class="meta"><a href="https://github.com/Vinay12345-neutron/SAIDL-Spring-Assignment-2025" target="_blank">GitHub ↗</a><span>· Jan–Mar 2024</span></div>
-        <p>Graph Neural Networks for multi-modal learning tasks.</p>
-        <div class="badges">
-          <span class="badge">GNNs</span><span class="badge">Multi-modality</span>
-        </div>
-      </article>
-
-      <article class="card project-card">
-        <h3>Electronics (Instructables)</h3>
-        <div class="meta"><a href="https://www.instructables.com/member/ElectronicSciTech/" target="_blank">Profile ↗</a></div>
-        <p>Basic electronics projects since grade 9: self-watering plant, extensive FDM 3D printing.</p>
-        <div class="badges">
-          <span class="badge">Hardware</span><span class="badge">DIY</span>
-        </div>
-      </article>
-    </div>
-
-    <!-- IN PROGRESS -->
-    <div id="inprogress" class="grid cols-3" style="display:none">
-      <article class="card project-card">
-        <h3>Mamba Implementation</h3>
-        <p>Research-oriented PyTorch implementation of Mamba architecture.</p>
-        <div class="badges"><span class="badge">State-Space Models</span><span class="badge">PyTorch</span></div>
-      </article>
-      <article class="card project-card">
-        <h3>FD-LoRA</h3>
-        <p>Fast Dynamic LoRA via PEFT for efficient fine-tuning.</p>
-        <div class="badges"><span class="badge">PEFT</span><span class="badge">Fine-tuning</span></div>
-      </article>
-      <article class="card project-card">
-        <h3>GPU Direct (BAM)</h3>
-        <p>Exploring bandwidth/latency aspects of GPU-centric data movement.</p>
-        <div class="badges"><span class="badge">HPC</span><span class="badge">GPU</span></div>
-      </article>
-      <article class="card project-card">
-        <h3>AI HW Optimization SaaS</h3>
-        <p>Lightweight benchmarking + model optimization platform.</p>
-        <div class="badges"><span class="badge">SaaS</span><span class="badge">MLOps</span></div>
-      </article>
-      <article class="card project-card">
-        <h3>Startup (FinTech)</h3>
-        <p>Two early-stage ideas around financial literacy & tooling.</p>
-        <div class="badges"><span class="badge">FinTech</span><span class="badge">Product</span></div>
-      </article>
-    </div>
-  </section>
-
-  <!-- SKILLS -->
-  <section id="skills" class="container">
-    <div class="card panel">
-      <div class="kicker">Skills</div>
-      <h2>What I use</h2>
-      <div class="skills">
-        <span class="skill">Python</span>
-        <span class="skill">C/C++</span>
-        <span class="skill">JavaScript</span>
-        <span class="skill">Solidity</span>
-        <span class="skill">PyTorch</span>
-        <span class="skill">TensorFlow</span>
-        <span class="skill">CUDA</span>
-        <span class="skill">OpenCV</span>
-        <span class="skill">MediaPipe</span>
-        <span class="skill">Git</span>
-        <span class="skill">Fusion 360</span>
-        <span class="skill">OpenRocket</span>
-        <span class="skill">CrewAI</span>
-        <span class="skill">MERN Stack</span>
-        <span class="skill">Raspberry Pi</span>
-        <span class="skill">Arduino</span>
-        <span class="skill">Sensors & Micro Controllers</span>
-        <span class="skill">3D Printing</span>
-      </div>
-      <p class="tiny" style="margin-top:.8rem">Traits: extremely fast learner with deep technical curiosity.</p>
-    </div>
-  </section>
-
-  <!-- ACHIEVEMENTS -->
-  <section id="achievements" class="container">
-    <div class="card panel">
-      <div class="kicker">Achievements</div>
-      <h2>Highlights</h2>
-      <ul class="list">
-        <li>Deep Learning Specialization — Andrew Ng (Coursera) — <a target="_blank" href="https://www.coursera.org/account/accomplishments/specialization/RF1MV3E95C2T">Certificate ↗</a></li>
-        <li>FIDE Chess Rating: 1852 — Represented India at National/International events; 2700 (bullet) on Lichess — <a target="_blank" href="https://ratings.fide.com/profile/45007640">FIDE profile ↗</a></li>
-        <li>JEE Advanced 2024: CRL 10,452 (Top 5%)</li>
-        <li>JEE Mains 2024: CRL 18,021 (Top 2%)</li>
-        <li>IAT (IISER/IISc) 2024: Rank 275 (Top 0.6%)</li>
-        <li>CBSE: Class 10 — 97%, Class 12 — 97%</li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- EXTRA -->
-  <section id="extra" class="container">
-    <div class="card panel">
-      <div class="kicker">Extra-Curricular</div>
-      <h2>Beyond coursework</h2>
-      <ul class="list">
-        <li>Campus Ambassador — Perplexity</li>
-        <li>Core Member — Electronics & Robotics Club; SEDS Celestia Simulations (CUDA); Developer’s Society Syscal (GPU programming); Center for Entrepreneurial Leadership (CEL), BITS Goa</li>
-        <li>Founded a developer community (300+ members): AgenticAI, GenAI, DL, EdgeAI, OpenSource, Vibe Coding</li>
-        <li>Sports — Professional Chess Player</li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="container">
-    <div class="card panel">
-      <div class="kicker">Contact</div>
-      <h2>Let’s build</h2>
-      <div class="grid cols-2">
-        <div class="contact">
-          <div class="row">
-            <a class="pill" href="mailto:vinayrjumani@gmail.com">📧 Email</a>
-            <a class="pill" href="https://github.com/Vinay12345-neutron" target="_blank">🐙 GitHub</a>
-            <a class="pill" href="https://www.linkedin.com/in/vinay-r-jumani-39489a210" target="_blank">💼 LinkedIn</a>
-            <a class="pill" href="https://www.instructables.com/member/ElectronicSciTech/" target="_blank">🛠️ Instructables</a>
+          <div class="mt-3">
+            <!-- quick links -->
+            <a class="btn btn-outline-primary btn-sm me-2" href="#projects"><i class="fa-solid fa-code"></i> Projects</a>
+            <a class="btn btn-outline-secondary btn-sm me-2" href="timeline.html"><i class="fa-regular fa-clock"></i> Timeline</a>
+            <a class="btn btn-primary btn-sm" href="mailto:vinayrjumani@gmail.com"><i class="fa-regular fa-envelope"></i> Email</a>
           </div>
-          <p class="muted">Phone: +91-7550056701</p>
+
+          <div class="mt-3">
+            <span class="chip">PyTorch</span>
+            <span class="chip">CUDA</span>
+            <span class="chip">Edge AI</span>
+            <span class="chip">Robotics</span>
+            <span class="chip">MERN</span>
+          </div>
+        </div>
+
+        <!-- Avatar -->
+        <div class="col-lg-4 text-lg-end text-center">
+          <!-- Replace 'avatar.jpg' with your headshot file. Keep filename same or update src -->
+          <img src="avatar.jpg" alt="Vinay Jumani" class="avatar">
+          <div class="small-muted mt-2">B.E. Electronics & Instrumentation — BITS Goa</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="mb-4">
+      <div class="card p-4">
+        <div class="row">
+          <div class="col-md-9">
+            <h4>About</h4>
+            <p class="small-muted">
+              I’m Vinay R Jumani — a B.E. student at BITS Goa building robust ML systems that bridge models and hardware. I work on model implementations, GPU-aware optimizations, and embedded deployments — while exploring quant, fintech, and startup ideas.
+            </p>
+            <div class="mt-2 small-muted">
+              <strong>Location:</strong> Goa, India &nbsp; • &nbsp;
+              <strong>Education:</strong> BITS Pilani, Goa (B.E. E&I, expected 2028)
+            </div>
+          </div>
+          <div class="col-md-3 text-md-end mt-3 mt-md-0">
+            <div class="mb-1"><a href="https://github.com/Vinay12345-neutron" target="_blank" class="small-muted"><i class="fa-brands fa-github"></i> github.com/Vinay12345-neutron</a></div>
+            <div class="mb-1"><a href="https://www.linkedin.com/in/vinay-r-jumani-39489a210" target="_blank" class="small-muted"><i class="fa-brands fa-linkedin"></i> linkedin.com/in/vinay-r-jumani-39489a210</a></div>
+            <div><a href="mailto:vinayrjumani@gmail.com" class="small-muted"><i class="fa-regular fa-envelope"></i> vinayrjumani@gmail.com</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS (detailed) -->
+    <section id="projects" class="mb-4">
+      <div class="section-title mb-3">
+        <div>
+          <div class="small-muted">Work</div>
+          <h3>Projects — detailed</h3>
         </div>
         <div>
-          <pre><code>// quick note
-If you want to collaborate on AI hardware, DL systems,
-or edge AI projects — mail me:
-vinayrjumani@gmail.com
-</code></pre>
+          <span class="badge-soft">Key / Important</span>
+          <span class="badge-soft ms-2">In Progress</span>
+          <span class="badge-soft ms-2">Failed / Experiment</span>
         </div>
       </div>
-    </div>
-  </section>
 
+      <!-- KEY PROJECTS -->
+      <div class="mb-3">
+        <h5 class="mb-2">Key projects</h5>
+        <div class="row g-3">
+          <!-- Project: Transformer from Scratch -->
+          <div class="col-md-6">
+            <div class="card project-card">
+              <div class="d-flex justify-content-between">
+                <h6 style="margin:0">Transformer from Scratch</h6>
+                <div class="meta">Jul 2024</div>
+              </div>
+              <p class="mt-2 small-muted">Implemented Transformer architecture end-to-end in PyTorch (attention, multi-head, positional encodings). Focused on clean from-scratch implementation for learning internals and attention visualization.</p>
+              <div class="project-actions mt-2">
+                <a href="https://github.com/Vinay12345-neutron/transformer_from_scratch" target="_blank" class="me-2">GitHub ↗</a>
+                <span class="small-muted">Tags: PyTorch • NLP • From-scratch</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project: ResNet CIFAR -->
+          <div class="col-md-6">
+            <div class="card project-card">
+              <div class="d-flex justify-content-between">
+                <h6 style="margin:0">ResNet on CIFAR-10</h6>
+                <div class="meta">Mar 2024</div>
+              </div>
+              <p class="mt-2 small-muted">Trained ResNet-18 with augmentations, LR scheduling, and mixed-precision. Reached ~90% accuracy using proper training pipelines and optimization techniques.</p>
+              <div class="project-actions mt-2">
+                <a href="https://github.com/Vinay12345-neutron/ResNet-CIFAR10" target="_blank" class="me-2">GitHub ↗</a>
+                <span class="small-muted">Tags: CV • PyTorch • AMP</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project: RAG Chatbot -->
+          <div class="col-md-6">
+            <div class="card project-card">
+              <div class="d-flex justify-content-between">
+                <h6 style="margin:0">RAG Chatbot</h6>
+                <div class="meta">May 2024</div>
+              </div>
+              <p class="mt-2 small-muted">Built Retrieval-Augmented Generation that answers user queries grounded on uploaded PDFs. Combined retrieval, vector store, and LLM generation for contextual responses.</p>
+              <div class="project-actions mt-2">
+                <a href="https://github.com/Vinay12345-neutron/RAG-chatbot" target="_blank" class="me-2">GitHub ↗</a>
+                <span class="small-muted">Tags: LLM • RAG • IR</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project: OpenCV + MediaPipe -->
+          <div class="col-md-6">
+            <div class="card project-card">
+              <div class="d-flex justify-content-between">
+                <h6 style="margin:0">OpenCV & MediaPipe Game</h6>
+                <div class="meta">Apr 2024</div>
+              </div>
+              <p class="mt-2 small-muted">Hand-tracking mini-game using MediaPipe and OpenCV — focused on real-time inference and lightweight pipeline design for edge systems.</p>
+              <div class="project-actions mt-2">
+                <a href="https://github.com/Vinay12345-neutron/Game_Using_Hand_Detection" target="_blank" class="me-2">GitHub ↗</a>
+                <span class="small-muted">Tags: CV • Real-time • Edge</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project: SAIDL assignments combined -->
+          <div class="col-md-12">
+            <div class="card project-card">
+              <div class="d-flex justify-content-between">
+                <h6 style="margin:0">SAIDL — CoreML & Multi-Modality</h6>
+                <div class="meta">Jan–Mar 2024</div>
+              </div>
+              <p class="mt-2 small-muted">Multiple assignments: APL experiments, noise-scheduling comparisons, and GNN-based multi-modality implementations as a part of SAIDL spring assignments.</p>
+              <div class="project-actions mt-2">
+                <a href="https://github.com/Vinay12345-neutron/SAIDL-Spring-Assignment-2025" target="_blank" class="me-2">GitHub ↗</a>
+                <span class="small-muted">Tags: ML Systems • GNN • Experimentation</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Electronics / Instructables -->
+          <div class="col-md-6">
+            <div class="card project-card">
+              <div class="d-flex justify-content-between">
+                <h6 style="margin:0">Electronics Projects (Instructables)</h6>
+                <div class="meta">Since Grade 9</div>
+              </div>
+              <p class="mt-2 small-muted">DIY electronics — self-watering plant, many FDM 3D-printed assemblies and sensors. Practical hardware experience and rapid prototyping.</p>
+              <div class="project-actions mt-2">
+                <a href="https://www.instructables.com/member/ElectronicSciTech/" target="_blank" class="me-2">Instructables ↗</a>
+                <span class="small-muted">Tags: Hardware • Prototyping</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- IN PROGRESS -->
+      <div class="mb-3">
+        <h5 class="mb-2">In progress</h5>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <div class="card project-card">
+              <h6>Mamba Implementation</h6>
+              <div class="meta">Research-oriented PyTorch implementation (state-space / SSM work)</div>
+              <p class="small-muted mt-2">Goal: research-grade implementation and experiments.</p>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card project-card">
+              <h6>FD-LoRA</h6>
+              <div class="meta">Fast Dynamic LoRA using PEFT</div>
+              <p class="small-muted mt-2">Efficient fine-tuning tooling for downstream tasks.</p>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card project-card">
+              <h6>GPU Direct / BAM Research</h6>
+              <div class="meta">GPU memory/data-transfer research</div>
+              <p class="small-muted mt-2">Exploring low-level GPU data movement & bandwidth/latency optimizations.</p>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card project-card">
+              <h6>AI Hardware Optimization SaaS</h6>
+              <div class="meta">Lightweight benchmarking + model optimization platform</div>
+              <p class="small-muted mt-2">Tooling for model benchmarking across edge devices.</p>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card project-card">
+              <h6>FinTech Startup Ideas (Early)</h6>
+              <div class="meta">Duolingo-style fintech education + other ideas</div>
+              <p class="small-muted mt-2">Exploratory product and market validation.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAILED / EXPERIMENTS -->
+      <div>
+        <h5 class="mb-2">Failed / experiments (notes)</h5>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <div class="card project-card">
+              <h6>AI Rubik’s Cube Solver</h6>
+              <div class="meta">Experiment — outcome: failed</div>
+              <p class="small-muted mt-2">Learned about perception and control; project paused to focus on other priorities.</p>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card project-card">
+              <h6>Qualcomm Hackathon (AI HW Benchmarking)</h6>
+              <div class="meta">Rejected / Failed</div>
+              <p class="small-muted mt-2">Prototype didn’t meet criteria — iterating on benchmarking approach offline.</p>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card project-card">
+              <h6>StudyGPT / MemoryVault / Vibe Coding</h6>
+              <div class="meta">Experimental startup attempts</div>
+              <p class="small-muted mt-2">Early-stage ideas—some abandoned; useful lessons about ideation and product-market fit.</p>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card project-card">
+              <h6>Agentic AI experiments</h6>
+              <div class="meta">Prototype — paused</div>
+              <p class="small-muted mt-2">Learned agentic paradigms; planning more rigorous follow-ups later.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE / LEADERSHIP -->
+    <section id="experience" class="mb-4">
+      <div class="card p-4">
+        <div class="d-flex justify-content-between align-items-start">
+          <div>
+            <div class="small-muted">Experience & leadership</div>
+            <h4 class="mb-1">Roles</h4>
+            <p class="small-muted">Campus Ambassador (Perplexity). Core member — Electronics & Robotics Club; SEDS Celestia Simulations (CUDA); Developer’s Society Syscal (GPU programming); Center for Entrepreneurial Leadership (CEL), BITS Goa. Founder of a developer community (300+ members).</p>
+          </div>
+          <div class="text-end small-muted">
+            <strong>Phone</strong><br>+91-7550056701
+            <div class="mt-2"><a href="https://www.instructables.com/member/ElectronicSciTech/" target="_blank">Instructables</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACHIEVEMENTS & CERTIFICATIONS -->
+    <section id="achievements" class="mb-4">
+      <div class="card p-4">
+        <div class="small-muted">Achievements & Certifications</div>
+        <h4>Highlights</h4>
+        <ul class="mt-3">
+          <li>Deep Learning Specialization — Andrew Ng, Coursera — <a href="https://www.coursera.org/account/accomplishments/specialization/RF1MV3E95C2T" target="_blank">Certificate</a></li>
+          <li>FIDE Chess Rating: 1852 — represented India at national/international events — <a href="https://ratings.fide.com/profile/45007640" target="_blank">FIDE profile</a></li>
+          <li>JEE Advanced 2024: CRL 10,452 (Top ~5%)</li>
+          <li>JEE Mains 2024: CRL 18,021 (Top ~2%)</li>
+          <li>IAT (IISER/IISc) 2024: Rank 275 (Top 0.6%)</li>
+          <li>CBSE: Class 10 — 97%, Class 12 — 97%</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- CONTACT / FOOTER CTA -->
+    <section id="contact" class="mb-5">
+      <div class="card p-4 text-center">
+        <h4>Let’s build</h4>
+        <p class="small-muted">If you’re working on something in Edge AI / DL systems / hardware optimization or want to collaborate — reach out.</p>
+        <div class="d-flex justify-content-center gap-2 flex-wrap">
+          <a class="btn btn-outline-primary" href="mailto:vinayrjumani@gmail.com"><i class="fa-regular fa-envelope"></i> Email</a>
+          <a class="btn btn-outline-dark" href="https://github.com/Vinay12345-neutron" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
+          <a class="btn btn-outline-primary" href="https://www.linkedin.com/in/vinay-r-jumani-39489a210" target="_blank"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
   <footer class="container">
-    <div class="row" style="justify-content:space-between">
-      <span>© <span id="y"></span> Vinay R Jumani</span>
-      <span class="muted">Made with focus and a single HTML file.</span>
+    <div class="row align-items-center py-4">
+      <div class="col-md-6 small-muted">
+        © <span id="year"></span> Vinay R Jumani · <a href="extra.html">Extra</a> · <a href="timeline.html">Timeline</a>
+      </div>
+      <div class="col-md-6 text-md-end small-muted">
+        Phone: +91-7550056701 · Instructables: <a href="https://www.instructables.com/member/ElectronicSciTech/" target="_blank">ElectronicSciTech</a>
+      </div>
     </div>
   </footer>
 
-  <!-- Tiny JS: project switch + year -->
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    const $ = s => document.querySelector(s);
-    const $$ = s => Array.from(document.querySelectorAll(s));
-    $("#y").textContent = new Date().getFullYear();
-
-    const buttons = $$(".switcher button");
-    const completed = $("#completed");
-    const inprogress = $("#inprogress");
-    buttons.forEach(b=>{
-      b.addEventListener("click", ()=>{
-        buttons.forEach(x=>x.classList.remove("active"));
-        b.classList.add("active");
-        const mode = b.dataset.switch;
-        if(mode==="completed"){ completed.style.display="grid"; inprogress.style.display="none"; }
-        else{ completed.style.display="none"; inprogress.style.display="grid"; }
-      });
-    });
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>

@@ -1,284 +1,100 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Timeline — Vinay Jumani</title>
-
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body{ font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial; background:white; color:#0b1220 }
-    header { border-bottom:1px solid #eef2ff }
-    .container{ max-width:960px; margin:0 auto; padding:28px }
-    .timeline { position:relative; margin:2rem 0; padding-left: 1rem; }
-    .timeline::before { content:""; position:absolute; left:18px; top:0; bottom:0; width:3px; background:#eef6ff; border-radius:3px }
-    .entry { position:relative; margin-bottom:2rem; padding-left:36px; }
-    .entry .dot{ position:absolute; left:6px; top:6px; width:24px; height:24px; border-radius:50%; background:#e6f2ff; display:flex; align-items:center; justify-content:center; color:#0a5be0; font-weight:700; font-size:0.8rem }
-    .entry h5{ margin-bottom:.3rem; color:#0b1220 }
-    .muted{ color:#6b7280; font-size:0.95rem }
-    .tag{ display:inline-block; padding:.2rem .5rem; background:#f8fafc; border:1px solid #eef2ff; border-radius:6px; font-weight:600; color:#0a5be0; font-size:.8rem; margin-right:.3rem; margin-top:.3rem }
-    .note{ margin-top:.8rem; color:#374151; line-height:1.6 }
-    footer{ border-top:1px solid #f1f5f9; padding-top:20px; color:#6b7280 }
-    .small-muted{ color:#6b7280; font-size:.9rem }
-    .highlight{ background:#f0f9ff; padding:1rem; border-radius:8px; border-left:4px solid #0ea5e9; margin:.5rem 0 }
-    .achievement{ background:#f0fdf4; padding:.8rem; border-radius:6px; border-left:3px solid #22c55e; margin:.5rem 0 }
-  </style>
+  <meta charset="utf-8">
+  <title>Timeline – Vinay R Jumani</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
+
 <body>
-  <header class="py-3">
-    <div class="container d-flex justify-content-between align-items-center">
-      <div>
-        <a href="index.html" style="font-weight:700; color:#0b1220; text-decoration:none">← Vinay R Jumani</a>
-        <div class="small-muted">Technical Journey & Milestones</div>
-      </div>
-      <div class="muted">Updated: August 2025</div>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <div>
+      <div class="brand-title">Vinay R Jumani</div>
+      <div class="brand-tagline">Professional journey.</div>
     </div>
-  </header>
+    <nav class="site-nav">
+      <a href="index.html">home</a>
+      <a href="research.html">research</a>
+      <a href="projects.html">projects</a>
+      <a href="experience.html">experience</a>
+      <a href="education.html">education</a>
+      <a href="achievements.html">achievements</a>
+      <a href="extra.html">extra</a>
+      <a href="timeline.html">timeline</a>
+    </nav>
+  </div>
+</header>
 
-  <main class="container">
-    <h2 style="margin-top:0">Technical Timeline</h2>
-    <p class="muted">A chronological view of my journey in AI, deep learning, and hardware systems — from early electronics projects to current research.</p>
+<main class="page">
 
-    <div class="timeline">
+<section class="card">
+  
+  <div class="section-title"><i class="fa-regular fa-clock"></i> Timeline</div>
+  <div class="section-subtitle">
+    Major milestones, research progress and directional shifts.
+  </div>
 
-      <!-- 2025 Current Focus -->
-      <div class="entry">
-        <div class="dot">25</div>
-        <h5>August 2025 — Current Focus</h5>
-        <div class="muted">Sophomore year • Advanced research and implementation</div>
-        <div class="highlight">
-          <strong>Active Projects:</strong> Mamba architecture implementation, GPU Direct/BAM research, FD-LoRA development, AI hardware optimization platform
-        </div>
-        <div class="note">
-          <p>Currently deep-diving into state-space models with Mamba implementation, exploring GPU memory optimization techniques, and building production-ready AI benchmarking tools. Also actively developing FinTech startup concepts and maintaining leadership in multiple campus technical communities.</p>
-          <div>
-            <span class="tag">Mamba/SSM</span>
-            <span class="tag">GPU Optimization</span>
-            <span class="tag">CUDA Programming</span>
-            <span class="tag">Startup Development</span>
-          </div>
-        </div>
-      </div>
+  <div class="timeline">
 
-      <!-- Summer 2025 -->
-      <div class="entry">
-        <div class="dot">S25</div>
-        <h5>Summer 2025 — Exploration & Learning</h5>
-        <div class="muted">First year summer • Research foundations</div>
-        <div class="note">
-          <p>Intensive summer focused on building strong foundations in advanced ML systems. Explored multiple project directions including agentic AI, hardware acceleration research, and early-stage startup ideation. Key learning period for GPU programming fundamentals and system-level optimizations.</p>
-          <ul>
-            <li><strong>Research Exploration:</strong> Began GPU Direct/BAM research, explored agentic AI frameworks</li>
-            <li><strong>Startup Experiments:</strong> Early-stage FinTech and EdTech concept validation</li>
-            <li><strong>Technical Skills:</strong> Advanced CUDA programming, ROS2, Git workflows</li>
-            <li><strong>Failed Projects:</strong> AI Rubik's cube solver (valuable learning experience), Qualcomm hackathon entry</li>
-          </ul>
-          <div>
-            <span class="tag">Research Methods</span>
-            <span class="tag">Startup Validation</span>
-            <span class="tag">Advanced CUDA</span>
-          </div>
-        </div>
-      </div>
+    <div class="timeline-year">2025</div>
 
-      <!-- Spring 2025 -->
-      <div class="entry">
-        <div class="dot">24</div>
-        <h5>Jan-May 2025 — SAIDL & Core ML</h5>
-        <div class="muted">First year • Structured learning phase</div>
-        <div class="achievement">
-          <strong>Major Milestone:</strong> Completed comprehensive SAIDL Spring assignments covering CoreML, multi-modality, and GNN implementations
-        </div>
-        <div class="note">
-          <p>Intensive period of structured learning through SAIDL program. Focused on understanding core ML system internals, implementing research papers, and building strong PyTorch foundations.</p>
-          <ul>
-            <li><strong>CoreML Assignment:</strong> APL framework experimentation with noise-level adjustments</li>
-            <li><strong>Multi-Modality:</strong> Graph Neural Networks implementation for cross-modal learning</li>
-            <li><strong>System Understanding:</strong> Deep dive into ML framework internals and optimization techniques</li>
-            <li><strong>Campus Leadership:</strong> Established developer community, joined multiple technical clubs</li>
-          </ul>
-          <div>
-            <span class="tag">SAIDL Program</span>
-            <span class="tag">GNN</span>
-            <span class="tag">Multi-modal ML</span>
-            <span class="tag">Community Building</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Late 2024 -->
-      <div class="entry">
-        <div class="dot">L24</div>
-        <h5>July-Dec 2024 — Deep Learning Foundations</h5>
-        <div class="muted">First semester • Core implementations</div>
-        <div class="highlight">
-          <strong>Key Achievement:</strong> Transformer from scratch implementation — complete architecture understanding
-        </div>
-        <div class="note">
-          <p>Critical period establishing deep learning foundations through hands-on implementation. Focus on understanding architectures from first principles rather than using pre-built components.</p>
-          <ul>
-            <li><strong>Transformer Implementation:</strong> Complete from-scratch PyTorch implementation with attention visualization</li>
-            <li><strong>Computer Vision:</strong> ResNet-18 training with advanced techniques (90% CIFAR-10 accuracy)</li>
-            <li><strong>Real-time Systems:</strong> OpenCV + MediaPipe hand tracking game with edge optimization</li>
-            <li><strong>NLP Applications:</strong> RAG chatbot system with efficient vector storage and retrieval</li>
-          </ul>
-          <div>
-            <span class="tag">Transformer Architecture</span>
-            <span class="tag">Computer Vision</span>
-            <span class="tag">Real-time Processing</span>
-            <span class="tag">RAG Systems</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 2024 College Start -->
-      <div class="entry">
-        <div class="dot">C24</div>
-        <h5>July 2024 — BITS Pilani Journey Begins</h5>
-        <div class="muted">College admission • New chapter</div>
-        <div class="achievement">
-          <strong>Academic Achievement:</strong> JEE Advanced Rank 10,452 (Top 5%), JEE Mains Rank 18,021 (Top 2%)
-        </div>
-        <div class="note">
-          <p>Started B.E. Electronics & Instrumentation at BITS Pilani, Goa. Immediately gravitated toward AI/ML applications and began building technical community presence.</p>
-          <ul>
-            <li><strong>Academic Excellence:</strong> Strong performance in entrance exams demonstrating analytical capabilities</li>
-            <li><strong>Technical Focus:</strong> Chose Electronics & Instrumentation for hardware-software intersection</li>
-            <li><strong>Community Building:</strong> Founded developer community that grew to 300+ members</li>
-            <li><strong>Leadership Roles:</strong> Perplexity Campus Ambassador, multiple club core positions</li>
-          </ul>
-          <div>
-            <span class="tag">BITS Pilani</span>
-            <span class="tag">Academic Excellence</span>
-            <span class="tag">Leadership</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 2023-2024 Preparation -->
-      <div class="entry">
-        <div class="dot">P24</div>
-        <h5>2023-2024 — Competitive Preparation</h5>
-        <div class="muted">High school • Exam preparation phase</div>
-        <div class="note">
-          <p>Intensive preparation period for engineering entrance exams while maintaining consistent academic performance and pursuing technical interests.</p>
-          <ul>
-            <li><strong>Academic Performance:</strong> CBSE Class 12 — 97%, maintained excellence across subjects</li>
-            <li><strong>Competitive Success:</strong> IAT (IISER/IISc) Rank 275 (Top 0.6%)</li>
-            <li><strong>Continued Learning:</strong> Deep Learning Specialization by Andrew Ng (Coursera)</li>
-            <li><strong>Chess Achievement:</strong> Maintained FIDE rating of 1852, international competition participation</li>
-          </ul>
-          <div>
-            <span class="tag">JEE Preparation</span>
-            <span class="tag">Deep Learning Cert</span>
-            <span class="tag">Chess Competition</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Early Technical Journey -->
-      <div class="entry">
-        <div class="dot">E</div>
-        <h5>Grade 9-12 — Electronics Foundation</h5>
-        <div class="muted">2020-2024 • Hardware exploration</div>
-        <div class="highlight">
-          <strong>Hands-on Learning:</strong> Extensive electronics projects documented on Instructables platform
-        </div>
-        <div class="note">
-          <p>Early technical foundation building through practical electronics projects. Developed strong hardware intuition and rapid prototyping skills that later informed AI hardware optimization work.</p>
-          <ul>
-            <li><strong>IoT Projects:</strong> Self-watering plant system with sensor integration and automated control</li>
-            <li><strong>3D Manufacturing:</strong> Extensive work with FDM 3D printing for mechanical assemblies</li>
-            <li><strong>Microcontroller Programming:</strong> Arduino and Raspberry Pi projects with sensor interfaces</li>
-            <li><strong>Documentation:</strong> Public sharing of projects on Instructables (ElectronicSciTech profile)</li>
-            <li><strong>Academic Foundation:</strong> CBSE Class 10 — 97%, strong STEM foundation</li>
-          </ul>
-          <div>
-            <span class="tag">Arduino</span>
-            <span class="tag">Raspberry Pi</span>
-            <span class="tag">3D Printing</span>
-            <span class="tag">IoT Systems</span>
-            <span class="tag">Hardware Design</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Chess Journey -->
-      <div class="entry">
-        <div class="dot">♔</div>
-        <h5>Ongoing — Competitive Chess</h5>
-        <div class="muted">Long-term pursuit • Strategic thinking development</div>
-        <div class="achievement">
-          <strong>International Recognition:</strong> FIDE Rating 1852, represented India at national/international events
-        </div>
-        <div class="note">
-          <p>Parallel journey in competitive chess that has significantly influenced my approach to problem-solving, pattern recognition, and strategic thinking in technical work.</p>
-          <ul>
-            <li><strong>FIDE Rating:</strong> 1852 (official international rating)</li>
-            <li><strong>Online Performance:</strong> Lichess bullet rating peaked at 2700</li>
-            <li><strong>Competition Experience:</strong> Multiple national and international tournament participations</li>
-            <li><strong>Strategic Skills:</strong> Pattern recognition and strategic thinking applied to ML system design</li>
-          </ul>
-          <div>
-            <span class="tag">Strategic Thinking</span>
-            <span class="tag">Pattern Recognition</span>
-            <span class="tag">International Competition</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Future Goals -->
-      <div class="entry">
-        <div class="dot">→</div>
-        <h5>Next Phase — Research & Industry Impact</h5>
-        <div class="muted">2025-2026 • Advanced research and applications</div>
-        <div class="note">
-          <p>Looking ahead to deeper research contributions, industry internships, and startup development. Focus on bridging academic research with practical industry applications in AI hardware optimization.</p>
-          <ul>
-            <li><strong>Research Goals:</strong> Publications in AI systems optimization, state-space model improvements</li>
-            <li><strong>Industry Experience:</strong> Seeking internships at leading AI/hardware companies</li>
-            <li><strong>Startup Development:</strong> Advancing FinTech platform to MVP and market validation</li>
-            <li><strong>Community Impact:</strong> Expanding developer community and technical mentorship</li>
-          </ul>
-          <div>
-            <span class="tag">Research Publications</span>
-            <span class="tag">Industry Internships</span>
-            <span class="tag">Startup Growth</span>
-            <span class="tag">Technical Leadership</span>
-          </div>
-        </div>
-      </div>
-
+    <div class="timeline-entry">
+      <strong>EEG-LLM research begins (NTU/NIE)</strong><br>
+      <span class="muted small">Dec 2025</span><br>
+      Started working on cognitive decoding models and EEG pipelines.
     </div>
 
-    <div style="background:#f8fafc; padding:1.5rem; border-radius:10px; border:1px solid #eef2ff; margin:2rem 0;">
-      <h5 style="margin-bottom:0.5rem; color:#0b1220;">Key Themes & Patterns</h5>
-      <p class="muted" style="margin-bottom:1rem;">Consistent threads throughout my technical journey:</p>
-      <div class="row">
-        <div class="col-md-6">
-          <ul class="muted" style="font-size:0.9rem;">
-            <li><strong>From-scratch Implementation:</strong> Understanding systems at fundamental levels</li>
-            <li><strong>Hardware-Software Integration:</strong> Bridge between ML theory and practical deployment</li>
-            <li><strong>Community Building:</strong> Sharing knowledge and building technical communities</li>
-          </ul>
-        </div>
-        <div class="col-md-6">
-          <ul class="muted" style="font-size:0.9rem;">
-            <li><strong>Rapid Prototyping:</strong> Quick iteration and learning from failures</li>
-            <li><strong>Open Documentation:</strong> Public sharing of projects and learning process</li>
-            <li><strong>Strategic Thinking:</strong> Chess-influenced approach to complex problem solving</li>
-          </ul>
-        </div>
-      </div>
+    <div class="timeline-entry">
+      <strong>Multi-agent LLM optimisation (TCS Research)</strong><br>
+      <span class="muted small">Nov 2025</span><br>
+      Focused on inference speed-ups and routing strategies.
     </div>
 
-    <footer class="mt-4">
-      <div class="small-muted">Return to <a href="index.html">Portfolio</a> · © <span id="y"></span> Vinay R Jumani</footer>
-    </footer>
-  </main>
+    <div class="timeline-entry">
+      <strong>GPU-Direct & HDF5 I/O (DaSH Lab)</strong><br>
+      <span class="muted small">Aug 2025</span><br>
+      Entered ML systems and HPC domain.
+    </div>
 
-  <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
-  </script>
+    <div class="timeline-entry">
+      <strong>FinTech education startup exploration</strong><br>
+      <span class="muted small">May–Jul 2025</span><br>
+      Early work on student-focused finance literacy.
+    </div>
+
+    <div class="timeline-entry">
+      <strong>Developers community (300+ members)</strong><br>
+      <span class="muted small">2025</span><br>
+      Started a technical community at BITS Goa.
+    </div>
+
+    <div class="timeline-year">2024</div>
+
+    <div class="timeline-entry">
+      <strong>DL Foundations — PyTorch, Transformer, ResNet</strong><br>
+      <span class="muted small">2024</span><br>
+      Built core ML implementations from scratch.
+    </div>
+
+    <div class="timeline-entry">
+      <strong>Joined BITS Pilani Goa</strong><br>
+      <span class="muted small">Aug 2024</span><br>
+      Electronics & Instrumentation.
+    </div>
+
+  </div>
+
+</section>
+
+<footer class="site-footer">
+  <div>Back to <a href="index.html">home</a>.</div>
+</footer>
+
+</main>
 </body>
 </html>

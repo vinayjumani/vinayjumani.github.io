@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Projects – Vinay R Jumani</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <div>
+        <div class="brand-title">Vinay R Jumani</div>
+        <div class="brand-tagline">Selected projects and experiments.</div>
+      </div>
+      <nav class="site-nav">
+        <a href="index.html">home</a>
+        <a href="research.html">research</a>
+        <a href="projects.html">projects</a>
+        <a href="experience.html">experience</a>
+        <a href="education.html">education</a>
+        <a href="achievements.html">achievements</a>
+        <a href="extra.html">extra</a>
+        <a href="timeline.html">timeline</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="card">
+      <div class="section-title"><i class="fa-solid fa-code"></i> Key projects</div>
+      <div class="section-subtitle">Things I consider representative of my current skillset.</div>
+
+      <div class="item-block">
+        <div class="item-header">
+          <div class="item-title">Transformer from scratch</div>
+          <div class="item-meta">
+            2024 · PyTorch ·
+            <a href="https://github.com/Vinay12345-neutron/transformer_from_scratch" target="_blank">code</a>
+          </div>
+        </div>
+        <p class="small">
+          Full implementation of the Transformer architecture in PyTorch: embeddings, positional encodings, multi-head
+          attention, encoder–decoder blocks and training loop. Built mainly to understand the architecture deeply,
+          including attention visualisation and ablation.
+        </p>
+      </div>
+
+      <div class="item-block">
+        <div class="item-header">
+          <div class="item-title">ResNet-18 on CIFAR-10</div>
+          <div class="item-meta">
+            2024 · computer vision ·
+            <a href="https://github.com/Vinay12345-neutron/RestNet" target="_blank">code</a>
+          </div>
+        </div>
+        <p class="small">
+          Training pipeline for ResNet-18 on CIFAR-10 using realistic tricks: data augmentation, cosine LR schedule,
+          mixed precision, and gradient handling. Achieved ~90% accuracy with a clean, configuration-driven script.
+        </p>
+      </div>
+
+      <div class="item-block">
+        <div class="item-header">
+          <div class="item-title">RAG chatbot over research PDFs</div>
+          <div class="item-meta">
+            2024 · LLMs ·
+            <a href="https://github.com/Vinay12345-neutron/RAG-chatbot" target="_blank">code</a>
+          </div>
+        </div>
+        <p class="small">
+          Retrieval-augmented question-answering system over PDFs. Handles chunking, embedding, vector search and a
+          simple LLM wrapper. Designed to keep responses grounded in the retrieved context.
+        </p>
+      </div>
+
+      <div class="item-block">
+        <div class="item-header">
+          <div class="item-title">Real-time hand-tracking game</div>
+          <div class="item-meta">
+            2024 · OpenCV / MediaPipe ·
+            <a href="https://github.com/Vinay12345-neutron/Game_Using_Hand_Detection" target="_blank">code</a>
+          </div>
+        </div>
+        <p class="small">
+          Small interactive game controlled by hand gestures, using MediaPipe for landmark detection and OpenCV
+          for rendering. Optimised to run in real time on modest hardware, which made latency and pipeline issues very visible.
+        </p>
+      </div>
+
+      <div class="item-block">
+        <div class="item-header">
+          <div class="item-title">SAIDL CoreML &amp; multi-modality assignments</div>
+          <div class="item-meta">
+            2024 · ML systems / GNNs ·
+            <a href="https://github.com/Vinay12345-neutron/SAIDL-Spring-Assignment-2025" target="_blank">code</a>
+          </div>
+        </div>
+        <p class="small">
+          Series of research-style assignments implementing the APL framework, experimenting with noise schedules,
+          and using GNNs for multi-modal tasks. Good exposure to controlled experimentation and analysis.
+        </p>
+      </div>
+
+      <div class="item-block">
+        <div class="item-header">
+          <div class="item-title">Hardware &amp; electronics projects</div>
+          <div class="item-meta">
+            since grade 9 ·
+            <a href="https://www.instructables.com/member/ElectronicSciTech/" target="_blank">Instructables</a>
+          </div>
+        </div>
+        <p class="small">
+          DIY electronics, including a self-watering plant system, sensor projects and 3D-printed hardware.
+          These projects gave me intuition for signals, noise and real-world debugging that feeds into my AI hardware work.
+        </p>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-title"><i class="fa-regular fa-circle-dot"></i> In progress</div>
+
+      <div class="item-block">
+        <div class="item-header">
+          <div class="item-title">Mamba implementation</div>
+          <div class="item-meta">state-space models · PyTorch</div>
+        </div>
+        <p class="small">
+          Research-oriented implementation of the Mamba architecture, experimenting with selective state-space
+          mechanisms and long-sequence modelling efficiency.
+        </p>
+      </div>
+
+      <div class="item-block">
+        <div class="item-header">
+          <div class="item-title">FD-LoRA</div>
+          <div class="item-meta">PEFT / fine-tuning</div>
+        </div>
+        <p class="small">
+          Fast Dynamic LoRA variants using PEFT, aimed at efficient fine-tuning and rapid switching across multiple tasks.
+        </p>
+      </div>
+
+      <div class="item-block">
+        <div class="item-header">
+          <div class="item-title">GPU Direct / BAM experiments</div>
+          <div class="item-meta">GPU I/O · systems</div>
+        </div>
+        <p class="small">
+          Investigating GPU-Direct paths, bandwidth limitations and how they affect end-to-end training throughput
+          for ML workloads.
+        </p>
+      </div>
+
+      <div class="item-block">
+        <div class="item-header">
+          <div class="item-title">FinTech education platform (early)</div>
+          <div class="item-meta">product exploration</div>
+        </div>
+        <p class="small">
+          Duolingo-style financial literacy platform aimed at students, with gamified modules and simple content.
+          Currently in exploration / concept stage.
+        </p>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-title"><i class="fa-regular fa-floppy-disk"></i> Experiments &amp; failed directions</div>
+      <div class="section-subtitle">Ideas that didn’t fully work out but were useful to attempt.</div>
+
+      <div class="item-block">
+        <div class="item-header">
+          <div class="item-title">AI Rubik’s cube solver</div>
+          <div class="item-meta">vision + control · paused</div>
+        </div>
+        <p class="small">
+          Attempted integrating perception and planning for an automated Rubik’s cube solver. The project stalled, but it
+          forced me to think about closed-loop control and robustness.
+        </p>
+      </div>
+
+      <div class="item-block">
+        <div class="item-header">
+          <div class="item-title">Qualcomm hackathon – AI hardware benchmarking</div>
+          <div class="item-meta">hackathon · rejected</div>
+        </div>
+        <p class="small">
+          Prototype for benchmarking AI models across hardware platforms. Didn’t move through the hackathon, but seeded
+          later ideas for GPU benchmarking and optimisation work.
+        </p>
+      </div>
+
+      <div class="item-block">
+        <div class="item-header">
+          <div class="item-title">AI hardware optimisation SaaS</div>
+          <div class="item-meta">SaaS concept · on hold</div>
+        </div>
+        <p class="small">
+          Early attempts at a SaaS platform for AI model benchmarking and auto-tuning on different devices. Parked until
+          I gather more practical evidence from current research projects.
+        </p>
+      </div>
+
+      <div class="item-block">
+        <div class="item-header">
+          <div class="item-title">StudyGPT, MemoryVault, “vibe coding” tools</div>
+          <div class="item-meta">startup prototypes</div>
+        </div>
+        <p class="small">
+          Several early experiments around study assistants, knowledge management and fast coding patterns.
+          Most were intentionally short-lived, but provided signal on what’s worth pursuing.
+        </p>
+      </div>
+
+      <div class="item-block">
+        <div class="item-header">
+          <div class="item-title">Agentic AI prototypes</div>
+          <div class="item-meta">multi-agent · paused</div>
+        </div>
+        <p class="small">
+          Played with agentic frameworks and task routing between agents. Paused to deepen my foundations in core DL and
+          GPU systems before revisiting.
+        </p>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div>Back to <a href="index.html">home</a>.</div>
+    </footer>
+  </main>
+</body>
+</html>

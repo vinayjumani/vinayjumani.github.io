@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Research – Vinay R Jumani</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <div>
+        <div class="brand-title">Vinay R Jumani</div>
+        <div class="brand-tagline">Research &amp; systems work.</div>
+      </div>
+      <nav class="site-nav">
+        <a href="index.html">home</a>
+        <a href="research.html">research</a>
+        <a href="projects.html">projects</a>
+        <a href="experience.html">experience</a>
+        <a href="education.html">education</a>
+        <a href="achievements.html">achievements</a>
+        <a href="extra.html">extra</a>
+        <a href="timeline.html">timeline</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="card">
+      <div class="section-title"><i class="fa-solid fa-flask"></i> Research</div>
+      <div class="section-subtitle">
+        Ongoing collaborations and systems-oriented work. This is where I’m currently investing most of my depth.
+      </div>
+
+      <div class="item-block">
+        <div class="item-header">
+          <div class="item-title">EEG–LLM Cognitive Decoding</div>
+          <div class="item-meta">Research intern · NTU/NIE Singapore &amp; BITS Goa · Dec 2025 – present</div>
+        </div>
+        <p class="small">
+          Working on EEG-to-language decoding using large language models to study cognitive signal representations
+          and neural–linguistic alignment.
+        </p>
+        <ul class="small">
+          <li>Designing deep learning pipelines for EEG preprocessing, time–frequency transformations and multimodal embeddings.</li>
+          <li>Implementing and evaluating LLM-based architectures for intent / semantic prediction from biosignals (transformers, contrastive learning, calibration metrics).</li>
+          <li>Running experiments on benchmarking EEG datasets; tracking model accuracy, calibration (ECE) and robustness.</li>
+          <li>Target outcome: Q1 journal publication with 2nd/3rd authorship under Prof. Yuvaraj Rajamanickam (NTU/NIE).</li>
+        </ul>
+      </div>
+
+      <div class="item-block">
+        <div class="item-header">
+          <div class="item-title">Multi-Agent LLM Inference Optimisation</div>
+          <div class="item-meta">SOP research project · TCS Research &amp; BITS Goa · Nov 2025 – present</div>
+        </div>
+        <p class="small">
+          Optimising multi-agent LLM inference pipelines by developing improved agent selection strategies for lower latency
+          and higher throughput.
+        </p>
+        <ul class="small">
+          <li>Profiling PyTorch inference graphs using PyTorch Profiler, Nsight Systems and GPU instrumentation to find compute/memory bottlenecks.</li>
+          <li>Investigating batching, caching, quantisation (FP16 / INT8) and lightweight routing networks to reduce p90/p99 latency.</li>
+          <li>Designing a reproducible benchmarking suite to measure inference speed, hardware cost and model utility trade-offs.</li>
+          <li>Goal: &gt;20–40% speedups over baseline multi-agent pipelines and a publication in ML systems / applied AI venues.</li>
+        </ul>
+      </div>
+
+      <div class="item-block">
+        <div class="item-header">
+          <div class="item-title">GPU-Accelerated HDF5 I/O &amp; HPC Systems</div>
+          <div class="item-meta">Undergraduate researcher · DaSH Lab, BITS Goa · Aug 2025 – present</div>
+        </div>
+        <p class="small">
+          Exploring GPU-Direct Storage (GDS), HDF5 optimisations and high-performance data pipelines for large-scale ML workloads.
+        </p>
+        <ul class="small">
+          <li>Profiling I/O throughput, PCIe bandwidth and CPU–GPU transfer bottlenecks using NVIDIA Nsight and custom benchmarks.</li>
+          <li>Contributing to modifications in <code>h5-bench</code> and HDF5 GDS tooling to support GPU-aware data loading for AI/HPC use cases.</li>
+          <li>Building understanding of HPC fundamentals: parallel I/O, memory- vs compute-bound workloads, MPI basics and high-speed storage.</li>
+          <li>Long-term aim: integrate these insights into ML training pipelines and feed into future performance-oriented publications.</li>
+        </ul>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div>Back to <a href="index.html">home</a>.</div>
+    </footer>
+  </main>
+</body>
+</html>

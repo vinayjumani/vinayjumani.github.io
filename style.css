@@ -1,0 +1,261 @@
+/* Global layout */
+:root {
+  --bg: #ffffff;
+  --text: #111827;
+  --muted: #6b7280;
+  --accent: #2563eb;
+  --border: #e5e7eb;
+  --card-bg: #ffffff;
+  --radius: 10px;
+  --shadow-soft: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+.page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+}
+
+/* Header / nav */
+.site-header {
+  border-bottom: 1px solid var(--border);
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.site-header-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 12px 16px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.brand-title {
+  font-weight: 650;
+  font-size: 1.05rem;
+}
+
+.brand-tagline {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.site-nav a {
+  font-size: 0.9rem;
+  margin-left: 10px;
+  color: var(--muted);
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+}
+.site-nav a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* Hero / layout */
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: 24px;
+  margin-top: 20px;
+  align-items: center;
+}
+
+@media (max-width: 720px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Cards */
+.card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
+  padding: 18px 18px 16px;
+  margin-top: 16px;
+}
+
+.card h2, .card h3 {
+  margin-top: 0;
+}
+
+/* Sections */
+.section-title {
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+.section-subtitle {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+/* Typography */
+h1 {
+  font-size: 1.8rem;
+  margin: 0 0 4px;
+}
+h2 {
+  font-size: 1.2rem;
+  margin: 16px 0 4px;
+}
+h3 {
+  font-size: 1rem;
+  margin: 10px 0 2px;
+}
+.muted {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.small {
+  font-size: 0.85rem;
+}
+
+/* Hero avatar */
+.avatar-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.avatar-circle {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 20%, #bfdbfe, #1d4ed8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f9fafb;
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+.avatar-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Meta rows */
+.meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.meta-label {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* Project / research items */
+.item-block {
+  margin-top: 10px;
+}
+.item-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px;
+  align-items: baseline;
+}
+.item-title {
+  font-weight: 550;
+}
+.item-meta {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.item-links a {
+  font-size: 0.85rem;
+}
+
+/* Timeline */
+.timeline {
+  border-left: 2px solid #e5e7eb;
+  margin-top: 12px;
+  padding-left: 16px;
+}
+.timeline-entry {
+  position: relative;
+  margin-bottom: 16px;
+}
+.timeline-entry::before {
+  content: "";
+  position: absolute;
+  left: -10px;
+  top: 6px;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+.timeline-year {
+  font-weight: 600;
+  margin-top: 18px;
+}
+
+/* Lists */
+ul {
+  padding-left: 1.2rem;
+  margin: 6px 0 4px;
+}
+li {
+  margin-bottom: 4px;
+}
+
+/* Footer */
+.site-footer {
+  margin-top: 32px;
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* Utility */
+.chip {
+  display: inline-block;
+  font-size: 0.8rem;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #dbeafe;
+  margin-right: 4px;
+}

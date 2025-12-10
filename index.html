@@ -51,10 +51,10 @@
       <div class="avatar-box">
         <!-- Replace with an actual image later -->
         <div class="avatar-circle">
-          <!-- If you have a profile image, uncomment the img tag and remove "VJ"
-          <img src="profile.jpg" alt="Vinay R Jumani">
-          -->
-          VJ
+          
+          <img src="vinay.jpeg" alt="Vinay R Jumani">
+          
+          
         </div>
         <div class="muted small">
           B.E. Electronics &amp; Instrumentation<br>BITS Pilani, Goa Campus
@@ -108,43 +108,42 @@
 
       <div class="item-block">
         <div class="item-header">
+          <div class="item-title">FlashAttention-2 Implementation — CUDA & Triton</div>
+          <div class="item-meta">
+            CUDA · 2025
+            
+          </div>
+        </div>
+        <p class="small">
+          Implemented the FlashAttention-2 algorithm (Tri Dao et al.) for efficient transformer training, inspired by OpenAI's Fused Attention work. Focused on optimizing attention computation and memory usage
+        </p>
+      </div>
+
+      <div class="item-block">
+        <div class="item-header">
+          <div class="item-title">CUDA MatMul Optimization</div>
+          <div class="item-meta">
+            CUDA · 2025 ·
+            <a href="https://github.com/Vinay12345-neutron/DaSH-Lab-Induction-Assignment-2025" target="_blank">code</a>
+          </div>
+        </div>
+        <p class="small">
+          Designed & implemented a full CUDA GEMM optimization pipeline, and achieved close to 92% performance of cuBLAS. Also analysed vLLM with Paged Attention paper. 
+        </p>
+      </div>
+
+      <div class="item-block">
+        <div class="item-header">
           <div class="item-title">Transformer from scratch</div>
           <div class="item-meta">
-            PyTorch · 2024 ·
+            PyTorch · 2025 ·
             <a href="https://github.com/Vinay12345-neutron/transformer_from_scratch" target="_blank">code</a>
           </div>
         </div>
         <p class="small">
-          End-to-end implementation of the Transformer architecture in PyTorch: embeddings, positional encodings,
-          multi-head attention, encoder–decoder stack and training loop, with an emphasis on clarity and introspection.
-        </p>
-      </div>
-
-      <div class="item-block">
-        <div class="item-header">
-          <div class="item-title">ResNet-18 CIFAR-10 pipeline</div>
-          <div class="item-meta">
-            Computer vision · 2024 ·
-            <a href="https://github.com/Vinay12345-neutron/RestNet" target="_blank">code</a>
-          </div>
-        </div>
-        <p class="small">
-          Training ResNet-18 on CIFAR-10 with realistic practices: augmentations, LR scheduling, mixed-precision and
-          reproducible configuration. Achieved ~90% accuracy.
-        </p>
-      </div>
-
-      <div class="item-block">
-        <div class="item-header">
-          <div class="item-title">RAG chatbot over PDFs</div>
-          <div class="item-meta">
-            LLMs · 2024 ·
-            <a href="https://github.com/Vinay12345-neutron/RAG-chatbot" target="_blank">code</a>
-          </div>
-        </div>
-        <p class="small">
-          Retrieval-augmented system that ingests PDFs and answers questions grounded in the underlying text.
-          Separation between retrieval and generation, with vector search and simple orchestration.
+          Full implementation of the Transformer architecture in PyTorch: embeddings, positional encodings, multi-head
+          attention, encoder–decoder blocks and training loop. Built mainly to understand the architecture deeply,
+          including attention visualisation and ablation.
         </p>
       </div>
     </section>

@@ -51,24 +51,28 @@
     </div>
 
     <!-- Newsletter Section -->
-    <section class="newsletter-section">
+    <section class="newsletter-section sib-form">
       <h3>Subscribe to the Mailing List</h3>
       <p>Get notified when I publish new posts on AI hardware, deep learning, and HPC systems.</p>
       
-      <div id="error-message" class="sib-form-message-panel" style="display: none; color: #ff4949; margin-bottom: 16px; font-weight: bold;">
-        Your subscription could not be saved. Please try again.
-      </div>
-      <div id="success-message" class="sib-form-message-panel" style="display: none; color: var(--blog-accent); margin-bottom: 16px; font-weight: bold;">
-        Thanks for subscribing! Please check your email to confirm.
-      </div>
+      <div id="sib-form-container" class="sib-form-container">
+        <div id="error-message" class="sib-form-message-panel" style="display: none; color: #ff4949; margin-bottom: 16px; font-weight: bold;">
+          Your subscription could not be saved. Please try again.
+        </div>
+        <div id="success-message" class="sib-form-message-panel" style="display: none; color: var(--blog-accent); margin-bottom: 16px; font-weight: bold;">
+          Thanks for subscribing! Please check your email to confirm.
+        </div>
 
-      <form id="sib-form" class="newsletter-form" action="https://90525ce1.sibforms.com/serve/MUIFAGsfnop_tUo0lHWRndYImqhap4YkgpYUw_6rX5y4BsoLiEQsk9KvxADtYp9GfgWnpxlqcWiGEV4LdHumXkNio-ncGoCR_SQWfzkXQ6XNtCikRrPMdqQYXn_Y4ebB1lXVXmzKx8Kc666eKE7mnND5ozUAGD1sLv1Yt623CLNZVbtFUwGVvznm2KWke3oxl8_7LoZaxdoo0WIe2w==" method="POST" data-type="subscription">
-        <input type="email" name="EMAIL" id="EMAIL" class="newsletter-input" placeholder="Enter your email address" data-required="true" required>
-        <!-- Brevo required hidden fields -->
-        <input type="text" name="email_address_check" value="" style="display:none;">
-        <input type="hidden" name="locale" value="en">
-        <button type="submit" form="sib-form" class="newsletter-btn">Subscribe</button>
-      </form>
+        <div id="sib-container">
+          <form id="sib-form" class="newsletter-form" action="https://90525ce1.sibforms.com/serve/MUIFAC70IMTej4KQ_lcnecHb-fzVBuLMLhNp8vX8kPRdAoRLUoQTQdjkaf3cuHoeBr2gCWIXZm38ehOCYUuaJog8R8rj44rPbLKtPYUshiYLbnSjLjax2haRHxpr9Xh7oRQsj3rz4uCe4L18wYbxdK_hwpLNj54KbaEOP4797NGEsS_OT7NmFPDNHkrjzObnwMTINJBOsau_kVfQaA==" method="POST" data-type="subscription">
+            <input type="email" name="EMAIL" id="EMAIL" class="newsletter-input" placeholder="Enter your email address" data-required="true" required>
+            <!-- Brevo required hidden fields -->
+            <input type="text" name="email_address_check" value="" style="display:none;">
+            <input type="hidden" name="locale" value="en">
+            <button type="submit" form="sib-form" class="newsletter-btn sib-form-block__button">Subscribe</button>
+          </form>
+        </div>
+      </div>
     </section>
 
     <footer class="site-footer">

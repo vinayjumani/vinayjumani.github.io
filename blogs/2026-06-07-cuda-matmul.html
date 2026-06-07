@@ -82,56 +82,24 @@
     </article>
 
     <!-- Newsletter Section -->
-    <section class="newsletter-section sib-form">
+    <section class="newsletter-section">
       <h3>Subscribe to the Mailing List</h3>
       <p>Get notified when I publish new posts on AI hardware, deep learning, and HPC systems.</p>
       
-      <div id="sib-form-container" class="sib-form-container">
-        <div id="error-message" class="sib-form-message-panel" style="display: none; color: #ff4949; margin-bottom: 16px; font-weight: bold;">
-          Your subscription could not be saved. Please try again.
-        </div>
-        <div id="success-message" class="sib-form-message-panel" style="display: none; color: var(--blog-accent); margin-bottom: 16px; font-weight: bold;">
-          Thanks for subscribing! Please check your email to confirm.
-        </div>
-
-        <div id="sib-container">
-          <form id="sib-form" class="newsletter-form" action="https://90525ce1.sibforms.com/serve/MUIFAC70IMTej4KQ_lcnecHb-fzVBuLMLhNp8vX8kPRdAoRLUoQTQdjkaf3cuHoeBr2gCWIXZm38ehOCYUuaJog8R8rj44rPbLKtPYUshiYLbnSjLjax2haRHxpr9Xh7oRQsj3rz4uCe4L18wYbxdK_hwpLNj54KbaEOP4797NGEsS_OT7NmFPDNHkrjzObnwMTINJBOsau_kVfQaA==" method="POST" data-type="subscription">
-            <input type="email" name="EMAIL" id="EMAIL" class="newsletter-input" placeholder="Enter your email address" data-required="true" required>
-            <!-- Brevo required hidden fields -->
-            <input type="text" name="email_address_check" value="" style="display:none;">
-            <input type="hidden" name="locale" value="en">
-            <button type="submit" form="sib-form" class="newsletter-btn sib-form-block__button">Subscribe</button>
-          </form>
-        </div>
-      </div>
+      <form class="newsletter-form" action="https://90525ce1.sibforms.com/serve/MUIFAC70IMTej4KQ_lcnecHb-fzVBuLMLhNp8vX8kPRdAoRLUoQTQdjkaf3cuHoeBr2gCWIXZm38ehOCYUuaJog8R8rj44rPbLKtPYUshiYLbnSjLjax2haRHxpr9Xh7oRQsj3rz4uCe4L18wYbxdK_hwpLNj54KbaEOP4797NGEsS_OT7NmFPDNHkrjzObnwMTINJBOsau_kVfQaA==" method="POST">
+        <input type="email" name="EMAIL" class="newsletter-input" placeholder="Enter your email address" required>
+        <!-- Brevo required hidden fields -->
+        <input type="text" name="email_address_check" value="" style="display:none;">
+        <input type="hidden" name="locale" value="en">
+        <input type="hidden" name="html_type" value="simple">
+        <button type="submit" class="newsletter-btn">Subscribe</button>
+      </form>
     </section>
 
     <footer class="site-footer">
       <div style="margin-top: 40px;">© <span id="year"></span> Vinay R Jumani</div>
     </footer>
   </main>
-
-  <!-- Brevo Form Scripts -->
-  <script>
-    window.REQUIRED_CODE_ERROR_MESSAGE = 'Please choose a country code';
-    window.LOCALE = 'en';
-    window.EMAIL_INVALID_MESSAGE = window.SMS_INVALID_MESSAGE = "The information provided is invalid. Please review the field format and try again.";
-    window.REQUIRED_ERROR_MESSAGE = "This field cannot be left blank. ";
-    window.GENERIC_INVALID_MESSAGE = "The information provided is invalid. Please review the field format and try again.";
-    window.INVALID_NUMBER = "The information provided is invalid. Please review the field format and try again.";
-    window.INVALID_DATE = "Please enter a valid date";
-    window.REQUIRED_MULTISELECT_MESSAGE = 'Please select at least 1 option';
-    window.translation = {
-      common: {
-        selectedList: '{quantity} list selected',
-        selectedLists: '{quantity} lists selected',
-        selectedOption: '{quantity} selected',
-        selectedOptions: '{quantity} selected',
-      }
-    };
-    var AUTOHIDE = Boolean(0);
-  </script>
-  <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
 
   <!-- Prism.js scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>

@@ -244,7 +244,7 @@ body.blog-page .site-footer {
 .newsletter-section #sib-container {
   max-width: 450px !important;
   width: 100% !important;
-  background-color: var(--blog-bg) !important;
+  background-color: transparent !important;
   border: none !important;
   padding: 0 !important;
   text-align: center !important;
@@ -254,9 +254,20 @@ body.blog-page .site-footer {
 
 .newsletter-section #sib-container form {
   display: flex !important;
-  flex-direction: column !important;
+  flex-direction: row !important;
   gap: 12px !important;
+  justify-content: center !important;
   width: 100% !important;
+  align-items: flex-start !important;
+}
+
+.newsletter-section #sib-container form > div {
+  padding: 0 !important; /* Remove default padding: 8px 0 */
+}
+
+/* The first child of the form is the email input wrapper div */
+.newsletter-section #sib-container form > div:first-of-type {
+  flex: 1 !important;
 }
 
 .newsletter-section #sib-container * {
@@ -265,7 +276,11 @@ body.blog-page .site-footer {
 
 .newsletter-section #sib-container .sib-input {
   width: 100% !important;
-  box-sizing: border-box !important;
+  margin: 0 !important;
+}
+
+.newsletter-section #sib-container .entry_block {
+  margin: 0 !important;
 }
 
 .newsletter-section #sib-container input.input {
@@ -276,6 +291,7 @@ body.blog-page .site-footer {
   padding: 12px 16px !important;
   border-radius: 4px !important;
   width: 100% !important;
+  height: 46px !important;
   box-sizing: border-box !important;
   outline: none !important;
   text-align: left !important;
@@ -296,7 +312,9 @@ body.blog-page .site-footer {
   background: transparent !important;
   color: var(--blog-accent) !important;
   border: 1px solid var(--blog-accent) !important;
-  padding: 12px 24px !important;
+  padding: 0 24px !important;
+  height: 46px !important;
+  line-height: 44px !important;
   border-radius: 4px !important;
   cursor: pointer !important;
   font-weight: 600 !important;
@@ -304,8 +322,9 @@ body.blog-page .site-footer {
   transition: all 0.2s ease !important;
   width: auto !important;
   display: inline-block !important;
-  margin: 0 auto !important;
+  margin: 0 !important;
   text-transform: none !important;
+  box-sizing: border-box !important;
 }
 
 .newsletter-section #sib-container .sib-form-block__button:hover {
@@ -354,4 +373,14 @@ body.blog-page .site-footer {
 .newsletter-section .sib-form-message-panel__inner-text {
   font-size: 1rem !important;
   font-weight: 500 !important;
+}
+
+@media (max-width: 480px) {
+  .newsletter-section #sib-container form {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  .newsletter-section #sib-container .sib-form-block__button {
+    width: 100% !important;
+  }
 }

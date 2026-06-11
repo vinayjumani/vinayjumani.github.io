@@ -33,18 +33,18 @@
 
   <main class="page">
     <div class="blog-feed">
-      
+
       <!-- Blog Post Item -->
       <article class="blog-post-item">
         <h2 class="blog-post-title">
-          <a href="2026-06-07-cuda-matmul.html">How to Optimize a CUDA Matmul Kernel for cuBLAS-like Performance: a Worklog</a>
+          <a href="2026-06-07-cuda-matmul.html">Profiling CUDA GEMM Kernels: 2D Block Tiling vs Vectorized Loads</a>
         </h2>
         <div class="blog-post-meta">
           <span><i class="fa-regular fa-calendar"></i> June 7, 2026</span>
-          <span><i class="fa-solid fa-tag"></i> CUDA, Systems, HPC</span>
+          <span><i class="fa-solid fa-tag"></i> CUDA, Systems, HPC, Profiling</span>
         </div>
         <p class="blog-post-excerpt">
-          In this post, I'll iteratively optimize an implementation of matrix multiplication written in CUDA. My goal is not to build a cuBLAS replacement, but to deeply understand the most important performance characteristics of the GPUs that are used for modern deep learning.
+          In this post, I profile and compare a 2D block-tiled GEMM kernel against a vectorized variant on an NVIDIA RTX A6000 GPU, analyzing memory coalescing, shared memory bank conflicts, and occupancy using Nsight Systems and Nsight Compute.
         </p>
       </article>
 
@@ -55,7 +55,8 @@
       <h3>Subscribe to the Mailing List</h3>
       <p>Get notified when I publish new posts on AI hardware, deep learning, and HPC systems.</p>
       <div class="substack-cta">
-        <a href="https://vinayrjumani.substack.com/" target="_blank" class="substack-btn">[ Subscribe on Substack ↗ ]</a>
+        <a href="https://vinayrjumani.substack.com/" target="_blank" class="substack-btn">[ Subscribe on Substack ↗
+          ]</a>
       </div>
     </section>
 

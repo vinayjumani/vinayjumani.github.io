@@ -173,6 +173,7 @@
         <div class="blog-post-meta">
           <span><i class="fa-regular fa-calendar"></i> June 7, 2026</span>
           <span><i class="fa-solid fa-tag"></i> CUDA, Systems, HPC, Profiling</span>
+          <span><i class="fa-regular fa-clock"></i> 20 min read</span>
         </div>
       </header>
 
@@ -180,12 +181,20 @@
       <h2>Introduction</h2>
       <!-- ─────────────────────────────────────────────────────────── -->
 
+      <div class="callout">
+        <strong>Prerequisites:</strong> Before diving in, it is recommended to have a basic understanding of CUDA programming concepts (blocks, threads, shared memory). If you are new to CUDA, check out the <a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html" target="_blank">CUDA C Programming Guide (CUDA Basics)</a>.
+      </div>
+
       <p>
-        Matrix multiplication on GPUs may currently be the most important algorithm that exists, considering it makes up almost all the FLOPs during the training and inference of large deep-learning models. In this post I iteratively optimize a CUDA SGEMM (Single-precision GEneral Matrix Multiply) kernel on an RTX A6000 GPU, and use NVIDIA's profiling tools — <strong>Nsight Systems</strong> (<code class="inline">nsys</code>) and <strong>Nsight Compute</strong> (<code class="inline">ncu</code>) — to understand exactly where performance is coming from and where it is still being left on the table.
+        Matrix multiplication on GPUs is arguably the most important algorithm in deep learning, forming the computational core of transformer training and inference. In this worklog, I profile and compare two CUDA SGEMM (Single-precision General Matrix Multiply) implementations: a baseline <strong>2D block-tiled GEMM</strong> and a highly optimized <strong>vectorized variant</strong> that replaces scalar loads and stores with 128-bit <code>float4</code> instructions. 
       </p>
 
       <p>
-        My goal is not to write a cuBLAS replacement but to deeply understand the most important GPU performance characteristics: coalesced global memory access, shared memory caching, register pressure, occupancy, and bank conflicts. I compare two kernels in depth: a <strong>2D block-tiled GEMM</strong> and a <strong>vectorized variant</strong> that replaces scalar loads with <code class="inline">float4</code> instructions.
+        My analysis and kernel iterations are heavily based on Simon Boehm's excellent work on GPU matrix multiplication optimization from his blog post <a href="https://siboehm.com/articles/22/CUDA-MMM" target="_blank">How to Optimize a CUDA Matmul Kernel</a>. Using his kernel implementations, I've run end-to-end benchmarking on an NVIDIA RTX A6000 GPU and used NVIDIA's developer profiling toolchain — <strong>Nsight Systems</strong> (<code>nsys</code>) and <strong>Nsight Compute</strong> (<code>ncu</code>) — to pinpoint exactly how memory layout, shared memory bank conflicts, and register pressure influence achieved performance.
+      </p>
+
+      <p>
+        You can find the full CUDA source files, run scripts, and further explanation of the optimized kernels in my GitHub repository: <a href="https://github.com/Vinay12345-neutron/DaSH-Lab-Induction-Assignment-2025" target="_blank">DaSH-Lab-Induction-Assignment-2025</a>.
       </p>
 
 

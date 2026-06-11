@@ -10,166 +10,136 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
   <style>
-    /* ── Custom post-specific styles tailored to the site design system ── */
+    /* ── Inline additions that stay within the blog's existing design language ── */
     .metric-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.95rem;
-      margin: 1.5rem 0;
+      font-size: 0.92rem;
+      margin: 1.4rem 0;
     }
     .metric-table th {
       text-align: left;
-      padding: 0.6rem 0.8rem;
-      border-bottom: 2px solid var(--blog-border);
+      padding: 0.55rem 0.85rem;
+      border-bottom: 2px solid #333;
       font-weight: 600;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--blog-muted);
+      letter-spacing: 0.04em;
+      color: #aaa;
     }
     .metric-table td {
-      padding: 0.6rem 0.8rem;
-      border-bottom: 1px solid var(--blog-border);
-      vertical-align: middle;
+      padding: 0.55rem 0.85rem;
+      border-bottom: 1px solid #2a2a2a;
+      vertical-align: top;
     }
-    .metric-table tr:last-child td {
-      border-bottom: none;
-    }
+    .metric-table tr:last-child td { border-bottom: none; }
+    .metric-table .col-vec  { color: #7eb8f7; font-weight: 600; }
+    .metric-table .col-tile { color: #82d48a; font-weight: 600; }
+    .metric-table .col-win  { font-size: 0.78rem; padding: 2px 7px; border-radius: 3px; font-weight: 700; }
+    .win-vec  { background: rgba(126,184,247,0.15); color: #7eb8f7; }
+    .win-tile { background: rgba(130,212,138,0.15); color: #82d48a; }
+    .win-tie  { background: rgba(160,160,160,0.1);  color: #888; }
 
     .callout {
-      border-left: 2px solid var(--blog-accent);
-      background: var(--blog-card-bg);
-      padding: 1rem 1.25rem;
+      border-left: 3px solid #7eb8f7;
+      background: rgba(126,184,247,0.06);
+      padding: 0.9rem 1.2rem;
       margin: 1.5rem 0;
-      border-radius: 4px;
+      border-radius: 0 6px 6px 0;
       font-size: 0.95rem;
       line-height: 1.65;
     }
     .callout.warn {
-      border-left-color: #f0883e; /* Standard warning orange */
+      border-left-color: #f7c97e;
+      background: rgba(247,201,126,0.06);
     }
     .callout.good {
-      border-left-color: var(--blog-accent);
+      border-left-color: #82d48a;
+      background: rgba(130,212,138,0.06);
     }
 
-    .bar-group {
-      margin: 0.5rem 0;
-    }
-    .bar-label {
-      font-size: 0.85rem;
-      color: var(--blog-muted);
-      margin-bottom: 4px;
-    }
-    .bar-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin: 4px 0;
-    }
-    .bar-track {
-      flex: 1;
-      background: var(--blog-input-bg);
-      border: 1px solid var(--blog-border);
-      border-radius: 2px;
-      height: 8px;
-      overflow: hidden;
-    }
-    .bar-fill-v {
-      height: 100%;
-      background: var(--blog-accent);
-    }
-    .bar-fill-t {
-      height: 100%;
-      background: var(--blog-muted);
-    }
-    .bar-val {
-      width: 50px;
-      font-size: 0.85rem;
-      text-align: right;
-      flex-shrink: 0;
-      font-family: monospace;
-    }
-    .bar-val.v {
-      color: var(--blog-accent);
-      font-weight: 600;
-    }
-    .bar-val.t {
-      color: var(--blog-text);
+    .bar-group { margin: 0.35rem 0; }
+    .bar-label { font-size: 0.82rem; color: #aaa; margin-bottom: 3px; }
+    .bar-row   { display: flex; align-items: center; gap: 8px; margin: 2px 0; }
+    .bar-track { flex: 1; background: #1e1e1e; border-radius: 3px; height: 10px; overflow: hidden; }
+    .bar-fill-v  { height: 100%; border-radius: 3px; background: #7eb8f7; }
+    .bar-fill-t  { height: 100%; border-radius: 3px; background: #82d48a; }
+    .bar-val  { width: 58px; font-size: 0.8rem; text-align: right; flex-shrink: 0; }
+    .bar-val.v { color: #7eb8f7; }
+    .bar-val.t { color: #82d48a; }
+
+    .section-lead {
+      font-size: 1.05rem;
+      color: #ccc;
+      margin: -0.4rem 0 1.2rem;
+      line-height: 1.7;
     }
 
     .legend {
       display: flex;
       gap: 1.5rem;
-      font-size: 0.85rem;
-      color: var(--blog-muted);
-      margin-bottom: 1rem;
+      font-size: 0.82rem;
+      color: #aaa;
+      margin-bottom: 0.7rem;
     }
-    .legend span {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .leg-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
+    .legend span { display: flex; align-items: center; gap: 5px; }
+    .leg-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
 
     .kernel-badge {
       display: inline-block;
-      font-size: 0.75rem;
-      font-weight: 600;
+      font-size: 0.78rem;
+      font-weight: 700;
       padding: 2px 8px;
-      border-radius: 999px;
-      letter-spacing: 0.02em;
+      border-radius: 3px;
+      letter-spacing: 0.03em;
+      vertical-align: middle;
     }
-    .kb-vec {
-      background: rgba(0, 255, 102, 0.1);
-      color: var(--blog-accent);
-      border: 1px solid rgba(0, 255, 102, 0.2);
+    .kb-vec  { background: rgba(126,184,247,0.15); color: #7eb8f7; border: 1px solid rgba(126,184,247,0.3); }
+    .kb-tile { background: rgba(130,212,138,0.15);  color: #82d48a; border: 1px solid rgba(130,212,138,0.3); }
+
+    .insight-box {
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      padding: 1.1rem 1.3rem;
+      margin: 1.6rem 0;
     }
-    .kb-tile {
-      background: rgba(139, 148, 158, 0.1);
-      color: var(--blog-muted);
-      border: 1px solid rgba(139, 148, 158, 0.2);
+    .insight-box h4 {
+      margin: 0 0 0.6rem;
+      font-size: 0.88rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #888;
+    }
+    .insight-box p { margin: 0; font-size: 0.95rem; line-height: 1.65; }
+
+    code.inline {
+      background: #1a1a1a;
+      border: 1px solid #2d2d2d;
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-size: 0.88em;
     }
 
     .perf-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin: 1.5rem 0;
+      display: flex;
+      gap: 12px;
+      margin: 1rem 0;
     }
     .perf-card {
-      background: var(--blog-card-bg);
-      border: 1px solid var(--blog-border);
-      border-radius: 6px;
-      padding: 1.25rem;
+      flex: 1;
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      padding: 1rem 1.2rem;
       text-align: center;
     }
-    .perf-card .pnum {
-      font-size: 1.8rem;
-      font-weight: 700;
-      margin: 0;
-      line-height: 1.2;
-      color: #ffffff;
-    }
-    .perf-card.v .pnum {
-      color: var(--blog-accent);
-    }
-    .perf-card .plabel {
-      font-size: 0.75rem;
-      color: var(--blog-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-top: 6px;
-    }
+    .perf-card .pnum { font-size: 1.9rem; font-weight: 700; margin: 0; line-height: 1.1; }
+    .perf-card .plabel { font-size: 0.78rem; color: #888; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 4px; }
+    .perf-card.v .pnum { color: #7eb8f7; }
+    .perf-card.t .pnum { color: #82d48a; }
 
     @media (max-width: 600px) {
-      .perf-row {
-        grid-template-columns: 1fr;
-      }
+      .perf-row { flex-direction: column; }
+      .bar-val { width: 46px; }
     }
   </style>
 </head>
@@ -483,8 +453,8 @@ for (uint m = 0; m &lt; TM; ++m) {
           <p class="pnum">1,024</p>
           <p class="plabel">2D Tiling — GFLOPS (under profiling)</p>
         </div>
-        <div class="perf-card">
-          <p class="pnum" style="color:var(--blog-accent);">2.1×</p>
+        <div class="perf-card" style="border-color:#444;">
+          <p class="pnum" style="color:#f7c97e;">2.1×</p>
           <p class="plabel">Vec speedup over Tiling</p>
         </div>
       </div>
@@ -500,8 +470,8 @@ for (uint m = 0; m &lt; TM; ++m) {
       </p>
 
       <div class="legend">
-        <span><span class="leg-dot" style="background:var(--blog-accent)"></span> Vectorize</span>
-        <span><span class="leg-dot" style="background:var(--blog-muted)"></span> 2D Tiling</span>
+        <span><span class="leg-dot" style="background:#7eb8f7"></span> Vectorize</span>
+        <span><span class="leg-dot" style="background:#82d48a"></span> 2D Tiling</span>
       </div>
 
       <div class="bar-group">
@@ -572,28 +542,28 @@ for (uint m = 0; m &lt; TM; ++m) {
 
       <table class="metric-table">
         <thead>
-          <tr><th>Metric</th><th>Vectorize</th><th>2D Tiling</th></tr>
+          <tr><th>Metric</th><th class="col-vec">Vectorize</th><th class="col-tile">2D Tiling</th></tr>
         </thead>
         <tbody>
           <tr>
             <td>IPC Active (inst/cycle)</td>
-            <td>2.52</td>
-            <td>2.31</td>
+            <td class="col-vec">2.52</td>
+            <td class="col-tile">2.31</td>
           </tr>
           <tr>
             <td>IPC Elapsed (inst/cycle)</td>
-            <td>2.36</td>
-            <td>2.16</td>
+            <td class="col-vec">2.36</td>
+            <td class="col-tile">2.16</td>
           </tr>
           <tr>
             <td>Issue Slots Busy</td>
-            <td>62.9%</td>
-            <td>57.7%</td>
+            <td class="col-vec">62.9%</td>
+            <td class="col-tile">57.7%</td>
           </tr>
           <tr>
             <td>FMA Pipeline Usage</td>
-            <td>56.5%</td>
-            <td>48.9%</td>
+            <td class="col-vec">56.5%</td>
+            <td class="col-tile">48.9%</td>
           </tr>
         </tbody>
       </table>
@@ -610,56 +580,56 @@ for (uint m = 0; m &lt; TM; ++m) {
 
       <table class="metric-table">
         <thead>
-          <tr><th>Access type</th><th>Vectorize</th><th>2D Tiling</th><th>Winner</th></tr>
+          <tr><th>Access type</th><th class="col-vec">Vectorize</th><th class="col-tile">2D Tiling</th><th>Winner</th></tr>
         </thead>
         <tbody>
           <tr>
             <td>Global load bytes used/sector</td>
-            <td>31.5 / 32</td>
-            <td>28.9 / 32</td>
-            <td><span class="kernel-badge kb-vec">Vectorize</span></td>
+            <td class="col-vec">31.5 / 32</td>
+            <td class="col-tile">28.9 / 32</td>
+            <td><span class="kernel-badge kb-vec win-vec">Vec</span></td>
           </tr>
           <tr>
             <td>Global store bytes used/sector</td>
-            <td>16.0 / 32</td>
-            <td>4.0 / 32</td>
-            <td><span class="kernel-badge kb-vec">Vectorize (4x)</span></td>
+            <td class="col-vec">16.0 / 32</td>
+            <td class="col-tile">4.0 / 32</td>
+            <td><span class="kernel-badge kb-vec win-vec">Vec much better</span></td>
           </tr>
           <tr>
             <td>Shared load bank conflict rate</td>
-            <td>40%</td>
-            <td>40.9%</td>
-            <td><span class="muted">Tie</span></td>
+            <td class="col-vec">40%</td>
+            <td class="col-tile">40.9%</td>
+            <td><span class="kernel-badge win-tie">Tie</span></td>
           </tr>
           <tr>
             <td>Shared store bank conflict rate</td>
-            <td>33.3%</td>
-            <td>Not reported</td>
-            <td><span class="kernel-badge kb-tile">Tiling</span></td>
+            <td class="col-vec">33.3%</td>
+            <td class="col-tile">Not reported</td>
+            <td><span class="kernel-badge kb-tile win-tile">Tiling better</span></td>
           </tr>
           <tr>
             <td>L1/TEX Hit Rate</td>
-            <td>4.5%</td>
-            <td>18.5%</td>
-            <td><span class="kernel-badge kb-tile">Tiling (Higher)</span></td>
+            <td class="col-vec">4.5%</td>
+            <td class="col-tile">18.5%</td>
+            <td><span class="kernel-badge kb-tile win-tile">Tiling higher</span></td>
           </tr>
           <tr>
             <td>L2 Hit Rate</td>
-            <td>78.8%</td>
-            <td>80.0%</td>
-            <td><span class="muted">Tie</span></td>
+            <td class="col-vec">78.8%</td>
+            <td class="col-tile">80.0%</td>
+            <td><span class="kernel-badge win-tie">~Same</span></td>
           </tr>
           <tr>
             <td>Absolute memory throughput</td>
-            <td>116.3 GB/s</td>
-            <td>98.6 GB/s</td>
-            <td><span class="kernel-badge kb-vec">Vectorize</span></td>
+            <td class="col-vec">116.3 GB/s</td>
+            <td class="col-tile">98.6 GB/s</td>
+            <td><span class="kernel-badge kb-vec win-vec">Vec higher</span></td>
           </tr>
           <tr>
             <td>Excess global sectors (uncoalesced)</td>
-            <td>3% of total</td>
-            <td>18% of total</td>
-            <td><span class="kernel-badge kb-vec">Vectorize</span></td>
+            <td class="col-vec">3% of total</td>
+            <td class="col-tile">18% of total</td>
+            <td><span class="kernel-badge kb-vec win-vec">Vec much better</span></td>
           </tr>
         </tbody>
       </table>
@@ -696,14 +666,14 @@ for (uint m = 0; m &lt; TM; ++m) {
 
       <table class="metric-table">
         <thead>
-          <tr><th>Metric</th><th>Vectorize</th><th>2D Tiling</th></tr>
+          <tr><th>Metric</th><th class="col-vec">Vectorize</th><th class="col-tile">2D Tiling</th></tr>
         </thead>
         <tbody>
-          <tr><td>Cycles with eligible warp (scheduler busy)</td><td>63.0%</td><td>57.7%</td></tr>
-          <tr><td>Cycles with NO eligible warp (wasted)</td><td>37.1%</td><td>42.3%</td></tr>
-          <tr><td>Active warps per scheduler</td><td>3.87</td><td>3.87</td></tr>
-          <tr><td>Eligible warps per scheduler</td><td>1.57</td><td>1.73</td></tr>
-          <tr><td>Warp cycles per issued instruction</td><td>6.15</td><td>6.71</td></tr>
+          <tr><td>Cycles with eligible warp (scheduler busy)</td><td class="col-vec">63.0%</td><td class="col-tile">57.7%</td></tr>
+          <tr><td>Cycles with NO eligible warp (wasted)</td><td class="col-vec">37.1%</td><td class="col-tile">42.3%</td></tr>
+          <tr><td>Active warps per scheduler</td><td class="col-vec">3.87</td><td class="col-tile">3.87</td></tr>
+          <tr><td>Eligible warps per scheduler</td><td class="col-vec">1.57</td><td class="col-tile">1.73</td></tr>
+          <tr><td>Warp cycles per issued instruction</td><td class="col-vec">6.15</td><td class="col-tile">6.71</td></tr>
         </tbody>
       </table>
 
@@ -719,15 +689,15 @@ for (uint m = 0; m &lt; TM; ++m) {
 
       <table class="metric-table">
         <thead>
-          <tr><th>Metric</th><th>Vectorize</th><th>2D Tiling</th></tr>
+          <tr><th>Metric</th><th class="col-vec">Vectorize</th><th class="col-tile">2D Tiling</th></tr>
         </thead>
         <tbody>
-          <tr><td>Registers per thread</td><td>116</td><td>128</td></tr>
-          <tr><td>Block limit (register bottleneck)</td><td>2 blocks/SM</td><td>2 blocks/SM</td></tr>
-          <tr><td>Block limit (shared memory)</td><td>7 blocks/SM</td><td>7 blocks/SM</td></tr>
-          <tr><td>Theoretical occupancy</td><td>33.33%</td><td>33.33%</td></tr>
-          <tr><td>Achieved occupancy</td><td>32.24%</td><td>32.26%</td></tr>
-          <tr><td>Waves per SM</td><td>6.10</td><td>6.10</td></tr>
+          <tr><td>Registers per thread</td><td class="col-vec">116</td><td class="col-tile">128</td></tr>
+          <tr><td>Block limit (register bottleneck)</td><td class="col-vec">2 blocks/SM</td><td class="col-tile">2 blocks/SM</td></tr>
+          <tr><td>Block limit (shared memory)</td><td class="col-vec">7 blocks/SM</td><td class="col-tile">7 blocks/SM</td></tr>
+          <tr><td>Theoretical occupancy</td><td class="col-vec">33.33%</td><td class="col-tile">33.33%</td></tr>
+          <tr><td>Achieved occupancy</td><td class="col-vec">32.24%</td><td class="col-tile">32.26%</td></tr>
+          <tr><td>Waves per SM</td><td class="col-vec">6.10</td><td class="col-tile">6.10</td></tr>
         </tbody>
       </table>
 
@@ -776,46 +746,46 @@ for (uint m = 0; m &lt; TM; ++m) {
         <thead>
           <tr>
             <th>Issue</th>
-            <th>Vectorize est. speedup</th>
-            <th>2D Tiling est. speedup</th>
+            <th class="col-vec">Vectorize est. speedup</th>
+            <th class="col-tile">2D Tiling est. speedup</th>
             <th>Fix</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>Global store coalescing</td>
-            <td>39.4%</td>
-            <td>62.4%</td>
+            <td class="col-vec">39.4%</td>
+            <td class="col-tile">62.4%</td>
             <td>float4 stores (Vec already partial fix), transpose write-back</td>
           </tr>
           <tr>
             <td>Shared load bank conflicts</td>
-            <td>33.6%</td>
-            <td>31.1%</td>
-            <td>Pad As and Bs: <code>As[BM * (BK + 1)]</code></td>
+            <td class="col-vec">33.6%</td>
+            <td class="col-tile">31.1%</td>
+            <td>Pad As and Bs: <code class="inline">As[BM * (BK + 1)]</code></td>
           </tr>
           <tr>
             <td>Shared store bank conflicts</td>
-            <td>28%</td>
-            <td>—</td>
+            <td class="col-vec">28%</td>
+            <td class="col-tile">—</td>
             <td>Adjust float4 store pattern in Vec</td>
           </tr>
           <tr>
             <td>Register pressure / occupancy</td>
-            <td>66.7%</td>
-            <td>28.7%</td>
-            <td>Reduce TM/TN or use <code>__launch_bounds__</code> to hint the compiler</td>
+            <td class="col-vec">66.7%</td>
+            <td class="col-tile">28.7%</td>
+            <td>Reduce TM/TN or use <code class="inline">__launch_bounds__</code> to hint the compiler</td>
           </tr>
           <tr>
             <td>Global load coalescing</td>
-            <td>2.5%</td>
-            <td>16.5%</td>
+            <td class="col-vec">2.5%</td>
+            <td class="col-tile">16.5%</td>
             <td>float4 loads (Vec already did this)</td>
           </tr>
           <tr>
             <td>Tail-wave imbalance</td>
-            <td>~6%</td>
-            <td>~5.8%</td>
+            <td class="col-vec">~6%</td>
+            <td class="col-tile">~5.8%</td>
             <td>Pad matrix to multiple of 128 × 84</td>
           </tr>
         </tbody>

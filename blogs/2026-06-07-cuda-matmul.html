@@ -902,11 +902,6 @@ Vectorize(int M, int N, int K,
 
       <h3>Section: GPU Speed of Light Throughput</h3>
 
-      <div class="blog-img-container">
-        <img class="blog-img" src="../assets/blogs_assets/blog1/Screenshot%202026-06-11%20154224.png" alt="GPU Speed of Light Throughput and Roofline Chart">
-        <div class="blog-img-caption">Figure 5: GPU Speed of Light Throughput and Roofline Chart (ncu report).</div>
-      </div>
-
       <p>
         This section answers: of everything this GPU can do, what fraction are you using? Every number is a percentage
         of hardware peak.
@@ -1002,11 +997,6 @@ Vectorize(int M, int N, int K,
 
       <h3>Section: Compute Workload Analysis</h3>
 
-      <div class="blog-img-container">
-        <img class="blog-img" src="../assets/blogs_assets/blog1/Screenshot%202026-06-11%20154304.png" alt="Compute Workload Analysis">
-        <div class="blog-img-caption">Figure 6: Compute Workload Analysis (ncu report).</div>
-      </div>
-
       <p>
         <strong>IPC (Instructions Per Cycle)</strong> measures how many instructions the SM executes per clock cycle.
         The theoretical maximum on the A6000 is 4 IPC. There are two variants: IPC Active (only counting cycles where
@@ -1054,11 +1044,6 @@ Vectorize(int M, int N, int K,
       </p>
 
       <h3>Section: Memory Workload Analysis</h3>
-
-      <div class="blog-img-container">
-        <img class="blog-img" src="../assets/blogs_assets/blog1/Screenshot%202026-06-11%20154322.png" alt="Memory Workload Analysis">
-        <div class="blog-img-caption">Figure 7: Memory Workload Analysis and Speedup Tables (ncu report).</div>
-      </div>
 
       <p>
         This is the most actionable section - it tells you exactly where memory bandwidth is being wasted and by how
@@ -1181,14 +1166,6 @@ Vectorize(int M, int N, int K,
 
       <h3>Section: Scheduler Statistics and Warp State</h3>
 
-      <div class="blog-img-container">
-        <div class="blog-img-group">
-          <img class="blog-img" src="../assets/blogs_assets/blog1/Screenshot%202026-06-11%20154345.png" alt="Scheduler Statistics">
-          <img class="blog-img" src="../assets/blogs_assets/blog1/Screenshot%202026-06-11%20154403.png" alt="Warp State and Instruction Statistics">
-        </div>
-        <div class="blog-img-caption">Figure 8: Scheduler Statistics, Warp State, and Instruction Statistics (ncu report).</div>
-      </div>
-
       <p>
         The scheduler's job is to find a warp ready to execute and issue an instruction every cycle. Here is the picture
         for both kernels:
@@ -1247,11 +1224,6 @@ Vectorize(int M, int N, int K,
       </p>
 
       <h3>Section: Launch Statistics and Occupancy</h3>
-
-      <div class="blog-img-container">
-        <img class="blog-img" src="../assets/blogs_assets/blog1/Screenshot%202026-06-11%20154417.png" alt="Launch Statistics and Occupancy">
-        <div class="blog-img-caption">Figure 9: Launch Statistics and Occupancy (ncu report).</div>
-      </div>
 
       <table class="metric-table">
         <thead>
@@ -1317,11 +1289,6 @@ Vectorize(int M, int N, int K,
 
       <h3>Section: GPU Workload Distribution (Load Imbalance)</h3>
 
-      <div class="blog-img-container">
-        <img class="blog-img" src="../assets/blogs_assets/blog1/Screenshot%202026-06-11%20154438.png" alt="GPU and Memory Workload Distribution">
-        <div class="blog-img-caption">Figure 10: GPU and Memory Workload Distribution (ncu report).</div>
-      </div>
-
       <p>
         Both 4096 runs show a new warning not present in small-problem profiling: SM load imbalance. The hottest SM runs
         about 6.4% more active cycles than the average SM.
@@ -1342,11 +1309,6 @@ Vectorize(int M, int N, int K,
       </p>
 
       <h3>Section: Source Counters</h3>
-
-      <div class="blog-img-container">
-        <img class="blog-img" src="../assets/blogs_assets/blog1/Screenshot%202026-06-11%20154445.png" alt="Source Counters">
-        <div class="blog-img-caption">Figure 11: Source Counters detailing branch efficiency and uncoalesced memory accesses (ncu report).</div>
-      </div>
 
       <p>
         <strong>Branch Efficiency: 100%</strong> and <strong>Avg. Divergent Branches: 0</strong> in both kernels. Every

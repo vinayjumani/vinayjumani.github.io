@@ -364,7 +364,7 @@
         <strong>The Roofline Model.</strong> A graph with performance (GFLOPS) on the Y-axis and arithmetic intensity on
         the X-axis. Two "roofs" cap performance: a flat horizontal line at peak compute throughput, and a slanted
         diagonal line representing peak memory bandwidth. If a kernel's dot sits on the slanted line, it is memory-bound
-        — more math per byte (better tiling, more reuse) is the path forward. Maximum Achievable Performance = Memory
+        - more math per byte (better tiling, more reuse) is the path forward. Maximum Achievable Performance = Memory
         Bandwidth × Arithmetic Intensity
       </p>
 
@@ -384,14 +384,14 @@
       <p>
         <strong>Memory coalescing.</strong> When threads in a warp access contiguous memory addresses, the GPU can
         satisfy all 32 accesses in a single 128-byte transaction (called a cache line or sector). When threads access
-        scattered addresses, the GPU must issue multiple transactions — wasted bandwidth. The metric reported by <code
+        scattered addresses, the GPU must issue multiple transactions - wasted bandwidth. The metric reported by <code
           class="inline">ncu</code> is bytes utilized per 32-byte sector: ideally 32/32, poor is 4/32.
       </p>
 
       <p>
         <strong>Shared memory bank conflicts.</strong> Shared memory is divided into 32 banks. A single warp can access
         32 different banks simultaneously. If two or more threads in a warp hit the same bank (but different addresses),
-        those accesses are serialized. This is a bank conflict — a 4-way conflict means a single logical transaction
+        those accesses are serialized. This is a bank conflict - a 4-way conflict means a single logical transaction
         takes 4 hardware transactions.
       </p>
 
@@ -582,7 +582,7 @@ sgemm2DBlocktiling(int M, int N, int K, float alpha, const float *A,
 
       <p>
         The vectorized kernel makes two targeted changes to the 2D tiling kernel. First, it replaces the scalar <code
-          class="inline">float</code> loads for both A and B with <code class="inline">float4</code> loads — a single
+          class="inline">float</code> loads for both A and B with <code class="inline">float4</code> loads - a single
         128-bit instruction that brings in 4 floats at once. Second, to enable this for A (which is loaded in a
         transposed layout), it transposes A on-the-fly while writing into shared memory. Third, it writes results back
         to C using <code class="inline">float4</code> stores, four outputs at a time.
@@ -703,7 +703,7 @@ Vectorize(int M, int N, int K,
 </code></pre>
 
       <p>
-        The inner computation loop — the outer-product accumulation — is identical between the two kernels. The only
+        The inner computation loop - the outer-product accumulation - is identical between the two kernels. The only
         differences are in how data enters shared memory and how results leave to global memory.
       </p>
 

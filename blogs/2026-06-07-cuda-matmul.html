@@ -268,6 +268,36 @@
         width: 46px;
       }
     }
+
+    .blog-img-container {
+      margin: 1.5rem 0 2rem 0;
+      text-align: center;
+      background: var(--blog-card-bg);
+      border: 1px solid var(--blog-border);
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .blog-img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
+      border: 1px solid #222;
+    }
+
+    .blog-img-caption {
+      margin-top: 0.75rem;
+      font-size: 0.85rem;
+      color: var(--blog-muted);
+      font-style: italic;
+    }
+
+    .blog-img-group {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
   </style>
 </head>
 
@@ -719,6 +749,11 @@ Vectorize(int M, int N, int K,
 
       <h3>OS Runtime Summary</h3>
 
+      <div class="blog-img-container">
+        <img class="blog-img" src="../assets/blogs_assets/blog1/Screenshot%202026-06-11%20152656.png" alt="OS Runtime Summary">
+        <div class="blog-img-caption">Figure 1: OS Runtime Summary (osrt_sum) output from nsys.</div>
+      </div>
+
       <p>
         This table shows time the CPU spent inside Linux system calls. The columns are: <strong>Time (%)</strong> -
         fraction of total CPU-side time; <strong>Num Calls</strong> - how many times this function was called;
@@ -727,11 +762,11 @@ Vectorize(int M, int N, int K,
       </p>
 
       <p>
-        The Min/Max columns are where students often get confused. Take <code class="inline">poll</code> - in the 2D
+        The Min/Max columns are where we often get confused. Take <code class="inline">poll</code> - in the 2D
         tiling run it shows an Avg of ~50ms but a Min of 1,470ns and a Max of 297ms. This does not mean the program was
         slow; it means most <code class="inline">poll</code> calls returned instantly (the GPU had already finished) and
         a few blocked for nearly 300ms (the CPU was waiting for a long kernel). The wide gap between average and max
-        signals outliers, not pathology.
+        signals outliers.
       </p>
 
       <p>
@@ -756,6 +791,11 @@ Vectorize(int M, int N, int K,
       </div>
 
       <h3>CUDA API Summary</h3>
+
+      <div class="blog-img-container">
+        <img class="blog-img" src="../assets/blogs_assets/blog1/Screenshot%202026-06-11%20152735.png" alt="CUDA API Summary">
+        <div class="blog-img-caption">Figure 2: CUDA API Summary (cuda_api_sum) output from nsys.</div>
+      </div>
 
       <p>
         This table shows time spent in CUDA host API calls - the calls your C++ code makes to the runtime.
@@ -788,6 +828,11 @@ Vectorize(int M, int N, int K,
 
       <h3>GPU Kernel Summary - the most important nsys table</h3>
 
+      <div class="blog-img-container">
+        <img class="blog-img" src="../assets/blogs_assets/blog1/Screenshot%202026-06-11%20152750.png" alt="CUDA GPU Kernel Summary">
+        <div class="blog-img-caption">Figure 3: CUDA GPU Kernel Summary (cuda_gpu_kern_sum) output from nsys.</div>
+      </div>
+
       <p>
         The 2D tiling kernel ran 306 instances spanning all six problem sizes (128 to 4096). This produces a wildly
         heterogeneous distribution: Avg 1.75ms, Median 0.16ms, Min 32µs, Max 8.88ms, StdDev 3.18ms. The median is so
@@ -808,6 +853,14 @@ Vectorize(int M, int N, int K,
       </div>
 
       <h3>Memory Transfer Summary</h3>
+
+      <div class="blog-img-container">
+        <div class="blog-img-group">
+          <img class="blog-img" src="../assets/blogs_assets/blog1/Screenshot%202026-06-11%20152801.png" alt="CUDA GPU MemOps Summary by Time">
+          <img class="blog-img" src="../assets/blogs_assets/blog1/Screenshot%202026-06-11%20152912.png" alt="CUDA GPU MemOps Summary by Size">
+        </div>
+        <div class="blog-img-caption">Figure 4: CUDA GPU MemOps Summaries by Time and by Size (cuda_gpu_mem_time_sum &amp; cuda_gpu_mem_size_sum) from nsys.</div>
+      </div>
 
       <p>
         Both programs transferred 201.3MB host-to-device (three 67MB matrices) and zero bytes device-to-host. The

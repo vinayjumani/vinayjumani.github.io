@@ -750,7 +750,8 @@ Vectorize(int M, int N, int K,
       <h3>OS Runtime Summary</h3>
 
       <div class="blog-img-container">
-        <img class="blog-img" src="../assets/blogs_assets/blog1/Screenshot%202026-06-11%20152656.png" alt="OS Runtime Summary">
+        <img class="blog-img" src="../assets/blogs_assets/blog1/Screenshot%202026-06-11%20152656.png"
+          alt="OS Runtime Summary">
         <div class="blog-img-caption">Figure 1: OS Runtime Summary (osrt_sum) output from nsys.</div>
       </div>
 
@@ -793,7 +794,8 @@ Vectorize(int M, int N, int K,
       <h3>CUDA API Summary</h3>
 
       <div class="blog-img-container">
-        <img class="blog-img" src="../assets/blogs_assets/blog1/Screenshot%202026-06-11%20152735.png" alt="CUDA API Summary">
+        <img class="blog-img" src="../assets/blogs_assets/blog1/Screenshot%202026-06-11%20152735.png"
+          alt="CUDA API Summary">
         <div class="blog-img-caption">Figure 2: CUDA API Summary (cuda_api_sum) output from nsys.</div>
       </div>
 
@@ -829,7 +831,8 @@ Vectorize(int M, int N, int K,
       <h3>GPU Kernel Summary - the most important nsys table</h3>
 
       <div class="blog-img-container">
-        <img class="blog-img" src="../assets/blogs_assets/blog1/Screenshot%202026-06-11%20152750.png" alt="CUDA GPU Kernel Summary">
+        <img class="blog-img" src="../assets/blogs_assets/blog1/Screenshot%202026-06-11%20152750.png"
+          alt="CUDA GPU Kernel Summary">
         <div class="blog-img-caption">Figure 3: CUDA GPU Kernel Summary (cuda_gpu_kern_sum) output from nsys.</div>
       </div>
 
@@ -856,10 +859,13 @@ Vectorize(int M, int N, int K,
 
       <div class="blog-img-container">
         <div class="blog-img-group">
-          <img class="blog-img" src="../assets/blogs_assets/blog1/Screenshot%202026-06-11%20152801.png" alt="CUDA GPU MemOps Summary by Time">
-          <img class="blog-img" src="../assets/blogs_assets/blog1/Screenshot%202026-06-11%20152912.png" alt="CUDA GPU MemOps Summary by Size">
+          <img class="blog-img" src="../assets/blogs_assets/blog1/Screenshot%202026-06-11%20152801.png"
+            alt="CUDA GPU MemOps Summary by Time">
+          <img class="blog-img" src="../assets/blogs_assets/blog1/Screenshot%202026-06-11%20152912.png"
+            alt="CUDA GPU MemOps Summary by Size">
         </div>
-        <div class="blog-img-caption">Figure 4: CUDA GPU MemOps Summaries by Time and by Size (cuda_gpu_mem_time_sum &amp; cuda_gpu_mem_size_sum) from nsys.</div>
+        <div class="blog-img-caption">Figure 4: CUDA GPU MemOps Summaries by Time and by Size (cuda_gpu_mem_time_sum
+          &amp; cuda_gpu_mem_size_sum) from nsys.</div>
       </div>
 
       <p>
@@ -875,8 +881,8 @@ Vectorize(int M, int N, int K,
       <!-- ─────────────────────────────────────────────────────────── -->
 
       <p>
-        Both kernels were profiled with <code class="inline">ncu --set full -s 1 -c 1</code> at 4096×4096. This is the
-        apples-to-apples comparison. The launch configuration for both was identical: Grid 32×32×1, Block 256×1×1, 1024
+        Both kernels were profiled with <code class="inline">ncu --set full -s 1 -c 1</code> at 4096×4096. The launch
+        configuration for both was identical: Grid 32×32×1, Block 256×1×1, 1024
         total blocks, 262,144 threads.
       </p>
 
@@ -901,6 +907,12 @@ Vectorize(int M, int N, int K,
       </p>
 
       <h3>Section: GPU Speed of Light Throughput</h3>
+
+      <div class="blog-img-container">
+        <img class="blog-img" src="../assets/blogs_assets/blog1/Screenshot%202026-06-11%20154224.png"
+          alt="CUDA GPU Kernel Summary">
+        <div class="blog-img-caption">Figure 5: GPU SOL Throughput from ncu</div>
+      </div>
 
       <p>
         This section answers: of everything this GPU can do, what fraction are you using? Every number is a percentage
@@ -997,6 +1009,12 @@ Vectorize(int M, int N, int K,
 
       <h3>Section: Compute Workload Analysis</h3>
 
+      <div class="blog-img-container">
+        <img class="blog-img" src="../assets/blogs_assets/blog1/Screenshot%202026-06-11%20154304.png"
+          alt="CUDA GPU Kernel Summary">
+        <div class="blog-img-caption">Figure 6: GPU Compute Workload Analysis from ncu</div>
+      </div>
+
       <p>
         <strong>IPC (Instructions Per Cycle)</strong> measures how many instructions the SM executes per clock cycle.
         The theoretical maximum on the A6000 is 4 IPC. There are two variants: IPC Active (only counting cycles where
@@ -1044,6 +1062,12 @@ Vectorize(int M, int N, int K,
       </p>
 
       <h3>Section: Memory Workload Analysis</h3>
+
+      <div class="blog-img-container">
+        <img class="blog-img" src="../assets/blogs_assets/blog1/Screenshot%202026-06-11%20154322.png"
+          alt="CUDA GPU Kernel Summary">
+        <div class="blog-img-caption">Figure 7: GPU Memory Workload Analysis from ncu</div>
+      </div>
 
       <p>
         This is the most actionable section - it tells you exactly where memory bandwidth is being wasted and by how
@@ -1166,6 +1190,16 @@ Vectorize(int M, int N, int K,
 
       <h3>Section: Scheduler Statistics and Warp State</h3>
 
+      <div class="blog-img-container">
+        <div class="blog-img-group">
+          <img class="blog-img" src="../assets/blogs_assets/blog1/Screenshot%202026-06-11%20154403.png"
+            alt="Scheduler Statistics">
+          <img class="blog-img" src="../assets/blogs_assets/blog1/Screenshot%202026-06-11%20154403.png"
+            alt="Warp State">
+        </div>
+        <div class="blog-img-caption">Figure 8: CUDA GPU Scheduler Statistics and Warp State from ncu.</div>
+      </div>
+
       <p>
         The scheduler's job is to find a warp ready to execute and issue an instruction every cycle. Here is the picture
         for both kernels:
@@ -1224,6 +1258,12 @@ Vectorize(int M, int N, int K,
       </p>
 
       <h3>Section: Launch Statistics and Occupancy</h3>
+
+      <div class="blog-img-container">
+        <img class="blog-img" src="../assets/blogs_assets/blog1/Screenshot%202026-06-11%20154417.png"
+          alt="CUDA GPU Kernel Summary">
+        <div class="blog-img-caption">Figure 9: Launch Statistics and Occupancy from ncu</div>
+      </div>
 
       <table class="metric-table">
         <thead>
@@ -1289,6 +1329,12 @@ Vectorize(int M, int N, int K,
 
       <h3>Section: GPU Workload Distribution (Load Imbalance)</h3>
 
+      <div class="blog-img-container">
+        <img class="blog-img" src="../assets/blogs_assets/blog1/Screenshot%202026-06-11%20154438.png"
+          alt="CUDA GPU Kernel Summary">
+        <div class="blog-img-caption">Figure 10: GPU Workload Distribution from ncu</div>
+      </div>
+
       <p>
         Both 4096 runs show a new warning not present in small-problem profiling: SM load imbalance. The hottest SM runs
         about 6.4% more active cycles than the average SM.
@@ -1309,6 +1355,12 @@ Vectorize(int M, int N, int K,
       </p>
 
       <h3>Section: Source Counters</h3>
+
+      <div class="blog-img-container">
+        <img class="blog-img" src="../assets/blogs_assets/blog1/Screenshot%202026-06-11%20154445.png"
+          alt="CUDA GPU Kernel Summary">
+        <div class="blog-img-caption">Figure 11: Source Counters from ncu</div>
+      </div>
 
       <p>
         <strong>Branch Efficiency: 100%</strong> and <strong>Avg. Divergent Branches: 0</strong> in both kernels. Every

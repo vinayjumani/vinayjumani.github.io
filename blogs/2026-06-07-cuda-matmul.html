@@ -17,6 +17,7 @@
       font-size: 0.92rem;
       margin: 1.4rem 0;
     }
+
     .metric-table th {
       text-align: left;
       padding: 0.55rem 0.85rem;
@@ -27,46 +28,120 @@
       letter-spacing: 0.04em;
       color: #aaa;
     }
+
     .metric-table td {
       padding: 0.55rem 0.85rem;
       border-bottom: 1px solid #2a2a2a;
       vertical-align: top;
     }
-    .metric-table tr:last-child td { border-bottom: none; }
-    .metric-table .col-vec  { color: #7eb8f7; font-weight: 600; }
-    .metric-table .col-tile { color: #82d48a; font-weight: 600; }
-    .metric-table .col-win  { font-size: 0.78rem; padding: 2px 7px; border-radius: 3px; font-weight: 700; }
-    .win-vec  { background: rgba(126,184,247,0.15); color: #7eb8f7; }
-    .win-tile { background: rgba(130,212,138,0.15); color: #82d48a; }
-    .win-tie  { background: rgba(160,160,160,0.1);  color: #888; }
+
+    .metric-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .metric-table .col-vec {
+      color: #7eb8f7;
+      font-weight: 600;
+    }
+
+    .metric-table .col-tile {
+      color: #82d48a;
+      font-weight: 600;
+    }
+
+    .metric-table .col-win {
+      font-size: 0.78rem;
+      padding: 2px 7px;
+      border-radius: 3px;
+      font-weight: 700;
+    }
+
+    .win-vec {
+      background: rgba(126, 184, 247, 0.15);
+      color: #7eb8f7;
+    }
+
+    .win-tile {
+      background: rgba(130, 212, 138, 0.15);
+      color: #82d48a;
+    }
+
+    .win-tie {
+      background: rgba(160, 160, 160, 0.1);
+      color: #888;
+    }
 
     .callout {
       border-left: 3px solid #7eb8f7;
-      background: rgba(126,184,247,0.06);
+      background: rgba(126, 184, 247, 0.06);
       padding: 0.9rem 1.2rem;
       margin: 1.5rem 0;
       border-radius: 0 6px 6px 0;
       font-size: 0.95rem;
       line-height: 1.65;
     }
+
     .callout.warn {
       border-left-color: #f7c97e;
-      background: rgba(247,201,126,0.06);
-    }
-    .callout.good {
-      border-left-color: #82d48a;
-      background: rgba(130,212,138,0.06);
+      background: rgba(247, 201, 126, 0.06);
     }
 
-    .bar-group { margin: 0.35rem 0; }
-    .bar-label { font-size: 0.82rem; color: #aaa; margin-bottom: 3px; }
-    .bar-row   { display: flex; align-items: center; gap: 8px; margin: 2px 0; }
-    .bar-track { flex: 1; background: #1e1e1e; border-radius: 3px; height: 10px; overflow: hidden; }
-    .bar-fill-v  { height: 100%; border-radius: 3px; background: #7eb8f7; }
-    .bar-fill-t  { height: 100%; border-radius: 3px; background: #82d48a; }
-    .bar-val  { width: 58px; font-size: 0.8rem; text-align: right; flex-shrink: 0; }
-    .bar-val.v { color: #7eb8f7; }
-    .bar-val.t { color: #82d48a; }
+    .callout.good {
+      border-left-color: #82d48a;
+      background: rgba(130, 212, 138, 0.06);
+    }
+
+    .bar-group {
+      margin: 0.35rem 0;
+    }
+
+    .bar-label {
+      font-size: 0.82rem;
+      color: #aaa;
+      margin-bottom: 3px;
+    }
+
+    .bar-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 2px 0;
+    }
+
+    .bar-track {
+      flex: 1;
+      background: #1e1e1e;
+      border-radius: 3px;
+      height: 10px;
+      overflow: hidden;
+    }
+
+    .bar-fill-v {
+      height: 100%;
+      border-radius: 3px;
+      background: #7eb8f7;
+    }
+
+    .bar-fill-t {
+      height: 100%;
+      border-radius: 3px;
+      background: #82d48a;
+    }
+
+    .bar-val {
+      width: 58px;
+      font-size: 0.8rem;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .bar-val.v {
+      color: #7eb8f7;
+    }
+
+    .bar-val.t {
+      color: #82d48a;
+    }
 
     .section-lead {
       font-size: 1.05rem;
@@ -82,8 +157,19 @@
       color: #aaa;
       margin-bottom: 0.7rem;
     }
-    .legend span { display: flex; align-items: center; gap: 5px; }
-    .leg-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+
+    .legend span {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .leg-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
 
     .kernel-badge {
       display: inline-block;
@@ -94,8 +180,18 @@
       letter-spacing: 0.03em;
       vertical-align: middle;
     }
-    .kb-vec  { background: rgba(126,184,247,0.15); color: #7eb8f7; border: 1px solid rgba(126,184,247,0.3); }
-    .kb-tile { background: rgba(130,212,138,0.15);  color: #82d48a; border: 1px solid rgba(130,212,138,0.3); }
+
+    .kb-vec {
+      background: rgba(126, 184, 247, 0.15);
+      color: #7eb8f7;
+      border: 1px solid rgba(126, 184, 247, 0.3);
+    }
+
+    .kb-tile {
+      background: rgba(130, 212, 138, 0.15);
+      color: #82d48a;
+      border: 1px solid rgba(130, 212, 138, 0.3);
+    }
 
     .insight-box {
       border: 1px solid #2a2a2a;
@@ -103,6 +199,7 @@
       padding: 1.1rem 1.3rem;
       margin: 1.6rem 0;
     }
+
     .insight-box h4 {
       margin: 0 0 0.6rem;
       font-size: 0.88rem;
@@ -110,7 +207,12 @@
       letter-spacing: 0.05em;
       color: #888;
     }
-    .insight-box p { margin: 0; font-size: 0.95rem; line-height: 1.65; }
+
+    .insight-box p {
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.65;
+    }
 
     code.inline {
       background: #1a1a1a;
@@ -125,6 +227,7 @@
       gap: 12px;
       margin: 1rem 0;
     }
+
     .perf-card {
       flex: 1;
       border: 1px solid #2a2a2a;
@@ -132,14 +235,38 @@
       padding: 1rem 1.2rem;
       text-align: center;
     }
-    .perf-card .pnum { font-size: 1.9rem; font-weight: 700; margin: 0; line-height: 1.1; }
-    .perf-card .plabel { font-size: 0.78rem; color: #888; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 4px; }
-    .perf-card.v .pnum { color: #7eb8f7; }
-    .perf-card.t .pnum { color: #82d48a; }
+
+    .perf-card .pnum {
+      font-size: 1.9rem;
+      font-weight: 700;
+      margin: 0;
+      line-height: 1.1;
+    }
+
+    .perf-card .plabel {
+      font-size: 0.78rem;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 4px;
+    }
+
+    .perf-card.v .pnum {
+      color: #7eb8f7;
+    }
+
+    .perf-card.t .pnum {
+      color: #82d48a;
+    }
 
     @media (max-width: 600px) {
-      .perf-row { flex-direction: column; }
-      .bar-val { width: 46px; }
+      .perf-row {
+        flex-direction: column;
+      }
+
+      .bar-val {
+        width: 46px;
+      }
     }
   </style>
 </head>
@@ -182,19 +309,33 @@
       <!-- ─────────────────────────────────────────────────────────── -->
 
       <div class="callout">
-        <strong>Prerequisites:</strong> Before diving in, it is recommended to have a basic understanding of CUDA programming concepts (blocks, threads, shared memory). If you are new to CUDA, check out the <a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html" target="_blank">CUDA C Programming Guide (CUDA Basics)</a>.
+        <strong>Prerequisites:</strong> Before diving in, it is recommended to have a basic understanding of CUDA
+        programming concepts (blocks, threads, shared memory). If you are new to CUDA, check out the <a
+          href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html" target="_blank">CUDA C Programming
+          Guide (CUDA Basics)</a>.
       </div>
 
       <p>
-        Matrix multiplication on GPUs is arguably the most important algorithm in deep learning, forming the computational core of transformer training and inference. In this worklog, I profile and compare two CUDA SGEMM (Single-precision General Matrix Multiply) implementations: a baseline <strong>2D block-tiled GEMM</strong> and a highly optimized <strong>vectorized variant</strong> that replaces scalar loads and stores with 128-bit <code>float4</code> instructions. 
+        Matrix multiplication on GPUs is arguably the most important algorithm in deep learning, forming the
+        computational core of transformer training and inference. In this worklog, I profile and compare two CUDA SGEMM
+        (Single-precision General Matrix Multiply) implementations: a baseline <strong>2D block-tiled GEMM</strong> and
+        a highly optimized <strong>vectorized variant</strong> that replaces scalar loads and stores with 128-bit
+        <code>float4</code> instructions.
       </p>
 
       <p>
-        My analysis and kernel iterations are heavily based on Simon Boehm's excellent work on GPU matrix multiplication optimization from his blog post <a href="https://siboehm.com/articles/22/CUDA-MMM" target="_blank">How to Optimize a CUDA Matmul Kernel</a>. Using his kernel implementations, I've run end-to-end benchmarking on an NVIDIA RTX A6000 GPU and used NVIDIA's developer profiling toolchain — <strong>Nsight Systems</strong> (<code>nsys</code>) and <strong>Nsight Compute</strong> (<code>ncu</code>) — to pinpoint exactly how memory layout, shared memory bank conflicts, and register pressure influence achieved performance.
+        My analysis and kernel iterations are heavily based on Simon Boehm's excellent work on GPU matrix multiplication
+        optimization from his blog post <a href="https://siboehm.com/articles/22/CUDA-MMM" target="_blank">How to
+          Optimize a CUDA Matmul Kernel</a>. Using his kernel implementations, I've run end-to-end benchmarking on an
+        NVIDIA RTX A6000 GPU and used NVIDIA's developer profiling toolchain - <strong>Nsight Systems</strong>
+        (<code>nsys</code>) and <strong>Nsight Compute</strong> (<code>ncu</code>) - to pinpoint exactly how memory
+        layout, shared memory bank conflicts, and register pressure influence achieved performance.
       </p>
 
       <p>
-        You can find the full CUDA source files, run scripts, and further explanation of the optimized kernels in my GitHub repository: <a href="https://github.com/Vinay12345-neutron/DaSH-Lab-Induction-Assignment-2025" target="_blank">DaSH-Lab-Induction-Assignment-2025</a>.
+        You can find the full CUDA source files, run scripts, and further explanation of the optimized kernels in my
+        GitHub repository: <a href="https://github.com/Vinay12345-neutron/DaSH-Lab-Induction-Assignment-2025"
+          target="_blank">DaSH-Lab-Induction-Assignment-2025</a>.
       </p>
 
 
@@ -207,31 +348,51 @@
       </p>
 
       <p>
-        <strong>FLOPs and GFLOPS.</strong> A FLOP is a single floating-point operation (addition or multiplication). GFLOPS is billions of such operations per second. For a square GEMM of size M=N=K, the operation count is approximately 2·M·N·K (one multiply and one add per inner product step). Hardware peak on the A6000 is ~38.7 TFLOPS in FP32.
+        <strong>FLOPs and GFLOPS.</strong> A FLOP is a single floating-point operation (addition or multiplication).
+        GFLOPS is billions of such operations per second. For a square GEMM of size M=N=K, the operation count is
+        approximately 2·M·N·K (one multiply and one add per inner product step). Hardware peak on the A6000 is ~38.7
+        TFLOPS in FP32.
       </p>
 
       <p>
-        <strong>Arithmetic Intensity.</strong> Defined as FLOPs performed divided by bytes moved from memory. A kernel with high arithmetic intensity reuses data many times per byte loaded and can be compute-bound. A kernel with low arithmetic intensity is starved for data and is memory-bound.
+        <strong>Arithmetic Intensity.</strong> Defined as FLOPs performed divided by bytes moved from memory. A kernel
+        with high arithmetic intensity reuses data many times per byte loaded and can be compute-bound. A kernel with
+        low arithmetic intensity is starved for data and is memory-bound.
       </p>
 
       <p>
-        <strong>The Roofline Model.</strong> A graph with performance (GFLOPS) on the Y-axis and arithmetic intensity on the X-axis. Two "roofs" cap performance: a flat horizontal line at peak compute throughput, and a slanted diagonal line representing peak memory bandwidth. If a kernel's dot sits on the slanted line, it is memory-bound — more math per byte (better tiling, more reuse) is the path forward.
+        <strong>The Roofline Model.</strong> A graph with performance (GFLOPS) on the Y-axis and arithmetic intensity on
+        the X-axis. Two "roofs" cap performance: a flat horizontal line at peak compute throughput, and a slanted
+        diagonal line representing peak memory bandwidth. If a kernel's dot sits on the slanted line, it is memory-bound
+        — more math per byte (better tiling, more reuse) is the path forward. Maximum Achievable Performance = Memory
+        Bandwidth × Arithmetic Intensity
       </p>
 
       <p>
-        <strong>Warps.</strong> The GPU executes 32 threads at a time as a group called a warp. All 32 threads in a warp execute the same instruction simultaneously on different data. The GPU scheduler's job is to find a warp that is ready to execute and issue its instruction every cycle. If no warp is ready (they are all stalled waiting for memory), the issue slot goes to waste.
+        <strong>Warps.</strong> The GPU executes 32 threads at a time as a group called a warp. All 32 threads in a warp
+        execute the same instruction simultaneously on different data. The GPU scheduler's job is to find a warp that is
+        ready to execute and issue its instruction every cycle. If no warp is ready (they are all stalled waiting for
+        memory), the issue slot goes to waste.
       </p>
 
       <p>
-        <strong>Occupancy.</strong> The ratio of active warps on an SM to the maximum warps that SM can hold. Higher occupancy gives the scheduler more warps to choose from, hiding memory latency. Occupancy is limited by whichever resource runs out first: registers, shared memory, or warp slots.
+        <strong>Occupancy.</strong> The ratio of active warps on an SM to the maximum warps that SM can hold. Higher
+        occupancy gives the scheduler more warps to choose from, hiding memory latency. Occupancy is limited by
+        whichever resource runs out first: registers, shared memory, or warp slots.
       </p>
 
       <p>
-        <strong>Memory coalescing.</strong> When threads in a warp access contiguous memory addresses, the GPU can satisfy all 32 accesses in a single 128-byte transaction (called a cache line or sector). When threads access scattered addresses, the GPU must issue multiple transactions — wasted bandwidth. The metric reported by <code class="inline">ncu</code> is bytes utilized per 32-byte sector: ideally 32/32, poor is 4/32.
+        <strong>Memory coalescing.</strong> When threads in a warp access contiguous memory addresses, the GPU can
+        satisfy all 32 accesses in a single 128-byte transaction (called a cache line or sector). When threads access
+        scattered addresses, the GPU must issue multiple transactions — wasted bandwidth. The metric reported by <code
+          class="inline">ncu</code> is bytes utilized per 32-byte sector: ideally 32/32, poor is 4/32.
       </p>
 
       <p>
-        <strong>Shared memory bank conflicts.</strong> Shared memory is divided into 32 banks. A single warp can access 32 different banks simultaneously. If two or more threads in a warp hit the same bank (but different addresses), those accesses are serialized. This is a bank conflict — a 4-way conflict means a single logical transaction takes 4 hardware transactions.
+        <strong>Shared memory bank conflicts.</strong> Shared memory is divided into 32 banks. A single warp can access
+        32 different banks simultaneously. If two or more threads in a warp hit the same bank (but different addresses),
+        those accesses are serialized. This is a bank conflict — a 4-way conflict means a single logical transaction
+        takes 4 hardware transactions.
       </p>
 
 
@@ -240,32 +401,45 @@
       <!-- ─────────────────────────────────────────────────────────── -->
 
       <p>
-        NVIDIA provides two complementary tools that work together. Think of them as a general check-up and an MRI.
+        NVIDIA provides two complementary tools that work together.
       </p>
 
       <p>
-        <strong>Nsight Systems (<code class="inline">nsys</code>) — the general check-up.</strong> This is a system-wide timeline profiler. It records the CPU, the GPU, OS system calls, and all data transfers. It does not look inside a kernel; it just tells you where time is going and which kernels are taking the longest. The key questions to answer with <code class="inline">nsys</code>: Is the GPU sitting idle between launches? Is <code class="inline">cudaMemcpy</code> dominating the timeline? Which kernel accounts for 80% of GPU time?
+        <strong>Nsight Systems (<code class="inline">nsys</code>):</strong> This is a system-wide
+        timeline profiler. It records the CPU, the GPU, OS system calls, and all data transfers. It does not look inside
+        a kernel; it just tells you where time is going and which kernels are taking the longest. The key questions to
+        answer with <code class="inline">nsys</code>: Is the GPU sitting idle between launches? Is <code
+          class="inline">cudaMemcpy</code> dominating the timeline? Which kernel accounts for 80% of GPU time?
       </p>
 
       <p>
-        <strong>Nsight Compute (<code class="inline">ncu</code>) — the MRI.</strong> Once <code class="inline">nsys</code> tells you which kernel is slow, you use <code class="inline">ncu</code> to look inside that exact kernel and find out why. It replays the kernel up to 37 times under different hardware counters to build a complete picture of compute throughput, memory access patterns, scheduler efficiency, and occupancy.
+        <strong>Nsight Compute (<code class="inline">ncu</code>):</strong> Once <code class="inline">nsys</code> tells
+        you which kernel is slow, you use <code class="inline">ncu</code> to look
+        inside that exact kernel and find out why. It replays the kernel up to 37 times under different hardware
+        counters to build a complete picture of compute throughput, memory access patterns, scheduler efficiency, and
+        occupancy.
       </p>
 
       <p>
         The commands used in this post:
       </p>
 
-<pre><code class="language-bash"># System-wide profiling (captures the full program timeline)
-nsys profile -o timeline -t cuda,nvtx,osrt --stats=true ./kernel
+      <pre><code class="language-bash"># System-wide profiling (captures the full program timeline)
+nsys profile -o 1d_tiling_timeline -t cuda,nvtx,osrt --stats=true ./1D_block_tiling
 
 # Print summary tables from a .nsys-rep file
-nsys stats --force-export=true timeline.nsys-rep
+nsys stats --force-export=true 1d_tiling_timeline.nsys-rep
 
-# Deep kernel profiling: skip 1 launch (warm-up), profile 1 launch
-sudo $(which ncu) --set full -s 1 -c 1 ./kernel 4096</code></pre>
+# Compiling
+nvcc -O3 -lineinfo -arch=sm_86 -lcublas -o 1D_block_tiling 1D_block_tiling.cu
+
+# Deep kernel profiling: skip 1 launch (warm-up), profile 1 launch (4096 is just matrix size)
+sudo $(which ncu) --set full -s 1 -c 1 ./2D_block_tiling 4096</code></pre>
 
       <p>
-        The <code class="inline">-s 1</code> flag skips the first kernel launch (the warm-up), and <code class="inline">-c 1</code> profiles exactly one launch. This ensures we are profiling the real 4096×4096 workload, not the tiny warm-up launch that would produce misleading near-zero throughput numbers.
+        The <code class="inline">-s 1</code> flag skips the first kernel launch (the warm-up), and <code
+          class="inline">-c 1</code> profiles exactly one launch. This ensures we are profiling the real 4096×4096
+        workload, not the tiny warm-up launch that would produce misleading near-zero throughput numbers.
       </p>
 
 
@@ -276,99 +450,261 @@ sudo $(which ncu) --set full -s 1 -c 1 ./kernel 4096</code></pre>
       <h3>Kernel 1: 2D Block Tiling</h3>
 
       <p>
-        The 2D block-tiled kernel is the natural next step after 1D tiling. Instead of each thread computing a single output element, each thread computes a <code class="inline">TM × TN</code> sub-tile of results using register blocking. The block collectively loads a <code class="inline">BM × BK</code> tile of A and a <code class="inline">BK × BN</code> tile of B into shared memory, then performs the outer-product accumulation in registers. With <code class="inline">BM = BN = 128</code>, <code class="inline">BK = 8</code>, <code class="inline">TM = TN = 8</code>, each 256-thread block produces a 128×128 output tile.
+        The 2D block-tiled kernel is the natural next step after 1D tiling. Instead of each thread computing a single
+        output element, each thread computes a <code class="inline">TM × TN</code> sub-tile of results using register
+        blocking. The block collectively loads a <code class="inline">BM × BK</code> tile of A and a <code
+          class="inline">BK × BN</code> tile of B into shared memory, then performs the outer-product accumulation in
+        registers. With <code class="inline">BM = BN = 128</code>, <code class="inline">BK = 8</code>, <code
+          class="inline">TM = TN = 8</code>, each 256-thread block produces a 128×128 output tile.
       </p>
 
-<pre><code class="language-cpp">template &lt;const int BM, const int BN, const int BK, const int TM, const int TN&gt;
+      <pre><code class="language-cpp">template &lt;const int BM, const int BN, const int BK, const int TM, const int TN&gt;
 __global__ void __launch_bounds__((BM * BN) / (TM * TN), 1)
 sgemm2DBlocktiling(int M, int N, int K, float alpha, const float *A,
                    const float *B, float beta, float *C)
 {
-    const uint cRow = blockIdx.y;
-    const uint cCol = blockIdx.x;
+    // -----------------------------------------------------------------
+    // 1) Identify the output tile this block will compute
+    // -----------------------------------------------------------------
+    const uint cRow = blockIdx.y;                     // tile‑row index
+    const uint cCol = blockIdx.x;                     // tile‑col index
+    const uint totalResultsBlocktile = BM * BN;        // #output elements per tile
+
+    // A thread produces TM × TN results inside the tile
+    const uint numThreadsBlocktile = totalResultsBlocktile / (TM * TN);
+    // sanity check – the launch must provide exactly this many threads
+    assert(numThreadsBlocktile == blockDim.x);
+
+    // BN/TN threads span a column of the tile
     const int threadCol = threadIdx.x % (BN / TN);
     const int threadRow = threadIdx.x / (BN / TN);
 
+    // -----------------------------------------------------------------
+    // 2) Shared‑memory tiles for A and B
+    // -----------------------------------------------------------------
     __shared__ float As[BM * BK];
     __shared__ float Bs[BK * BN];
 
-    A += cRow * BM * K;
-    B += cCol * BN;
-    C += cRow * BM * N + cCol * BN;
+    // Move the global pointers to the first element of this tile
+    A += cRow * BM * K;                     // start of A‑tile rows
+    B += cCol * BN;                         // start of B‑tile columns
+    C += cRow * BM * N + cCol * BN;         // start of C‑tile
 
-    float threadResults[TM * TN] = {0.0f};
-    float regM[TM] = {0.0f};
-    float regN[TN] = {0.0f};
+    // -----------------------------------------------------------------
+    // 3) Indices used for loading the shared‑memory tiles
+    // -----------------------------------------------------------------
+    const uint innerRowA = threadIdx.x / BK;
+    const uint innerColA = threadIdx.x % BK;
+    const uint strideA   = numThreadsBlocktile / BK;   // rows of A loaded per step
 
-    for (uint bkIdx = 0; bkIdx &lt; K; bkIdx += BK) {
-        // --- load tiles into shared memory (scalar float loads) ---
-        for (uint loadOffset = 0; loadOffset &lt; BM; loadOffset += strideA)
+    const uint innerRowB = threadIdx.x / BN;
+    const uint innerColB = threadIdx.x % BN;
+    const uint strideB   = numThreadsBlocktile / BN;   // rows of B loaded per step
+
+    // -----------------------------------------------------------------
+    // 4) Thread‑local accumulators (register‑blocked)
+    // -----------------------------------------------------------------
+    float threadResults[TM * TN] = {0.0f};   // final TM × TN results for this thread
+    float regM[TM] = {0.0f};                // registers for a column of A
+    float regN[TN] = {0.0f};                // registers for a row    of B
+
+    // -----------------------------------------------------------------
+    // 5) Main K‑loop – load tiles, compute, advance pointers
+    // -----------------------------------------------------------------
+    for (uint bkIdx = 0; bkIdx < K; bkIdx += BK)
+    {
+        // ---- load a BM×BK tile of A into shared memory -----------------
+        for (uint loadOffset = 0; loadOffset < BM; loadOffset += strideA)
+        {
             As[(innerRowA + loadOffset) * BK + innerColA] =
                 A[(innerRowA + loadOffset) * K + innerColA];
+        }
 
-        for (uint loadOffset = 0; loadOffset &lt; BK; loadOffset += strideB)
+        // ---- load a BK×BN tile of B into shared memory -----------------
+        for (uint loadOffset = 0; loadOffset < BK; loadOffset += strideB)
+        {
             Bs[(innerRowB + loadOffset) * BN + innerColB] =
                 B[(innerRowB + loadOffset) * N + innerColB];
-
-        __syncthreads();
-        A += BK;
-        B += BK * N;
-
-        // --- register-blocked outer product ---
-        for (uint dotIdx = 0; dotIdx &lt; BK; ++dotIdx) {
-            for (uint i = 0; i &lt; TM; ++i)
-                regM[i] = As[(threadRow * TM + i) * BK + dotIdx];
-            for (uint i = 0; i &lt; TN; ++i)
-                regN[i] = Bs[dotIdx * BN + threadCol * TN + i];
-            for (uint m = 0; m &lt; TM; ++m)
-                for (uint n = 0; n &lt; TN; ++n)
-                    threadResults[m * TN + n] += regM[m] * regN[n];
         }
+
         __syncthreads();
+
+        // ---- advance global pointers to the next K‑chunk ----------------
+        A += BK;          // move right by BK columns in A
+        B += BK * N;      // move down by BK rows in B
+
+        // ---- compute the partial products for this K‑chunk ------------
+        // 2‑D block tiling – each thread produces TM × TN results
+        for (uint dotIdx = 0; dotIdx < BK; ++dotIdx) // iterates over K-tiles
+        {
+            // load TM elements of the current column of A (one per row) into registers
+            for (uint i = 0; i < TM; ++i)
+                regM[i] = As[(threadRow * TM + i) * BK + dotIdx];
+                // regM holds A[ row = threadRow*TM+i , col = dotIdx ]
+
+            // load TN elements of the current row of B (one per column) into registers
+            for (uint i = 0; i < TN; ++i)
+                regN[i] = Bs[dotIdx * BN + threadCol * TN + i];
+                // regN holds B[ row = dotIdx , col = threadCol*TN+i ]
+
+            // outer‑product of the two vectors → TM×TN partial result, accumulate TM × TN products
+            for (uint resIdxM = 0; resIdxM < TM; ++resIdxM)
+            {
+                for (uint resIdxN = 0; resIdxN < TN; ++resIdxN)
+                {
+                    threadResults[resIdxM * TN + resIdxN] +=
+                        regM[resIdxM] * regN[resIdxN];
+                        // each combination (row, col) of the mini‑matrix gets one product
+                }
+            }
+        }
+
+        __syncthreads();   // ensure all threads finished before next tile
     }
 
-    // --- scalar write-back to C ---
-    for (uint m = 0; m &lt; TM; ++m)
-        for (uint n = 0; n &lt; TN; ++n)
-            C[(threadRow * TM + m) * N + (threadCol * TN + n)] =
-                alpha * threadResults[m * TN + n] +
-                beta  * C[(threadRow * TM + m) * N + (threadCol * TN + n)];
+    // -----------------------------------------------------------------
+    // 6) Write the TM × TN results back to global memory
+    // -----------------------------------------------------------------
+    for (uint resIdxM = 0; resIdxM < TM; ++resIdxM)
+    {
+        for (uint resIdxN = 0; resIdxN < TN; ++resIdxN)
+        {
+            uint globalRow = (threadRow * TM + resIdxM);
+            uint globalCol = (threadCol * TN + resIdxN);
+            C[globalRow * N + globalCol] =
+                alpha * threadResults[resIdxM * TN + resIdxN] +
+                beta  * C[globalRow * N + globalCol];
+        }
+    }
 }</code></pre>
 
       <h3>Kernel 2: Vectorized Loads</h3>
 
       <p>
-        The vectorized kernel makes two targeted changes to the 2D tiling kernel. First, it replaces the scalar <code class="inline">float</code> loads for both A and B with <code class="inline">float4</code> loads — a single 128-bit instruction that brings in 4 floats at once. Second, to enable this for A (which is loaded in a transposed layout), it transposes A on-the-fly while writing into shared memory. Third, it writes results back to C using <code class="inline">float4</code> stores, four outputs at a time.
+        The vectorized kernel makes two targeted changes to the 2D tiling kernel. First, it replaces the scalar <code
+          class="inline">float</code> loads for both A and B with <code class="inline">float4</code> loads — a single
+        128-bit instruction that brings in 4 floats at once. Second, to enable this for A (which is loaded in a
+        transposed layout), it transposes A on-the-fly while writing into shared memory. Third, it writes results back
+        to C using <code class="inline">float4</code> stores, four outputs at a time.
       </p>
 
-<pre><code class="language-cpp">// --- vectorized load of A tile (transposes while loading) ---
-float4 tmpA = reinterpret_cast&lt;float4 *&gt;(
-    &amp;A[innerRowA * K + innerColA * 4])[0];
-As[(innerColA * 4 + 0) * BM + innerRowA] = tmpA.x;
-As[(innerColA * 4 + 1) * BM + innerRowA] = tmpA.y;
-As[(innerColA * 4 + 2) * BM + innerRowA] = tmpA.z;
-As[(innerColA * 4 + 3) * BM + innerRowA] = tmpA.w;
+      <pre><code class="language-cpp">
+// ---------------------------------------------------------------------
+// Kernel – 2‑D block tiling with vectorised loads/stores
+// ---------------------------------------------------------------------
+template <const int BM, const int BN, const int BK, const int TM, const int TN>
+__global__ void __launch_bounds__((BM * BN) / (TM * TN), 1)
+Vectorize(int M, int N, int K,
+               float alpha, float *A,
+               float *B, float beta, float *C)
+{
+    // -------------------------------------------------------------
+    // 1) Identify the output tile this block will compute
+    // -------------------------------------------------------------
+    const uint cRow = blockIdx.y;                     // tile‑row index
+    const uint cCol = blockIdx.x;                     // tile‑col index
 
-// --- vectorized load of B tile (direct copy) ---
-reinterpret_cast&lt;float4 *&gt;(&amp;Bs[innerRowB * BN + innerColB * 4])[0] =
-    reinterpret_cast&lt;float4 *&gt;(&amp;B[innerRowB * N + innerColB * 4])[0];
+    // BN/TN threads span a column of the tile
+    const int threadCol = threadIdx.x % (BN / TN);
+    const int threadRow = threadIdx.x / (BN / TN);
 
-// --- vectorized write-back to C (4 results per store) ---
-for (uint m = 0; m &lt; TM; ++m) {
-    for (uint n = 0; n &lt; TN; n += 4) {
-        float4 tmpC = reinterpret_cast&lt;float4 *&gt;(
-            &amp;C[(threadRow * TM + m) * N + threadCol * TN + n])[0];
-        tmpC.x = alpha * threadResults[m * TN + n]     + beta * tmpC.x;
-        tmpC.y = alpha * threadResults[m * TN + n + 1] + beta * tmpC.y;
-        tmpC.z = alpha * threadResults[m * TN + n + 2] + beta * tmpC.z;
-        tmpC.w = alpha * threadResults[m * TN + n + 3] + beta * tmpC.w;
-        reinterpret_cast&lt;float4 *&gt;(
-            &amp;C[(threadRow * TM + m) * N + threadCol * TN + n])[0] = tmpC;
+    // -------------------------------------------------------------
+    // 2) Shared‑memory tiles for A and B
+    // -------------------------------------------------------------
+    __shared__ float As[BM * BK];
+    __shared__ float Bs[BK * BN];
+
+    // Move the global pointers to the first element of this tile
+    A += cRow * BM * K;                     // start of A‑tile rows
+    B += cCol * BN;                         // start of B‑tile columns
+    C += cRow * BM * N + cCol * BN;         // start of C‑tile
+
+    // -------------------------------------------------------------
+    // 3) Indices used for loading the shared‑memory tiles
+    //    (vectorised: 4 floats == one float4 per thread)
+    // -------------------------------------------------------------
+    const uint innerRowA = threadIdx.x / (BK / 4);
+    const uint innerColA = threadIdx.x % (BK / 4);
+    const uint innerRowB = threadIdx.x / (BN / 4);
+    const uint innerColB = threadIdx.x % (BN / 4);
+
+    // -------------------------------------------------------------
+    // 4) Thread‑local accumulators (register‑blocked)
+    // -------------------------------------------------------------
+    float threadResults[TM * TN] = {0.0f};
+    float regM[TM] = {0.0f};
+    float regN[TN] = {0.0f};
+
+    // -------------------------------------------------------------
+    // 5) Main K‑loop – load tiles, compute, advance pointers
+    // -------------------------------------------------------------
+    for (uint bkIdx = 0; bkIdx < K; bkIdx += BK)
+    {
+        // ---- load a BM×BK tile of A (transpose while loading) ----
+        float4 tmpA = reinterpret_cast<float4 *>(&A[innerRowA * K + innerColA * 4])[0];
+        As[(innerColA * 4 + 0) * BM + innerRowA] = tmpA.x;
+        As[(innerColA * 4 + 1) * BM + innerRowA] = tmpA.y;
+        As[(innerColA * 4 + 2) * BM + innerRowA] = tmpA.z;
+        As[(innerColA * 4 + 3) * BM + innerRowA] = tmpA.w;
+
+        // ---- load a BK×BN tile of B (no transpose) ---------------
+        reinterpret_cast<float4 *>(&Bs[innerRowB * BN + innerColB * 4])[0] =
+            reinterpret_cast<float4 *>(&B[innerRowB * N + innerColB * 4])[0];
+
+        __syncthreads();
+
+        // ---- advance global pointers to the next K‑chunk ----------
+        A += BK;          // move right by BK columns in A
+        B += BK * N;      // move down by BK rows in B
+
+        // ---- compute the partial products for this K‑chunk -------
+        for (uint dotIdx = 0; dotIdx < BK; ++dotIdx)
+        {
+            // load TM elements of the current column of A into registers
+            for (uint i = 0; i < TM; ++i)
+                regM[i] = As[dotIdx * BM + threadRow * TM + i];
+
+            // load TN elements of the current row of B into registers
+            for (uint i = 0; i < TN; ++i)
+                regN[i] = Bs[dotIdx * BN + threadCol * TN + i];
+
+            // accumulate TM × TN products
+            for (uint m = 0; m < TM; ++m)
+                for (uint n = 0; n < TN; ++n)
+                    threadResults[m * TN + n] += regM[m] * regN[n];
+        }
+
+        __syncthreads();   // ensure all threads finished before next tile
     }
-}</code></pre>
+
+    // -------------------------------------------------------------
+    // 6) Write the TM × TN results back to global memory (vectorised)
+    // -------------------------------------------------------------
+    for (uint m = 0; m < TM; ++m)
+    {
+        for (uint n = 0; n < TN; n += 4)   // store 4 floats at a time
+        {
+            // load existing C values as a float4
+            float4 tmpC = reinterpret_cast<float4 *>(
+                &C[(threadRow * TM + m) * N + threadCol * TN + n])[0];
+
+            // GEMM update
+            tmpC.x = alpha * threadResults[m * TN + n]     + beta * tmpC.x;
+            tmpC.y = alpha * threadResults[m * TN + n + 1] + beta * tmpC.y;
+            tmpC.z = alpha * threadResults[m * TN + n + 2] + beta * tmpC.z;
+            tmpC.w = alpha * threadResults[m * TN + n + 3] + beta * tmpC.w;
+
+            // write back
+            reinterpret_cast<float4 *>(
+                &C[(threadRow * TM + m) * N + threadCol * TN + n])[0] = tmpC;
+        }
+    }
+}
+</code></pre>
 
       <p>
-        The inner computation loop — the outer-product accumulation — is identical between the two kernels. The only differences are in how data enters shared memory and how results leave to global memory.
+        The inner computation loop — the outer-product accumulation — is identical between the two kernels. The only
+        differences are in how data enters shared memory and how results leave to global memory.
       </p>
 
 
@@ -377,29 +713,46 @@ for (uint m = 0; m &lt; TM; ++m) {
       <!-- ─────────────────────────────────────────────────────────── -->
 
       <p>
-        Running <code class="inline">nsys stats</code> on both programs gives us the OS Runtime Summary, CUDA API Summary, GPU Kernel Summary, and memory transfer summaries. Let's walk through each in order.
+        Running <code class="inline">nsys stats</code> on both programs gives us the OS Runtime Summary, CUDA API
+        Summary, GPU Kernel Summary, and memory transfer summaries. Let's walk through each in order.
       </p>
 
       <h3>OS Runtime Summary</h3>
 
       <p>
-        This table shows time the CPU spent inside Linux system calls. The columns are: <strong>Time (%)</strong> — fraction of total CPU-side time; <strong>Num Calls</strong> — how many times this function was called; <strong>Avg / Med / Min / Max</strong> — per-call durations; <strong>StdDev</strong> — how much individual call durations varied.
+        This table shows time the CPU spent inside Linux system calls. The columns are: <strong>Time (%)</strong> —
+        fraction of total CPU-side time; <strong>Num Calls</strong> — how many times this function was called;
+        <strong>Avg / Med / Min / Max</strong> — per-call durations; <strong>StdDev</strong> — how much individual call
+        durations varied.
       </p>
 
       <p>
-        The Min/Max columns are where students often get confused. Take <code class="inline">poll</code> — in the 2D tiling run it shows an Avg of ~50ms but a Min of 1,470ns and a Max of 297ms. This does not mean the program was slow; it means most <code class="inline">poll</code> calls returned instantly (the GPU had already finished) and a few blocked for nearly 300ms (the CPU was waiting for a long kernel). The wide gap between average and max signals outliers, not pathology.
+        The Min/Max columns are where students often get confused. Take <code class="inline">poll</code> — in the 2D
+        tiling run it shows an Avg of ~50ms but a Min of 1,470ns and a Max of 297ms. This does not mean the program was
+        slow; it means most <code class="inline">poll</code> calls returned instantly (the GPU had already finished) and
+        a few blocked for nearly 300ms (the CPU was waiting for a long kernel). The wide gap between average and max
+        signals outliers, not pathology.
       </p>
 
       <p>
-        The two entries that dominate both runs are <code class="inline">poll</code> (~55%) and <code class="inline">pthread_cond_timedwait</code> (~33%). Both are blocking wait calls — the CPU is sitting idle, waiting for the GPU. This is exactly what you want in a GPU program. The 500ms <code class="inline">pthread_cond_timedwait</code> is the CUDA runtime's background thread waiting for GPU work to arrive — it is not your code.
+        The two entries that dominate both runs are <code class="inline">poll</code> (~55%) and <code
+          class="inline">pthread_cond_timedwait</code> (~33%). Both are blocking wait calls — the CPU is sitting idle,
+        waiting for the GPU. This is exactly what you want in a GPU program. The 500ms <code
+          class="inline">pthread_cond_timedwait</code> is the CUDA runtime's background thread waiting for GPU work to
+        arrive — it is not your code.
       </p>
 
       <p>
-        The <code class="inline">ioctl</code> calls (~13%) are the CUDA driver communicating with the GPU kernel module — every kernel launch, every synchronization, every memory operation passes through <code class="inline">ioctl</code> under the hood.
+        The <code class="inline">ioctl</code> calls (~13%) are the CUDA driver communicating with the GPU kernel module
+        — every kernel launch, every synchronization, every memory operation passes through <code
+          class="inline">ioctl</code> under the hood.
       </p>
 
       <div class="callout good">
-        <strong>Key takeaway from osrt_sum:</strong> High <code class="inline">poll</code> and <code class="inline">pthread_cond_timedwait</code> percentages mean the CPU is patiently waiting for the GPU. This is healthy. If you saw heavy <code class="inline">mmap</code> or <code class="inline">malloc</code> calls in your hot path, that would indicate a CPU-side performance problem.
+        <strong>Key takeaway from osrt_sum:</strong> High <code class="inline">poll</code> and <code
+          class="inline">pthread_cond_timedwait</code> percentages mean the CPU is patiently waiting for the GPU. This
+        is healthy. If you saw heavy <code class="inline">mmap</code> or <code class="inline">malloc</code> calls in
+        your hot path, that would indicate a CPU-side performance problem.
       </div>
 
       <h3>CUDA API Summary</h3>
@@ -409,39 +762,58 @@ for (uint m = 0; m &lt; TM; ++m) {
       </p>
 
       <p>
-        In the 2D tiling run, <code class="inline">cudaEventSynchronize</code> takes 74.8% of total time (524ms across 6 calls, one per problem size). This is the <code class="inline">CUDA_CHECK(cudaEventSynchronize(stop))</code> in the timing loop — the CPU waiting for the GPU to finish all 50 timed launches. The Min (1.5ms) is the 128×128 problem and the Max (439ms) is the accumulated time for the 4096×4096 problem with 50 repeats. This is expected behavior, not a bug.
+        In the 2D tiling run, <code class="inline">cudaEventSynchronize</code> takes 74.8% of total time (524ms across 6
+        calls, one per problem size). This is the <code class="inline">CUDA_CHECK(cudaEventSynchronize(stop))</code> in
+        the timing loop — the CPU waiting for the GPU to finish all 50 timed launches. The Min (1.5ms) is the 128×128
+        problem and the Max (439ms) is the accumulated time for the 4096×4096 problem with 50 repeats. This is expected
+        behavior, not a bug.
       </p>
 
       <p>
-        <code class="inline">cudaMalloc</code> takes 19% (133ms). The first call is always slow — 132ms for the first versus ~100µs for subsequent calls — because the first <code class="inline">cudaMalloc</code> initializes the entire CUDA context and CUDA driver. This is a one-time cost.
+        <code class="inline">cudaMalloc</code> takes 19% (133ms). The first call is always slow — 132ms for the first
+        versus ~100µs for subsequent calls — because the first <code class="inline">cudaMalloc</code> initializes the
+        entire CUDA context and CUDA driver. This is a one-time cost.
       </p>
 
       <p>
-        <code class="inline">cudaMemcpy</code> takes 3.1% (21ms) — three copies of a 4096×4096 float matrix (each 67MB, 201MB total). About 7ms per copy gives approximately 9.5 GB/s, consistent with PCIe Gen4 bandwidth.
+        <code class="inline">cudaMemcpy</code> takes 3.1% (21ms) — three copies of a 4096×4096 float matrix (each 67MB,
+        201MB total). About 7ms per copy gives approximately 9.5 GB/s, consistent with PCIe Gen4 bandwidth.
       </p>
 
       <p>
-        <code class="inline">cudaLaunchKernel</code> takes 1.4% (9.5ms across 306 launches). 306 = 6 sizes × (1 warm-up + 50 timed runs). The average is ~31µs per launch call, but the Max is 8.5ms — the first launch for each new size is slower because CUDA may perform just-in-time work for the first invocation of each configuration.
+        <code class="inline">cudaLaunchKernel</code> takes 1.4% (9.5ms across 306 launches). 306 = 6 sizes × (1 warm-up
+        + 50 timed runs). The average is ~31µs per launch call, but the Max is 8.5ms — the first launch for each new
+        size is slower because CUDA may perform just-in-time work for the first invocation of each configuration.
       </p>
 
       <h3>GPU Kernel Summary — the most important nsys table</h3>
 
       <p>
-        The 2D tiling kernel ran 306 instances spanning all six problem sizes (128 to 4096). This produces a wildly heterogeneous distribution: Avg 1.75ms, Median 0.16ms, Min 32µs, Max 8.88ms, StdDev 3.18ms. The median is so much smaller than the average because the small problem sizes (128, 256) pull the median down while the 4096 runs (which take ~8.9ms each) pull the average up.
+        The 2D tiling kernel ran 306 instances spanning all six problem sizes (128 to 4096). This produces a wildly
+        heterogeneous distribution: Avg 1.75ms, Median 0.16ms, Min 32µs, Max 8.88ms, StdDev 3.18ms. The median is so
+        much smaller than the average because the small problem sizes (128, 256) pull the median down while the 4096
+        runs (which take ~8.9ms each) pull the average up.
       </p>
 
       <p>
-        The vectorize program was configured differently — it only ran the 4096×4096 problem (51 instances: 1 warm-up + 50 timed). This produces a tight distribution: Avg 7.57ms, Median 7.63ms, Min 6.94ms, Max 7.84ms, StdDev 229µs. All 51 launches are the same problem, so the kernel time is consistent.
+        The vectorize program was configured differently — it only ran the 4096×4096 problem (51 instances: 1 warm-up +
+        50 timed). This produces a tight distribution: Avg 7.57ms, Median 7.63ms, Min 6.94ms, Max 7.84ms, StdDev 229µs.
+        All 51 launches are the same problem, so the kernel time is consistent.
       </p>
 
       <div class="callout warn">
-        <strong>This is why Min/Max can mislead you.</strong> The 2D tiling nsys run shows a Min of 32µs — that is not a "fast run," it is the tiny 128×128 problem. Always look at the context: how many instances were there, and what sizes did they cover?
+        <strong>This is why Min/Max can mislead you.</strong> The 2D tiling nsys run shows a Min of 32µs — that is not a
+        "fast run," it is the tiny 128×128 problem. Always look at the context: how many instances were there, and what
+        sizes did they cover?
       </div>
 
       <h3>Memory Transfer Summary</h3>
 
       <p>
-        Both programs transferred 201.3MB host-to-device (three 67MB matrices) and zero bytes device-to-host. The results stay on the GPU — the programs never read C back to the CPU. Transfer time was ~7ms per copy in both runs, consistent across the board. There is nothing to optimize here; this is a one-time setup cost outside the timed loop.
+        Both programs transferred 201.3MB host-to-device (three 67MB matrices) and zero bytes device-to-host. The
+        results stay on the GPU — the programs never read C back to the CPU. Transfer time was ~7ms per copy in both
+        runs, consistent across the board. There is nothing to optimize here; this is a one-time setup cost outside the
+        timed loop.
       </p>
 
 
@@ -450,7 +822,9 @@ for (uint m = 0; m &lt; TM; ++m) {
       <!-- ─────────────────────────────────────────────────────────── -->
 
       <p>
-        Both kernels were profiled with <code class="inline">ncu --set full -s 1 -c 1</code> at 4096×4096. This is the apples-to-apples comparison. The launch configuration for both was identical: Grid 32×32×1, Block 256×1×1, 1024 total blocks, 262,144 threads.
+        Both kernels were profiled with <code class="inline">ncu --set full -s 1 -c 1</code> at 4096×4096. This is the
+        apples-to-apples comparison. The launch configuration for both was identical: Grid 32×32×1, Block 256×1×1, 1024
+        total blocks, 262,144 threads.
       </p>
 
       <div class="perf-row">
@@ -469,13 +843,15 @@ for (uint m = 0; m &lt; TM; ++m) {
       </div>
 
       <p>
-        Note that ncu adds significant profiling overhead (37 replay passes), so absolute GFLOPS numbers are lower than the clean non-profiled runs. The ratio between the two kernels is what matters.
+        Note that ncu adds significant profiling overhead (37 replay passes), so absolute GFLOPS numbers are lower than
+        the clean non-profiled runs. The ratio between the two kernels is what matters.
       </p>
 
       <h3>Section: GPU Speed of Light Throughput</h3>
 
       <p>
-        This section answers: of everything this GPU can do, what fraction are you using? Every number is a percentage of hardware peak.
+        This section answers: of everything this GPU can do, what fraction are you using? Every number is a percentage
+        of hardware peak.
       </p>
 
       <div class="legend">
@@ -486,11 +862,15 @@ for (uint m = 0; m &lt; TM; ++m) {
       <div class="bar-group">
         <div class="bar-label">Compute (SM) Throughput — % of peak FP32 math</div>
         <div class="bar-row">
-          <div class="bar-track"><div class="bar-fill-v" style="width:59.05%"></div></div>
+          <div class="bar-track">
+            <div class="bar-fill-v" style="width:59.05%"></div>
+          </div>
           <div class="bar-val v">59.1%</div>
         </div>
         <div class="bar-row">
-          <div class="bar-track"><div class="bar-fill-t" style="width:54.12%"></div></div>
+          <div class="bar-track">
+            <div class="bar-fill-t" style="width:54.12%"></div>
+          </div>
           <div class="bar-val t">54.1%</div>
         </div>
       </div>
@@ -498,11 +878,15 @@ for (uint m = 0; m &lt; TM; ++m) {
       <div class="bar-group" style="margin-top:0.9rem">
         <div class="bar-label">Memory Throughput — % of peak memory bandwidth</div>
         <div class="bar-row">
-          <div class="bar-track"><div class="bar-fill-v" style="width:78.80%"></div></div>
+          <div class="bar-track">
+            <div class="bar-fill-v" style="width:78.80%"></div>
+          </div>
           <div class="bar-val v">78.8%</div>
         </div>
         <div class="bar-row">
-          <div class="bar-track"><div class="bar-fill-t" style="width:71.32%"></div></div>
+          <div class="bar-track">
+            <div class="bar-fill-t" style="width:71.32%"></div>
+          </div>
           <div class="bar-val t">71.3%</div>
         </div>
       </div>
@@ -510,11 +894,15 @@ for (uint m = 0; m &lt; TM; ++m) {
       <div class="bar-group" style="margin-top:0.9rem">
         <div class="bar-label">L1/TEX Cache Throughput</div>
         <div class="bar-row">
-          <div class="bar-track"><div class="bar-fill-v" style="width:84.0%"></div></div>
+          <div class="bar-track">
+            <div class="bar-fill-v" style="width:84.0%"></div>
+          </div>
           <div class="bar-val v">84.0%</div>
         </div>
         <div class="bar-row">
-          <div class="bar-track"><div class="bar-fill-t" style="width:76.0%"></div></div>
+          <div class="bar-track">
+            <div class="bar-fill-t" style="width:76.0%"></div>
+          </div>
           <div class="bar-val t">76.0%</div>
         </div>
       </div>
@@ -522,36 +910,53 @@ for (uint m = 0; m &lt; TM; ++m) {
       <div class="bar-group" style="margin-top:0.9rem">
         <div class="bar-label">DRAM Throughput</div>
         <div class="bar-row">
-          <div class="bar-track"><div class="bar-fill-v" style="width:15.95%"></div></div>
+          <div class="bar-track">
+            <div class="bar-fill-v" style="width:15.95%"></div>
+          </div>
           <div class="bar-val v">16.0%</div>
         </div>
         <div class="bar-row">
-          <div class="bar-track"><div class="bar-fill-t" style="width:13.53%"></div></div>
+          <div class="bar-track">
+            <div class="bar-fill-t" style="width:13.53%"></div>
+          </div>
           <div class="bar-val t">13.5%</div>
         </div>
       </div>
 
       <p style="margin-top:1rem">
-        <strong>The most important observation here</strong> is that for both kernels, Memory Throughput (~79% and ~71%) significantly exceeds Compute Throughput (~59% and ~54%). ncu flags this explicitly: <em>"Memory is more heavily utilized than Compute — look at the Memory Workload Analysis section to identify the L1 bottleneck."</em>
+        <strong>The most important observation here</strong> is that for both kernels, Memory Throughput (~79% and ~71%)
+        significantly exceeds Compute Throughput (~59% and ~54%). ncu flags this explicitly: <em>"Memory is more heavily
+          utilized than Compute — look at the Memory Workload Analysis section to identify the L1 bottleneck."</em>
       </p>
 
       <p>
-        Both kernels are <strong>memory-bound</strong>. The L1/TEX cache is the tallest bar in both cases — shared memory accesses travel through L1/TEX, so the inner computation loop, which reads heavily from shared memory, is saturating the L1 cache bandwidth. The DRAM bars are low (14–16%) because shared memory tiling is doing its job: most data comes from L1, not from DRAM.
+        Both kernels are <strong>memory-bound</strong>. The L1/TEX cache is the tallest bar in both cases — shared
+        memory accesses travel through L1/TEX, so the inner computation loop, which reads heavily from shared memory, is
+        saturating the L1 cache bandwidth. The DRAM bars are low (14–16%) because shared memory tiling is doing its job:
+        most data comes from L1, not from DRAM.
       </p>
 
       <p>
-        The roofline chart confirms this: Vectorize achieves 52% of FP32 peak and Tiling achieves 44%. Both sit on the memory bandwidth slope of the roofline, not on the compute ceiling. The path to higher performance is not faster math — it is better memory access patterns.
+        The roofline chart confirms this: Vectorize achieves 52% of FP32 peak and Tiling achieves 44%. Both sit on the
+        memory bandwidth slope of the roofline, not on the compute ceiling. The path to higher performance is not faster
+        math — it is better memory access patterns.
       </p>
 
       <h3>Section: Compute Workload Analysis</h3>
 
       <p>
-        <strong>IPC (Instructions Per Cycle)</strong> measures how many instructions the SM executes per clock cycle. The theoretical maximum on the A6000 is 4 IPC. There are two variants: IPC Active (only counting cycles where the SM was doing something) and IPC Elapsed (averaged over all clock cycles including idle time).
+        <strong>IPC (Instructions Per Cycle)</strong> measures how many instructions the SM executes per clock cycle.
+        The theoretical maximum on the A6000 is 4 IPC. There are two variants: IPC Active (only counting cycles where
+        the SM was doing something) and IPC Elapsed (averaged over all clock cycles including idle time).
       </p>
 
       <table class="metric-table">
         <thead>
-          <tr><th>Metric</th><th class="col-vec">Vectorize</th><th class="col-tile">2D Tiling</th></tr>
+          <tr>
+            <th>Metric</th>
+            <th class="col-vec">Vectorize</th>
+            <th class="col-tile">2D Tiling</th>
+          </tr>
         </thead>
         <tbody>
           <tr>
@@ -578,18 +983,28 @@ for (uint m = 0; m &lt; TM; ++m) {
       </table>
 
       <p>
-        The IPC Active gap (2.52 vs 2.31) shows that Vectorize is getting more useful work done per active cycle. The FMA pipeline — the hardware unit that executes Fused Multiply-Add instructions, which is exactly what your inner loop <code class="inline">threadResults[m*TN+n] += regM[m] * regN[n]</code> compiles to — is 56.5% utilized in Vectorize versus 48.9% in Tiling. Vectorize is spending proportionally more of its time doing real floating-point math.
+        The IPC Active gap (2.52 vs 2.31) shows that Vectorize is getting more useful work done per active cycle. The
+        FMA pipeline — the hardware unit that executes Fused Multiply-Add instructions, which is exactly what your inner
+        loop <code class="inline">threadResults[m*TN+n] += regM[m] * regN[n]</code> compiles to — is 56.5% utilized in
+        Vectorize versus 48.9% in Tiling. Vectorize is spending proportionally more of its time doing real
+        floating-point math.
       </p>
 
       <h3>Section: Memory Workload Analysis</h3>
 
       <p>
-        This is the most actionable section — it tells you exactly where memory bandwidth is being wasted and by how much.
+        This is the most actionable section — it tells you exactly where memory bandwidth is being wasted and by how
+        much.
       </p>
 
       <table class="metric-table">
         <thead>
-          <tr><th>Access type</th><th class="col-vec">Vectorize</th><th class="col-tile">2D Tiling</th><th>Winner</th></tr>
+          <tr>
+            <th>Access type</th>
+            <th class="col-vec">Vectorize</th>
+            <th class="col-tile">2D Tiling</th>
+            <th>Winner</th>
+          </tr>
         </thead>
         <tbody>
           <tr>
@@ -644,106 +1059,214 @@ for (uint m = 0; m &lt; TM; ++m) {
       </table>
 
       <p>
-        <strong>Global memory coalescing</strong> is where float4 has the biggest impact. When threads in a warp each issue a <code class="inline">float4</code> load, 32 threads × 16 bytes = 512 bytes are brought in per warp in one aligned transaction. The result: 98% of every fetched cache sector (31.5/32 bytes) is actually used. With scalar loads in the Tiling kernel, only 28.9/32 bytes are used — not terrible, but measurably worse. For global stores the difference is dramatic: Tiling uses only 4.0/32 bytes per sector (12.5% utilization), while Vectorize reaches 16.0/32 (50%). This 4× improvement in store coalescing is the single largest performance factor separating the two kernels.
+        <strong>Global memory coalescing</strong> is where float4 has the biggest impact. When threads in a warp each
+        issue a <code class="inline">float4</code> load, 32 threads × 16 bytes = 512 bytes are brought in per warp in
+        one aligned transaction. The result: 98% of every fetched cache sector (31.5/32 bytes) is actually used. With
+        scalar loads in the Tiling kernel, only 28.9/32 bytes are used — not terrible, but measurably worse. For global
+        stores the difference is dramatic: Tiling uses only 4.0/32 bytes per sector (12.5% utilization), while Vectorize
+        reaches 16.0/32 (50%). This 4× improvement in store coalescing is the single largest performance factor
+        separating the two kernels.
       </p>
 
       <p>
-        Why are the Tiling stores so wasteful? Each thread writes a TM×TN = 64-element result sub-tile back to C. The write pattern is: thread 0 writes rows <code class="inline">threadRow*8 + 0..7</code> at columns <code class="inline">threadCol*8 + 0..7</code>; thread 1 writes the same row range at adjacent columns. These writes are not contiguous in memory across a warp — they jump by the full matrix stride (4096 floats = 16384 bytes) between rows. Each row write hits a different cache sector and only writes 4 bytes of a 32-byte sector, wasting 87.5% of the bandwidth.
+        Why are the Tiling stores so wasteful? Each thread writes a TM×TN = 64-element result sub-tile back to C. The
+        write pattern is: thread 0 writes rows <code class="inline">threadRow*8 + 0..7</code> at columns <code
+          class="inline">threadCol*8 + 0..7</code>; thread 1 writes the same row range at adjacent columns. These writes
+        are not contiguous in memory across a warp — they jump by the full matrix stride (4096 floats = 16384 bytes)
+        between rows. Each row write hits a different cache sector and only writes 4 bytes of a 32-byte sector, wasting
+        87.5% of the bandwidth.
       </p>
 
       <div class="callout">
-        <strong>The L1 hit rate paradox.</strong> Vectorize has a much lower L1 hit rate (4.5%) than Tiling (18.5%). This seems bad but is actually expected. When <code class="inline">float4</code> loads fetch 16 bytes per thread from global memory on the way into shared memory, the GPU issues these as wide transactions that tend to bypass or evict L1 — they go straight to L2 and shared memory. The data still arrives efficiently; it just doesn't show up in L1 hit rate. The absolute throughput (116 GB/s vs 98.6 GB/s) confirms Vectorize is actually moving more data faster.
+        <strong>The L1 hit rate paradox.</strong> Vectorize has a much lower L1 hit rate (4.5%) than Tiling (18.5%).
+        This seems bad but is actually expected. When <code class="inline">float4</code> loads fetch 16 bytes per thread
+        from global memory on the way into shared memory, the GPU issues these as wide transactions that tend to bypass
+        or evict L1 — they go straight to L2 and shared memory. The data still arrives efficiently; it just doesn't show
+        up in L1 hit rate. The absolute throughput (116 GB/s vs 98.6 GB/s) confirms Vectorize is actually moving more
+        data faster.
       </div>
 
       <p>
-        <strong>Shared memory bank conflicts</strong> are essentially identical between the two kernels (~40% of shared load wavefronts are "excessive"). This makes sense — the inner computation loop, which reads from <code class="inline">As</code> and <code class="inline">Bs</code> to fill <code class="inline">regM</code> and <code class="inline">regN</code>, is identical in both kernels. The vectorized loading into shared memory changed the write pattern but not the read pattern.
+        <strong>Shared memory bank conflicts</strong> are essentially identical between the two kernels (~40% of shared
+        load wavefronts are "excessive"). This makes sense — the inner computation loop, which reads from <code
+          class="inline">As</code> and <code class="inline">Bs</code> to fill <code class="inline">regM</code> and <code
+          class="inline">regN</code>, is identical in both kernels. The vectorized loading into shared memory changed
+        the write pattern but not the read pattern.
       </p>
 
       <p>
-        The bank conflict math: GPU shared memory has 32 banks. <code class="inline">As</code> is stored as <code class="inline">As[row * BK + col]</code> with BK=8. When the inner loop reads <code class="inline">As[(threadRow * TM + i) * BK + dotIdx]</code>, threads with different <code class="inline">threadRow</code> values access addresses spaced by <code class="inline">TM * BK = 8 * 8 = 64</code> bytes apart. Since 64 bytes / 4 bytes per float = 16 floats, and 16 mod 32 banks = 16, adjacent threads hit banks that are 16 apart — creating 4-way conflicts. The fix: declare <code class="inline">float As[BM * (BK + 1)]</code> (add 1 float of padding per row). This shifts each row's starting bank by 1, breaking the conflict pattern entirely.
+        The bank conflict math: GPU shared memory has 32 banks. <code class="inline">As</code> is stored as <code
+          class="inline">As[row * BK + col]</code> with BK=8. When the inner loop reads <code
+          class="inline">As[(threadRow * TM + i) * BK + dotIdx]</code>, threads with different <code
+          class="inline">threadRow</code> values access addresses spaced by <code
+          class="inline">TM * BK = 8 * 8 = 64</code> bytes apart. Since 64 bytes / 4 bytes per float = 16 floats, and 16
+        mod 32 banks = 16, adjacent threads hit banks that are 16 apart — creating 4-way conflicts. The fix: declare
+        <code class="inline">float As[BM * (BK + 1)]</code> (add 1 float of padding per row). This shifts each row's
+        starting bank by 1, breaking the conflict pattern entirely.
       </p>
 
       <p>
-        Vectorize also shows shared store bank conflicts (33.3% waste, 28% estimated speedup) that Tiling does not report. The float4 writes into shared memory during the A tile transpose create a new conflict pattern that scalar writes did not have. So Vectorize traded one form of inefficiency for another in this specific path.
+        Vectorize also shows shared store bank conflicts (33.3% waste, 28% estimated speedup) that Tiling does not
+        report. The float4 writes into shared memory during the A tile transpose create a new conflict pattern that
+        scalar writes did not have. So Vectorize traded one form of inefficiency for another in this specific path.
       </p>
 
       <h3>Section: Scheduler Statistics and Warp State</h3>
 
       <p>
-        The scheduler's job is to find a warp ready to execute and issue an instruction every cycle. Here is the picture for both kernels:
+        The scheduler's job is to find a warp ready to execute and issue an instruction every cycle. Here is the picture
+        for both kernels:
       </p>
 
       <table class="metric-table">
         <thead>
-          <tr><th>Metric</th><th class="col-vec">Vectorize</th><th class="col-tile">2D Tiling</th></tr>
+          <tr>
+            <th>Metric</th>
+            <th class="col-vec">Vectorize</th>
+            <th class="col-tile">2D Tiling</th>
+          </tr>
         </thead>
         <tbody>
-          <tr><td>Cycles with eligible warp (scheduler busy)</td><td class="col-vec">63.0%</td><td class="col-tile">57.7%</td></tr>
-          <tr><td>Cycles with NO eligible warp (wasted)</td><td class="col-vec">37.1%</td><td class="col-tile">42.3%</td></tr>
-          <tr><td>Active warps per scheduler</td><td class="col-vec">3.87</td><td class="col-tile">3.87</td></tr>
-          <tr><td>Eligible warps per scheduler</td><td class="col-vec">1.57</td><td class="col-tile">1.73</td></tr>
-          <tr><td>Warp cycles per issued instruction</td><td class="col-vec">6.15</td><td class="col-tile">6.71</td></tr>
+          <tr>
+            <td>Cycles with eligible warp (scheduler busy)</td>
+            <td class="col-vec">63.0%</td>
+            <td class="col-tile">57.7%</td>
+          </tr>
+          <tr>
+            <td>Cycles with NO eligible warp (wasted)</td>
+            <td class="col-vec">37.1%</td>
+            <td class="col-tile">42.3%</td>
+          </tr>
+          <tr>
+            <td>Active warps per scheduler</td>
+            <td class="col-vec">3.87</td>
+            <td class="col-tile">3.87</td>
+          </tr>
+          <tr>
+            <td>Eligible warps per scheduler</td>
+            <td class="col-vec">1.57</td>
+            <td class="col-tile">1.73</td>
+          </tr>
+          <tr>
+            <td>Warp cycles per issued instruction</td>
+            <td class="col-vec">6.15</td>
+            <td class="col-tile">6.71</td>
+          </tr>
         </tbody>
       </table>
 
       <p>
-        Both kernels have identical active warps per scheduler (3.87) — the same number of warps are alive. But Vectorize wastes fewer scheduler cycles (37.1% vs 42.3%). This is counterintuitive given that Vectorize also has fewer eligible warps (1.57 vs 1.73). The resolution: when Vectorize warps do stall, they stall for fewer cycles. Warp cycles per instruction is 6.15 for Vectorize versus 6.71 for Tiling — each instruction takes fewer cycles to complete in Vectorize because better coalescing means fewer cache replay transactions, which means shorter memory access latency, which means warps become eligible again sooner.
+        Both kernels have identical active warps per scheduler (3.87) — the same number of warps are alive. But
+        Vectorize wastes fewer scheduler cycles (37.1% vs 42.3%). This is counterintuitive given that Vectorize also has
+        fewer eligible warps (1.57 vs 1.73). The resolution: when Vectorize warps do stall, they stall for fewer cycles.
+        Warp cycles per instruction is 6.15 for Vectorize versus 6.71 for Tiling — each instruction takes fewer cycles
+        to complete in Vectorize because better coalescing means fewer cache replay transactions, which means shorter
+        memory access latency, which means warps become eligible again sooner.
       </p>
 
       <p>
-        The A6000's scheduler can handle up to 12 warps per scheduler slot. Both kernels only give it ~4 active warps. This is the occupancy ceiling — there simply are not enough warps to hide the remaining memory latency through latency hiding.
+        The A6000's scheduler can handle up to 12 warps per scheduler slot. Both kernels only give it ~4 active warps.
+        This is the occupancy ceiling — there simply are not enough warps to hide the remaining memory latency through
+        latency hiding.
       </p>
 
       <h3>Section: Launch Statistics and Occupancy</h3>
 
       <table class="metric-table">
         <thead>
-          <tr><th>Metric</th><th class="col-vec">Vectorize</th><th class="col-tile">2D Tiling</th></tr>
+          <tr>
+            <th>Metric</th>
+            <th class="col-vec">Vectorize</th>
+            <th class="col-tile">2D Tiling</th>
+          </tr>
         </thead>
         <tbody>
-          <tr><td>Registers per thread</td><td class="col-vec">116</td><td class="col-tile">128</td></tr>
-          <tr><td>Block limit (register bottleneck)</td><td class="col-vec">2 blocks/SM</td><td class="col-tile">2 blocks/SM</td></tr>
-          <tr><td>Block limit (shared memory)</td><td class="col-vec">7 blocks/SM</td><td class="col-tile">7 blocks/SM</td></tr>
-          <tr><td>Theoretical occupancy</td><td class="col-vec">33.33%</td><td class="col-tile">33.33%</td></tr>
-          <tr><td>Achieved occupancy</td><td class="col-vec">32.24%</td><td class="col-tile">32.26%</td></tr>
-          <tr><td>Waves per SM</td><td class="col-vec">6.10</td><td class="col-tile">6.10</td></tr>
+          <tr>
+            <td>Registers per thread</td>
+            <td class="col-vec">116</td>
+            <td class="col-tile">128</td>
+          </tr>
+          <tr>
+            <td>Block limit (register bottleneck)</td>
+            <td class="col-vec">2 blocks/SM</td>
+            <td class="col-tile">2 blocks/SM</td>
+          </tr>
+          <tr>
+            <td>Block limit (shared memory)</td>
+            <td class="col-vec">7 blocks/SM</td>
+            <td class="col-tile">7 blocks/SM</td>
+          </tr>
+          <tr>
+            <td>Theoretical occupancy</td>
+            <td class="col-vec">33.33%</td>
+            <td class="col-tile">33.33%</td>
+          </tr>
+          <tr>
+            <td>Achieved occupancy</td>
+            <td class="col-vec">32.24%</td>
+            <td class="col-tile">32.26%</td>
+          </tr>
+          <tr>
+            <td>Waves per SM</td>
+            <td class="col-vec">6.10</td>
+            <td class="col-tile">6.10</td>
+          </tr>
         </tbody>
       </table>
 
       <p>
-        Occupancy is limited by registers for both kernels. The A6000 SM has 65,536 registers. With 128 registers per thread × 256 threads per block = 32,768 registers per block, only 2 blocks fit per SM. This gives 2 blocks × 8 warps per block = 16 active warps out of a maximum 48, for 33.3% theoretical occupancy. Vectorize uses 116 registers per thread (29,696 per block), which still rounds up to the same 2-block limit — so both kernels have identical occupancy.
+        Occupancy is limited by registers for both kernels. The A6000 SM has 65,536 registers. With 128 registers per
+        thread × 256 threads per block = 32,768 registers per block, only 2 blocks fit per SM. This gives 2 blocks × 8
+        warps per block = 16 active warps out of a maximum 48, for 33.3% theoretical occupancy. Vectorize uses 116
+        registers per thread (29,696 per block), which still rounds up to the same 2-block limit — so both kernels have
+        identical occupancy.
       </p>
 
       <p>
-        The 116 vs 128 register difference is meaningful for future tuning. If tile sizes were adjusted so that the per-block register budget dropped below 21,846 registers, Vectorize could fit 3 blocks per SM while Tiling could not — that would open a real occupancy gap. For this specific configuration (BM=BN=128, TM=TN=8), the ceiling happens to be the same.
+        The 116 vs 128 register difference is meaningful for future tuning. If tile sizes were adjusted so that the
+        per-block register budget dropped below 21,846 registers, Vectorize could fit 3 blocks per SM while Tiling could
+        not — that would open a real occupancy gap. For this specific configuration (BM=BN=128, TM=TN=8), the ceiling
+        happens to be the same.
       </p>
 
       <p>
-        Waves per SM is 6.10 for both: 1024 blocks / 84 SMs ÷ 2 blocks per SM = 6.1 waves. Each full wave is 84 SMs × 2 blocks = 168 concurrent blocks; 1024 / 168 = 6.1, meaning 6 full waves and a partial 7th wave.
+        Waves per SM is 6.10 for both: 1024 blocks / 84 SMs ÷ 2 blocks per SM = 6.1 waves. Each full wave is 84 SMs × 2
+        blocks = 168 concurrent blocks; 1024 / 168 = 6.1, meaning 6 full waves and a partial 7th wave.
       </p>
 
       <h3>Section: GPU Workload Distribution (Load Imbalance)</h3>
 
       <p>
-        Both 4096 runs show a new warning not present in small-problem profiling: SM load imbalance. The hottest SM runs about 6.4% more active cycles than the average SM.
+        Both 4096 runs show a new warning not present in small-problem profiling: SM load imbalance. The hottest SM runs
+        about 6.4% more active cycles than the average SM.
       </p>
 
       <p>
-        The cause: 1024 blocks does not divide evenly across 84 SMs. With 2 blocks per SM, you need 512 SMs to process all blocks simultaneously — but you only have 84. So blocks are distributed in waves: 84 SMs × 2 blocks/SM = 168 blocks per wave, for 6.095 waves. The partial last wave means 1024 − (6 × 168) = 16 blocks remain. These land on 16 SMs, leaving 68 SMs idle during the tail wave. The 16 "hot" SMs carry one extra block's worth of work and finish last — determining the kernel's end time. The ~6% penalty is the time the other 68 SMs are idle waiting for the last 16 to complete.
+        The cause: 1024 blocks does not divide evenly across 84 SMs. With 2 blocks per SM, you need 512 SMs to process
+        all blocks simultaneously — but you only have 84. So blocks are distributed in waves: 84 SMs × 2 blocks/SM = 168
+        blocks per wave, for 6.095 waves. The partial last wave means 1024 − (6 × 168) = 16 blocks remain. These land on
+        16 SMs, leaving 68 SMs idle during the tail wave. The 16 "hot" SMs carry one extra block's worth of work and
+        finish last — determining the kernel's end time. The ~6% penalty is the time the other 68 SMs are idle waiting
+        for the last 16 to complete.
       </p>
 
       <p>
-        The fix: pad matrix dimensions to a multiple of 128 × 84 = 10,752 to ensure perfectly even distribution, or accept this ~6% tail-wave tax as inherent to the grid configuration.
+        The fix: pad matrix dimensions to a multiple of 128 × 84 = 10,752 to ensure perfectly even distribution, or
+        accept this ~6% tail-wave tax as inherent to the grid configuration.
       </p>
 
       <h3>Section: Source Counters</h3>
 
       <p>
-        <strong>Branch Efficiency: 100%</strong> and <strong>Avg. Divergent Branches: 0</strong> in both kernels. Every conditional in the code (the loop bounds, the tile index checks) is resolved identically for all threads in every warp. No warp divergence at all.
+        <strong>Branch Efficiency: 100%</strong> and <strong>Avg. Divergent Branches: 0</strong> in both kernels. Every
+        conditional in the code (the loop bounds, the tile index checks) is resolved identically for all threads in
+        every warp. No warp divergence at all.
       </p>
 
       <p>
-        The uncoalesced global access summary confirms the coalescing picture from the Memory section. Tiling has 29.4M excessive sectors (18% of total), Vectorize has only 4.2M (3% of total). This 6× reduction in wasted global memory transactions is the primary mechanism behind the performance gap.
+        The uncoalesced global access summary confirms the coalescing picture from the Memory section. Tiling has 29.4M
+        excessive sectors (18% of total), Vectorize has only 4.2M (3% of total). This 6× reduction in wasted global
+        memory transactions is the primary mechanism behind the performance gap.
       </p>
 
 
@@ -801,7 +1324,9 @@ for (uint m = 0; m &lt; TM; ++m) {
       </table>
 
       <div class="callout warn">
-        <strong>The est. speedup numbers are additive estimates, not multiplicative guarantees.</strong> Fixing shared bank conflicts will not give you a perfectly clean 31% gain — some of that gain overlaps with the store coalescing fix, some is already partially masked by the load imbalance. They are directions, not promises.
+        <strong>The est. speedup numbers are additive estimates, not multiplicative guarantees.</strong> Fixing shared
+        bank conflicts will not give you a perfectly clean 31% gain — some of that gain overlaps with the store
+        coalescing fix, some is already partially masked by the load imbalance. They are directions, not promises.
       </div>
 
 
@@ -810,40 +1335,62 @@ for (uint m = 0; m &lt; TM; ++m) {
       <!-- ─────────────────────────────────────────────────────────── -->
 
       <p>
-        <strong>1. Always use nsys before ncu.</strong> nsys told us that 100% of GPU time is in our kernel, that memory transfers are a one-time cost outside the hot loop, and that the vectorize kernel runs consistently at ~7.6ms per launch. Only after establishing this system-level picture does ncu's deep dive become interpretable.
+        <strong>1. Always use nsys before ncu.</strong> nsys told us that 100% of GPU time is in our kernel, that memory
+        transfers are a one-time cost outside the hot loop, and that the vectorize kernel runs consistently at ~7.6ms
+        per launch. Only after establishing this system-level picture does ncu's deep dive become interpretable.
       </p>
 
       <p>
-        <strong>2. Both kernels are memory-bound, not compute-bound.</strong> L1/TEX throughput is the dominant bar in the Speed of Light chart for both. The roofline puts Vec at 52% of FP32 peak and Tiling at 44% — both sitting on the memory bandwidth slope. Optimizing the inner FMA loop would do nothing; the bottleneck is how fast data arrives from the cache hierarchy.
+        <strong>2. Both kernels are memory-bound, not compute-bound.</strong> L1/TEX throughput is the dominant bar in
+        the Speed of Light chart for both. The roofline puts Vec at 52% of FP32 peak and Tiling at 44% — both sitting on
+        the memory bandwidth slope. Optimizing the inner FMA loop would do nothing; the bottleneck is how fast data
+        arrives from the cache hierarchy.
       </p>
 
       <p>
-        <strong>3. float4 loads solved the global load coalescing problem.</strong> Uncoalesced excess dropped from 18% (Tiling) to 3% (Vec). A single <code class="inline">float4</code> load brings in 4 floats in one aligned 128-bit instruction, and when 32 threads each issue one, the entire warp's tile row is covered in one transaction.
+        <strong>3. float4 loads solved the global load coalescing problem.</strong> Uncoalesced excess dropped from 18%
+        (Tiling) to 3% (Vec). A single <code class="inline">float4</code> load brings in 4 floats in one aligned 128-bit
+        instruction, and when 32 threads each issue one, the entire warp's tile row is covered in one transaction.
       </p>
 
       <p>
-        <strong>4. The write-back to C is the largest remaining opportunity in Tiling.</strong> 4.0/32 bytes used per store sector means 87.5% of every cache line fetch-for-write is wasted. Vectorize improved this to 16.0/32 using float4 stores, but the strided row-by-row write pattern still leaves half of each sector unused. A proper fix requires either transposing the thread-to-output mapping or implementing a dedicated store stage.
+        <strong>4. The write-back to C is the largest remaining opportunity in Tiling.</strong> 4.0/32 bytes used per
+        store sector means 87.5% of every cache line fetch-for-write is wasted. Vectorize improved this to 16.0/32 using
+        float4 stores, but the strided row-by-row write pattern still leaves half of each sector unused. A proper fix
+        requires either transposing the thread-to-output mapping or implementing a dedicated store stage.
       </p>
 
       <p>
-        <strong>5. Shared memory bank conflicts are the biggest unfixed problem in both kernels.</strong> ~40% of shared load wavefronts are conflict-induced in both. The fix is one line of code: add a single float of padding to the row stride of <code class="inline">As</code> and <code class="inline">Bs</code>. The estimated 31–34% speedup from this single change makes it the highest-priority optimization left.
+        <strong>5. Shared memory bank conflicts are the biggest unfixed problem in both kernels.</strong> ~40% of shared
+        load wavefronts are conflict-induced in both. The fix is one line of code: add a single float of padding to the
+        row stride of <code class="inline">As</code> and <code class="inline">Bs</code>. The estimated 31–34% speedup
+        from this single change makes it the highest-priority optimization left.
       </p>
 
       <p>
-        <strong>6. Occupancy is register-bound and identical for both.</strong> 128 registers (Tiling) and 116 registers (Vectorize) per thread both yield exactly 2 blocks per SM and 33.3% theoretical occupancy. Vectorize's lower register count provides no occupancy benefit at this tile size — but it would at different tile configurations, making it a useful investment for future tuning.
+        <strong>6. Occupancy is register-bound and identical for both.</strong> 128 registers (Tiling) and 116 registers
+        (Vectorize) per thread both yield exactly 2 blocks per SM and 33.3% theoretical occupancy. Vectorize's lower
+        register count provides no occupancy benefit at this tile size — but it would at different tile configurations,
+        making it a useful investment for future tuning.
       </p>
 
       <p>
-        <strong>7. The path to cuBLAS-level performance is clear.</strong> Fix shared bank conflicts (padding), fix global store coalescing (float4 stores with proper layout), and push occupancy above 50% (reduce register pressure). These three changes in combination would bring both kernels from ~50% peak performance much closer to cuBLAS-like throughput.
+        <strong>7. The path to cuBLAS-level performance is clear.</strong> Fix shared bank conflicts (padding), fix
+        global store coalescing (float4 stores with proper layout), and push occupancy above 50% (reduce register
+        pressure). These three changes in combination would bring both kernels from ~50% peak performance much closer to
+        cuBLAS-like throughput.
       </p>
 
       <!-- ─────────────────────────────────────────────────────────── -->
       <h2>References</h2>
       <!-- ─────────────────────────────────────────────────────────── -->
       <ul>
-        <li>Simon Boehm: <a href="https://siboehm.com/articles/22/CUDA-MMM" target="_blank">How to Optimize a CUDA Matmul Kernel</a></li>
-        <li>NVIDIA: <a href="https://docs.nvidia.com/nsight-systems/" target="_blank">Nsight Systems Documentation</a> and <a href="https://docs.nvidia.com/nsight-compute/" target="_blank">Nsight Compute Documentation</a></li>
-        <li>NVIDIA: <a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html" target="_blank">CUDA C Programming Guide (CUDA Basics)</a></li>
+        <li>Simon Boehm: <a href="https://siboehm.com/articles/22/CUDA-MMM" target="_blank">How to Optimize a CUDA
+            Matmul Kernel</a></li>
+        <li>NVIDIA: <a href="https://docs.nvidia.com/nsight-systems/" target="_blank">Nsight Systems Documentation</a>
+          and <a href="https://docs.nvidia.com/nsight-compute/" target="_blank">Nsight Compute Documentation</a></li>
+        <li>NVIDIA: <a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html" target="_blank">CUDA C
+            Programming Guide (CUDA Basics)</a></li>
       </ul>
 
     </article>
@@ -853,7 +1400,8 @@ for (uint m = 0; m &lt; TM; ++m) {
       <h3>Subscribe to the Mailing List</h3>
       <p>Get notified when I publish new posts on AI hardware, deep learning, and HPC systems.</p>
       <div class="substack-cta">
-        <a href="https://vinayrjumani.substack.com/" target="_blank" class="substack-btn">[ Subscribe on Substack ↗ ]</a>
+        <a href="https://vinayrjumani.substack.com/" target="_blank" class="substack-btn">[ Subscribe on Substack ↗
+          ]</a>
       </div>
     </section>
 
@@ -866,7 +1414,7 @@ for (uint m = 0; m &lt; TM; ++m) {
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
-  
+
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>

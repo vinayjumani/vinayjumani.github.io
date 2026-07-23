@@ -451,258 +451,197 @@
 
             <p>
                 The step that makes this work is the <strong>all-reduce</strong> - a collective communication operation
-                where every GPU sends its gradient to every other GPU and receives the sum back, done efficiently in a ring or
-                tree pattern rather than N&sup2; point-to-point messages. This is the only communication DP needs per step,
-                which is why it scales so well up to a point.
+                where
+                every GPU sends its gradient to every other GPU and receives the sum back, done efficiently in a ring or
+                tree
+                pattern rather than N&sup2; point-to-point messages. This is the only communication DP needs per step,
+                which is
+                why it scales so well up to a point.
             </p>
 
             <div class="callout warn">
-                <strong>The wall DP hits:</strong> Data parallelism copies the <em>entire model</em> onto every GPU. If the
-                model itself does not fit on one GPU - the 120GB example above on an 80GB A100 - DP alone cannot help, no
+                <strong>The wall DP hits:</strong> data parallelism copies the <em>entire model</em> onto every GPU. If
+                the
+                model itself does not fit on one GPU - the 120GB example above on an 80GB A100 - DP alone cannot help,
+                no
                 matter how many GPUs you add. This is exactly the problem model parallelism solves.
             </div>
+
 
             <!-- ─────────────────────────────────────────────────────────── -->
             <h2>Tensor (Model) Parallelism: Megatron-LM</h2>
             <!-- ─────────────────────────────────────────────────────────── -->
 
+            <p>
+                Tensor parallelism, introduced in the <a href="https://arxiv.org/abs/1909.08053"
+                    target="_blank">Megatron-LM
+                    paper</a>, takes the opposite approach from DP: instead of copying the whole model, split individual
+                weight
+                matrices across GPUs, so no single GPU ever holds the full matrix. This is called
+                <strong>intra-layer</strong>
+                parallelism, because the split happens inside one layer's math, not between layers.
+            </p>
+
+            <p>
+                Say a linear layer computes <code class="inline">Y = GELU(X &middot; A)</code>, where X is the input
+                activations and A is a weight matrix. There are two ways to split A across 2 GPUs, and only one of them
+                avoids
+                an expensive synchronization in the middle of the layer.
+            </p>
+
+            <h3>Method 1: Row-wise split of A (needs a mid-layer sync)</h3>
+
+            <p>
+                Split A by rows into A1 (top half) and A2 (bottom half), one on each GPU. To multiply correctly, X must
+                be
+                split by <em>columns</em> to match: X = [X1, X2]. Each GPU computes a partial product, but neither GPU's
+                partial
+                product is a valid final answer on its own - X1&middot;A1 and X2&middot;A2 must be <strong>summed
+                    together</strong>
+                before the GELU nonlinearity can be applied, since GELU is nonlinear and cannot be split across a sum:
+            </p>
+
+            <pre><code class="language-text">GPU 1: partial_1 = X1 · A1
+GPU 2: partial_2 = X2 · A2
+[ALL-REDUCE: sum partial_1 + partial_2 across GPUs]
+Y = GELU(partial_1 + partial_2)   ← needs the full sum on every GPU first</code></pre>
+
+            <p>
+                This works, but it forces a synchronization point <em>inside</em> the layer, before the activation
+                function can
+                even run.
+            </p>
+
+            <h3>Method 2: Column-wise split of A (no mid-layer sync)</h3>
+
+            <p>
+                Instead, split A by <em>columns</em>: A = [A1, A2]. Now X does not need to be split at all - every GPU
+                keeps
+                the full X. Each GPU computes:
+            </p>
+
+            <pre><code class="language-text">GPU 1: Y1 = GELU(X · A1)
+GPU 2: Y2 = GELU(X · A2)</code></pre>
+
+            <p>
+                Because GELU is applied elementwise, GELU(X&middot;A1) and GELU(X&middot;A2) are each already complete,
+                correct
+                results for their own columns of Y - no partial sum needed, no sync required mid-layer. Y = [Y1, Y2] is
+                simply
+                the column-wise concatenation of the two GPUs' outputs. <strong>This is why Megatron-LM's MLP block
+                    splits the
+                    first linear layer column-wise</strong>: it lets the nonlinearity run independently on each GPU.
+            </p>
+
+            <p>
+                The second linear layer in the MLP block (the one projecting back down) is then split <em>row-wise</em>,
+                because its input (Y, already split by columns across GPUs) lines up perfectly with a row-wise split of
+                the
+                second weight matrix - and this second layer has no nonlinearity in the way, so the required all-reduce
+                happens
+                exactly once, at the very end of the MLP block, instead of in the middle of it. Combining a column-split
+                first
+                layer with a row-split second layer means the entire two-layer MLP needs only <strong>one all-reduce
+                    total</strong>
+                per forward pass (and one per backward pass), not one per layer.
+            </p>
+
             <div class="insight-box">
-                <h4>The Intuitive Puzzle</h4>
+                <h4>Why splitting the matrix gives the same answer</h4>
                 <p>
-                    Imagine NVIDIA hands you an 8-GPU node. Great! But your 70B parameter weight matrix is far too
-                    massive to fit on any single GPU. How do you split a single matrix multiplication across 8 GPUs
-                    without altering a single number in the final output - and without making GPUs wait on each other after
-                    every multiply?
+                    It can feel like magic that GELU(X&middot;A1) concatenated with GELU(X&middot;A2) equals
+                    GELU(X&middot;A) computed
+                    on the full A. The reason is that matrix multiplication by columns is independent - column j of the
+                    output
+                    Y depends <em>only</em> on column j of A, never on any other column. Splitting A by columns is
+                    therefore not
+                    an approximation; it is an exact, mathematically lossless partition of independent work. The only
+                    thing that
+                    changes is which GPU does the arithmetic for which columns.
                 </p>
             </div>
 
-            <p>
-                Tensor parallelism, introduced in the <a href="https://arxiv.org/abs/1909.08053"
-                    target="_blank">Megatron-LM paper</a>, solves this by splitting individual weight matrices across
-                GPUs. This is called <strong>intra-layer</strong> parallelism because the partition happens inside one
-                layer's math.
-            </p>
+            <h3>Splitting self-attention</h3>
 
             <p>
-                Consider a standard MLP layer computing <code class="inline">Y = GELU(X &middot; A)</code>, where input
-                activations <code class="inline">X</code> have shape <code class="inline">[batch, 4096]</code> and weight
-                matrix <code class="inline">A</code> has shape <code class="inline">[4096, 16384]</code>. There are two
-                ways to split <code class="inline">A</code> across 2 GPUs - and only one avoids an expensive mid-layer
-                synchronization bottleneck.
+                Multi-head attention splits even more naturally: each attention head is already an independent
+                computation, so
+                Megatron-LM simply assigns different heads to different GPUs - head 1 and head 2 to GPU 1, head 3 and
+                head 4 to
+                GPU 2, and so on. The Q, K, V projection matrices are split column-wise (same reasoning as Method 2
+                above), each
+                GPU computes attention for its own heads completely independently, and the output projection matrix is
+                split
+                row-wise so the final all-reduce happens once, after the heads are concatenated back together.
             </p>
-
-            <h3>Method 1: Row-wise split of A (forces a mid-layer sync)</h3>
-
-            <p>
-                Split <code class="inline">A</code> by rows into <code class="inline">A1</code> and <code
-                    class="inline">A2</code> (each <code class="inline">[2048, 16384]</code>). To multiply validly, <code
-                    class="inline">X</code> must be split by columns: <code class="inline">X = [X1, X2]</code> where each <code
-                    class="inline">X_i</code> is <code class="inline">[batch, 2048]</code>. Each GPU computes a partial
-                matrix product:
-            </p>
-
-            <pre><code class="language-text">GPU 0: partial_0 = X1 · A1   # [batch, 16384]
-GPU 1: partial_1 = X2 · A2   # [batch, 16384]
-
-# BAD: Neither partial output is valid until summed!
-[ALL-REDUCE: sum partial_0 + partial_1 across GPUs]
-Y = GELU(partial_0 + partial_1)   # Must wait for full sum before GELU can execute</code></pre>
-
-            <p>
-                Because GELU is a non-linear activation function, <code
-                    class="inline">GELU(Z1 + Z2) &ne; GELU(Z1) + GELU(Z2)</code>. The partial products <em>must</em> be
-                summed across all GPUs via an <code class="inline">All-Reduce</code> before GELU can run. This stalls execution
-                smack in the middle of the layer.
-            </p>
-
-            <h3>Method 2: Column-wise split of A (the Megatron-LM breakthrough)</h3>
-
-            <p>
-                Instead, split <code class="inline">A</code> by <em>columns</em>: <code class="inline">A = [A1 | A2]</code>
-                where <code class="inline">A1, A2</code> are each <code class="inline">[4096, 8192]</code>. Now <code
-                    class="inline">X</code> (<code class="inline">[batch, 4096]</code>) is duplicated on both GPUs. Each
-                GPU computes:
-            </p>
-
-            <pre><code class="language-text">GPU 0: Y0 = GELU(X · A1)   # [batch, 8192] - Complete, final output for cols 0..8191
-GPU 1: Y1 = GELU(X · A2)   # [batch, 8192] - Complete, final output for cols 8192..16383</code></pre>
-
-            <p>
-                Because GELU applies elementwise, <code class="inline">GELU(X &middot; A1)</code> is already the exact,
-                correct final result for the first 8,192 columns. <strong>No partial sum is required, and zero communication
-                    happens!</strong>
-            </p>
-
-            <h3>The Paired MLP Architecture</h3>
-
-            <p>
-                Megatron-LM pairs this column-parallel first layer with a <strong>row-parallel second layer</strong> (which
-                projects back from 16,384 to 4,096). Because layer 1's output is already sharded by column (<code
-                    class="inline">[Y0 | Y1]</code>), it feeds directly into row-split weight matrices <code
-                    class="inline">B1, B2</code> without re-sharding. And because layer 2 has no non-linearity at its
-                output, the partial product summation happens at the very end of the block in a single <code
-                    class="inline">All-Reduce</code>.
-            </p>
-
-            <pre><code class="language-text">[Input X] (Replicated: batch × 4096)
-   │
-   ├──► GPU 0: [X] @ [A1: 4096×8192] ──► GELU ──► [Y0: batch×8192] (Column Sharded) ──┐
-   │                                                                               ├──► [Row-Parallel Layer 2]
-   └──► GPU 1: [X] @ [A2: 4096×8192] ──► GELU ──► [Y1: batch×8192] (Column Sharded) ──┘
-                                                                                   │
-        GPU 0: [Y0] @ [B1: 8192×4096] = Z0 (Partial: batch×4096) ┐                 │
-                                                                 ├──► [ALL-REDUCE (SUM)] ──► [Z Full] (Replicated)
-        GPU 1: [Y1] @ [B2: 8192×4096] = Z1 (Partial: batch×4096) ┘</code></pre>
 
             <div class="callout good">
-                <strong>The "Aha!" Moment:</strong> Column-parallel takes <em>replicated input</em> and produces
-                <em>sharded output</em>. Row-parallel takes <em>sharded input</em> and produces <em>partial output</em>
-                that requires an <code class="inline">All-Reduce</code>. By pairing them back-to-back, Megatron-LM achieves
-                full matrix parallelism with only <strong>1 All-Reduce per MLP block</strong>!
+                <strong>Key takeaway:</strong> tensor parallelism needs exactly 2 all-reduces per transformer block
+                during the
+                forward pass (one after the attention block, one after the MLP block) - and 2 more during the backward
+                pass.
+                This communication overhead is why tensor parallelism is normally kept <em>inside</em> a single node,
+                where GPUs
+                are connected by fast NVLink rather than slower inter-node networking.
             </div>
 
-            <!-- ─────────────────────────────────────────────────────────── -->
-            <h2>Advanced Concept: Sequence Parallelism (Megatron-SP)</h2>
-            <!-- ─────────────────────────────────────────────────────────── -->
-
-            <p>
-                Standard Tensor Parallelism shards weight matrices in Linear layers, but leaves non-tensor-parallel
-                regions - specifically <strong>LayerNorm</strong> and <strong>Dropout</strong> - replicated across all GPUs.
-                For large models (e.g. Llama 3 70B), activations stored in these replicated LayerNorm/Dropout layers can consume
-                over 30% of total memory.
-            </p>
-
-            <p>
-                <strong>Sequence Parallelism (Megatron-SP)</strong> eliminates this redundancy by sharding activations along
-                the <em>sequence dimension</em> (<code class="inline">S / N</code>) during LayerNorm and Dropout.
-            </p>
-
-            <table class="metric-table">
-                <thead>
-                    <tr>
-                        <th>Region</th>
-                        <th>Standard TP Activation Layout</th>
-                        <th>Sequence Parallel (SP) Activation Layout</th>
-                        <th>Communication Op</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>LayerNorm / Dropout</td>
-                        <td>Replicated (<code class="inline">[S, H]</code> on all GPUs)</td>
-                        <td class="col-a">Sharded by Sequence (<code class="inline">[S/N, H]</code> per GPU)</td>
-                        <td><span class="kernel-badge kb-vec">Reduce-Scatter</span></td>
-                    </tr>
-                    <tr>
-                        <td>Column-Parallel GEMM</td>
-                        <td>Replicated Input &rarr; Sharded Output</td>
-                        <td>All-Gather input &rarr; Column GEMM</td>
-                        <td><span class="kernel-badge kb-vec">All-Gather</span></td>
-                    </tr>
-                    <tr>
-                        <td>Row-Parallel GEMM</td>
-                        <td>Sharded Input &rarr; Partial Output</td>
-                        <td>Row GEMM &rarr; Reduce-Scatter output</td>
-                        <td><span class="kernel-badge kb-vec">Reduce-Scatter</span></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <p>
-                The brilliant insight of Megatron-SP is that replacing 1 <code class="inline">All-Reduce</code> with 1
-                <code class="inline">All-Gather</code> plus 1 <code class="inline">Reduce-Scatter</code> transfers the
-                <strong>exact same total byte volume</strong> over the network (<code class="inline">2 &times; (N-1)/N &times; bytes</code>).
-                Sequence Parallelism gives you massive memory savings on activation buffers with <strong>zero added communication latency</strong>.
-            </p>
-
-            <!-- ─────────────────────────────────────────────────────────── -->
-            <h2>Hardware Interconnects: Why TP Stays Inside a Node</h2>
-            <!-- ─────────────────────────────────────────────────────────── -->
-
-            <p>
-                Why can't we just use Tensor Parallelism across 1,000 GPUs and call it a day? The answer comes down to
-                hardware bandwidth constraints:
-            </p>
-
-            <table class="metric-table">
-                <thead>
-                    <tr>
-                        <th>Interconnect Layer</th>
-                        <th>Technology</th>
-                        <th>Bidirectional Bandwidth</th>
-                        <th>Relative Speed</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="col-a">Intra-Node (GPU-to-GPU)</td>
-                        <td class="col-a">NVIDIA NVLink 4 (H100)</td>
-                        <td class="col-a"><strong>900 GB/s</strong></td>
-                        <td class="col-a"><strong>18x faster</strong></td>
-                    </tr>
-                    <tr>
-                        <td>Intra-Node Baseline</td>
-                        <td>NVIDIA NVLink 3 (A100)</td>
-                        <td>600 GB/s</td>
-                        <td>12x faster</td>
-                    </tr>
-                    <tr>
-                        <td>PCIe Bus</td>
-                        <td>PCIe Gen5 x16</td>
-                        <td>128 GB/s</td>
-                        <td>2.5x faster</td>
-                    </tr>
-                    <tr>
-                        <td class="col-c">Inter-Node (Rack-to-Rack)</td>
-                        <td class="col-c">InfiniBand NDR / RoCE v2</td>
-                        <td class="col-c"><strong>50 – 100 GB/s</strong></td>
-                        <td class="col-c">Baseline (1x)</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <p>
-                Because Tensor Parallelism executes 2 <code class="inline">All-Reduce</code> operations per transformer
-                layer, running TP across nodes over 50 GB/s InfiniBand causes the GPU compute cores to stall constantly waiting
-                for network packets. <strong>TP is strictly restricted to an 8-GPU NVLink domain (1 physical node).</strong>
-            </p>
 
             <!-- ─────────────────────────────────────────────────────────── -->
             <h2>Pipeline Parallelism: GPipe</h2>
             <!-- ─────────────────────────────────────────────────────────── -->
 
-            <div class="insight-box">
-                <h4>The Factory Assembly Line Analogy</h4>
-                <p>
-                    Imagine an automobile factory with 4 specialized stations: Station 1 (Chassis), Station 2 (Engine),
-                    Station 3 (Interior), Station 4 (Paint). If Station 2 waits for Station 1 to assemble all 100 cars
-                    before touching an engine, 75% of your factory workers stand around idle. With <strong>micro-batching</strong>,
-                    the moment Car #1 leaves Station 1, Station 2 starts mounting its engine while Station 1 immediately begins Chassis #2.
-                </p>
-            </div>
-
             <p>
-                Where Tensor Parallelism splits <em>inside</em> a layer, Pipeline Parallelism (<a
-                    href="https://arxiv.org/abs/1811.06965" target="_blank">GPipe</a>) splits <em>between</em> layers
-                (inter-layer). A 32-layer model on 4 GPUs places layers 1–8 on GPU 0, 9–16 on GPU 1, 17–24 on GPU 2, and 25–32 on GPU 3.
+                Where tensor parallelism splits <em>inside</em> a layer, pipeline parallelism (from the <a
+                    href="https://arxiv.org/abs/1811.06965" target="_blank">GPipe paper</a>) splits <em>between</em>
+                layers -
+                an <strong>inter-layer</strong> approach. If a model has 32 transformer layers and you have 4 GPUs, GPU
+                1 gets
+                layers 1-8, GPU 2 gets layers 9-16, GPU 3 gets layers 17-24, and GPU 4 gets layers 25-32.
             </p>
 
-            <h3>Micro-batching and Bubble Reduction</h3>
+            <h3>The bubble problem</h3>
 
             <p>
-                By splitting a batch into <code class="inline">M</code> micro-batches, GPipe keeps all pipeline stages
-                busy concurrently:
+                The naive version of this is wasteful. During the forward pass, GPU 1 must finish processing the batch
+                through
+                layers 1-8 before GPU 2 can even start on layers 9-16 - GPU 2, 3, and 4 sit completely idle while GPU 1
+                works.
+                Then GPU 1 sits idle while GPU 2 works, and so on. The same problem occurs in reverse during the
+                backward
+                pass: GPU N must wait for gradients from GPU N+1 before it can compute its own gradients. These idle
+                gaps are
+                called <strong>bubbles</strong>, and in the naive scheme they can waste more than half of every GPU's
+                time.
             </p>
 
-            <pre><code class="language-text">Time step:     1      2      3      4      5      6      7      8
-GPU 0 (L1-8):   mb1    mb2    mb3    mb4    [FWD Done -> Start BWD]
-GPU 1 (L9-16):  -      mb1    mb2    mb3    mb4    ...
-GPU 2 (L17-24): -      -      mb1    mb2    mb3    mb4    ...
-GPU 3 (L25-32): -      -      -      mb1    mb2    mb3    mb4</code></pre>
+            <h3>The fix: micro-batching</h3>
 
             <p>
-                Because pipeline stages only transfer activation boundary tensors between adjacent GPUs once per micro-batch,
-                the communication volume is minimal. This makes Pipeline Parallelism ideal for bridging across <strong>inter-node InfiniBand networks</strong>.
+                GPipe's solution is to split each mini-batch into smaller <strong>micro-batches</strong> and pipeline
+                them
+                through the GPUs like an assembly line. Instead of waiting for the entire batch to clear GPU 1 before
+                GPU 2
+                starts, GPU 2 can start on micro-batch 1 the moment GPU 1 finishes it - while GPU 1 immediately moves on
+                to
+                micro-batch 2.
+            </p>
+
+            <pre><code class="language-text">Time step:    1     2     3     4     5     6
+GPU 1 (L1-8): mb1   mb2   mb3   mb4    -     -
+GPU 2 (L9-16): -    mb1   mb2   mb3   mb4    -
+GPU 3 (L17-24): -    -    mb1   mb2   mb3   mb4
+GPU 4 (L25-32): -    -     -    mb1   mb2   mb3</code></pre>
+
+            <p>
+                There is still a bubble at the start (while the pipeline "fills up") and at the end (while it "drains"),
+                but
+                once the pipeline is full, all 4 GPUs are busy simultaneously on different micro-batches. GPipe's
+                analysis
+                shows the bubble fraction shrinks as the number of micro-batches M grows relative to the number of
+                pipeline
+                stages K - specifically, the paper recommends <strong>M &ge; 4K</strong> to keep the bubble overhead
+                small
+                enough that throughput scales close to linearly with the number of GPUs.
             </p>
 
             <div class="bar-group">
@@ -730,29 +669,67 @@ GPU 3 (L25-32): -      -      -      mb1    mb2    mb3    mb4</code></pre>
                 </div>
             </div>
 
+            <p style="font-size:0.85rem; color:var(--blog-muted); margin-top:-0.6rem;">
+                Illustrative bubble-fraction values for K=4 stages, following the (K&minus;1)/(M+K&minus;1) relationship
+                from
+                the GPipe paper - the exact fraction shrinks as M grows relative to K.
+            </p>
+
+
             <!-- ─────────────────────────────────────────────────────────── -->
             <h2>Activation Checkpointing</h2>
             <!-- ─────────────────────────────────────────────────────────── -->
 
             <p>
-                Pipelining micro-batches increases memory pressure because activations from multiple micro-batches must remain
-                in memory simultaneously. <strong>Activation checkpointing</strong> resolves this by trading compute for memory:
+                Micro-batching solves the bubble problem, but pipelining also means more activations must be kept in
+                memory
+                at once (multiple micro-batches are in flight simultaneously). Activation checkpointing is the technique
+                that
+                makes this affordable.
+            </p>
+
+            <p>
+                Normally, the backward pass needs the activations from <em>every</em> layer's forward pass to compute
+                gradients, so all of them must be kept in memory until backprop reaches that layer. Activation
+                checkpointing
+                instead:
             </p>
 
             <ol>
-                <li>Store activations only at key block boundaries (checkpoints).</li>
-                <li>Discard intermediate activations within the block during the forward pass.</li>
-                <li>Recompute discarded activations on-the-fly during the backward pass starting from the checkpoint.</li>
+                <li>Only stores activations at a handful of <strong>checkpoint</strong> points - for example, at the end
+                    of
+                    every transformer block, rather than after every single operation inside it.</li>
+                <li>Discards everything in between the checkpoints during the forward pass.</li>
+                <li>During the backward pass, when gradients for a discarded region are needed,
+                    <strong>recomputes</strong>
+                    that region's forward pass on the fly, starting from the nearest earlier checkpoint.</li>
             </ol>
+
+            <p>
+                This is a direct memory-for-compute trade: you pay for a second forward pass through the recomputed
+                sections,
+                but you no longer need to store every intermediate activation in memory simultaneously. For deep
+                transformer
+                stacks, where activation memory can dwarf parameter memory, this trade is usually worth it.
+            </p>
+
 
             <!-- ─────────────────────────────────────────────────────────── -->
             <h2>Mixed Precision Training</h2>
             <!-- ─────────────────────────────────────────────────────────── -->
 
             <p>
-                Mixed precision training (<a href="https://arxiv.org/abs/1710.03740" target="_blank">Micikevicius et al.</a>)
-                executes forward/backward math in FP16 or BF16 while maintaining an FP32 master copy of weights for optimizer updates.
+                Historically, training used FP32 (32-bit floating point) throughout. The <a
+                    href="https://arxiv.org/abs/1710.03740" target="_blank">mixed precision training paper</a> showed
+                that
+                running the forward pass, backward pass, and gradient computation in FP16 (16-bit) - while keeping a
+                single
+                FP32 "master copy" of the weights for the actual update - preserves accuracy while roughly halving
+                memory use
+                and substantially speeding up the matrix math.
             </p>
+
+            <h3>FP32 vs FP16 vs BF16</h3>
 
             <table class="metric-table">
                 <thead>
@@ -761,7 +738,7 @@ GPU 3 (L25-32): -      -      -      mb1    mb2    mb3    mb4</code></pre>
                         <th>Total bits</th>
                         <th>Exponent bits</th>
                         <th>Mantissa bits</th>
-                        <th>Key Characteristic</th>
+                        <th>Notes</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -770,141 +747,298 @@ GPU 3 (L25-32): -      -      -      mb1    mb2    mb3    mb4</code></pre>
                         <td>32</td>
                         <td>8</td>
                         <td>23</td>
-                        <td>Full precision baseline</td>
+                        <td>The historical baseline; wide range and high precision</td>
                     </tr>
                     <tr>
                         <td>FP16</td>
                         <td>16</td>
                         <td>5</td>
                         <td>10</td>
-                        <td>Prone to underflow; requires <strong>Loss Scaling</strong></td>
+                        <td>Narrow exponent range - values below ~2<sup>&minus;24</sup> underflow to zero</td>
                     </tr>
                     <tr>
-                        <td class="col-b">BF16</td>
-                        <td class="col-b">16</td>
-                        <td class="col-b">8</td>
-                        <td class="col-b">7</td>
-                        <td class="col-b">Same dynamic range as FP32; standard on A100/H100</td>
+                        <td>BF16 (Brain Float, Google Brain)</td>
+                        <td>16</td>
+                        <td>8</td>
+                        <td>7</td>
+                        <td>Same exponent range as FP32 (fewer underflow issues), less precision; native on TPUs</td>
                     </tr>
                 </tbody>
             </table>
+
+            <p>
+                BF16 keeps FP32's 8 exponent bits (the same dynamic range) but shrinks the mantissa to 7 bits, trading
+                precision for range. FP16 does the opposite: it keeps more mantissa bits (10) but shrinks the exponent
+                to 5
+                bits, trading range for precision - which is exactly why FP16 needs the loss scaling trick described
+                below,
+                while BF16 mostly does not.
+            </p>
+
+            <h3>The training loop with master weights</h3>
+
+            <pre><code class="language-text">FP32 master weights
+        │  (cast down)
+        ▼
+FP16 working copy  ──► forward pass (FP16) ──► loss
+                                                  │
+                        FP16 gradients  ◄─── backward pass (FP16)
+                                                  │
+                        (cast up to FP32)         ▼
+                                          FP32 weight update (Adam)
+                                                  │
+                                                  ▼
+                                     updated FP32 master weights</code></pre>
+
+            <p>
+                A natural question: if you are keeping <em>both</em> an FP32 master copy and an FP16 working copy,
+                doesn't
+                that add memory rather than save it? It does add the 4-byte master copy, but the FP16 copy only costs 2
+                bytes
+                instead of 4 - and, more importantly, every activation saved during the forward pass for use in the
+                backward
+                pass is now stored in FP16 instead of FP32. Since activations, not the weights themselves, dominate
+                memory for
+                large batch sizes, the net effect is close to a 2x memory reduction despite carrying the extra master
+                copy.
+            </p>
+
+            <h3>Loss scaling</h3>
+
+            <p>
+                FP16's 5-bit exponent means any gradient value smaller than roughly 2<sup>&minus;24</sup> gets flushed
+                to
+                exactly zero (this region is called subnormal/denormal, and FP16 cannot represent it usefully). In deep
+                networks, many gradients naturally fall in this tiny range and would simply vanish if computed directly
+                in
+                FP16.
+            </p>
+
+            <p>
+                The fix: multiply the loss by a large scaling factor (for example, 1024 or higher) right before the
+                backward
+                pass. Since gradients scale linearly with the loss, every gradient in the backward pass is scaled up by
+                the
+                same factor, pushing values that would have underflowed to zero back into FP16's representable range.
+                Right
+                before the optimizer step, the gradients are divided by the same factor to undo the scaling - so the
+                final
+                weight update is mathematically identical to running in full FP32, but no gradient information was lost
+                to
+                underflow along the way.
+            </p>
+
 
             <!-- ─────────────────────────────────────────────────────────── -->
             <h2>DeepSpeed ZeRO: Removing Redundancy in Data Parallelism</h2>
             <!-- ─────────────────────────────────────────────────────────── -->
 
             <p>
-                Standard Data Parallelism redundantly replicates 100% of model states across all <code class="inline">N</code> GPUs.
-                DeepSpeed <a href="https://arxiv.org/abs/1910.02054v3" target="_blank">ZeRO</a> (Zero Redundancy Optimizer)
-                eliminates this waste by partitioning model states:
+                Recall the 120GB model-state example from earlier - and recall that plain data parallelism
+                <strong>copies the
+                    full model states onto every single GPU</strong>. With N GPUs doing data parallelism, that 120GB is
+                redundantly
+                stored N times, even though every GPU only ever needs its own local shard of the optimizer computation.
+                The
+                <a href="https://arxiv.org/abs/1910.02054v3" target="_blank">ZeRO paper</a> (Zero Redundancy Optimizer,
+                from
+                DeepSpeed) removes exactly this redundancy by <strong>partitioning</strong> model states across the
+                data-parallel
+                GPUs instead of replicating them.
+            </p>
+
+            <p>
+                ZeRO has three progressive stages, each partitioning one more category of model state across the N GPUs:
             </p>
 
             <table class="metric-table">
                 <thead>
                     <tr>
                         <th>Stage</th>
-                        <th>Partitioned State Across N GPUs</th>
-                        <th>Memory Per GPU (16 Bytes/Param Baseline)</th>
+                        <th>What gets partitioned across N GPUs</th>
+                        <th>Memory per GPU (16 bytes/param baseline, N GPUs)</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>Baseline DP</td>
-                        <td>None (100% Replicated)</td>
-                        <td>16 &times; params</td>
+                        <td>Nothing - every GPU holds full parameters, gradients, optimizer states</td>
+                        <td>16 bytes &times; params (no reduction)</td>
                     </tr>
                     <tr>
-                        <td class="col-a">ZeRO-1 (P<sub>os</sub>)</td>
-                        <td class="col-a">Optimizer States (Momentum &amp; Variance)</td>
-                        <td class="col-a">4 &times; params + (12 &times; params) / N</td>
+                        <td class="col-a">P<sub>os</sub> (Stage 1)</td>
+                        <td class="col-a">Optimizer states only (momentum + variance)</td>
+                        <td class="col-a">4 bytes &times; params + (12 bytes &times; params) / N</td>
                     </tr>
                     <tr>
-                        <td class="col-b">ZeRO-2 (P<sub>os+g</sub>)</td>
-                        <td class="col-b">Optimizer States + Gradients</td>
-                        <td class="col-b">4 &times; params + (14 &times; params) / N</td>
+                        <td class="col-b">P<sub>os+g</sub> (Stage 2)</td>
+                        <td class="col-b">Optimizer states + gradients</td>
+                        <td class="col-b">4 bytes &times; params + (14 bytes &times; params) / N</td>
                     </tr>
                     <tr>
-                        <td class="col-c">ZeRO-3 (P<sub>os+g+p</sub>)</td>
-                        <td class="col-c">Optimizer States + Gradients + Parameters</td>
-                        <td class="col-c">(16 &times; params) / N</td>
+                        <td class="col-c">P<sub>os+g+p</sub> (Stage 3)</td>
+                        <td class="col-c">Optimizer states + gradients + parameters</td>
+                        <td class="col-c">(16 bytes &times; params) / N</td>
                     </tr>
                 </tbody>
             </table>
 
-            <!-- ─────────────────────────────────────────────────────────── -->
-            <h2>Putting It Together: 3D Parallelism Configurator</h2>
-            <!-- ─────────────────────────────────────────────────────────── -->
-
             <p>
-                Production training of frontier models (like Llama 3 70B/405B) combines all techniques into a <strong>3D Parallelism grid</strong>.
-                Here is how a real-world 256-GPU cluster (32 nodes &times; 8 GPUs/node) is configured:
+                At Stage 3, memory per GPU shrinks in direct proportion to N - the more GPUs you add, the less memory
+                each one
+                needs for model states, since every GPU only ever materializes the full parameter set momentarily (via
+                an
+                all-gather) right when it needs it for computation, then releases it again.
             </p>
 
-            <pre><code class="language-text">Global Cluster: 256 GPUs (32 Nodes × 8 GPUs/Node)
-
-  ├── Tensor Parallelism (TP)   = 8   (1 Node; NVLink @ 900 GB/s)
-  ├── Pipeline Parallelism (PP) = 4   (4 Nodes deep; InfiniBand @ 100 GB/s)
-  └── Data Parallelism (DP+ZeRO)= 8   (32 Nodes / (1 × 4) = 8 DP Replicas)
-
-Total Allocation = 8 (TP) × 4 (PP) × 8 (DP) = 256 GPUs</code></pre>
-
-            <div class="perf-row">
-                <div class="perf-card a">
-                    <p class="pnum">TP = 8</p>
-                    <p class="plabel">Intra-Node (NVLink)</p>
-                </div>
-                <div class="perf-card b">
-                    <p class="pnum">PP = 4</p>
-                    <p class="plabel">Inter-Node (InfiniBand)</p>
-                </div>
-                <div class="perf-card c">
-                    <p class="pnum">DP = 8</p>
-                    <p class="plabel">ZeRO-1 Sharded</p>
-                </div>
+            <div class="callout good">
+                <strong>Key takeaway:</strong> ZeRO does not change the mathematics of training at all - it produces
+                numerically identical results to standard data parallelism. It only changes <em>where</em> each piece of
+                the
+                model state physically lives, replacing N redundant full copies with N complementary shards that
+                reassemble
+                on demand.
             </div>
 
             <p>
-                <strong>Why this configuration?</strong>
+                Because full parameters are only reassembled transiently, ZeRO relies heavily on the same collective
+                operations as DP and tensor parallelism - <strong>all-gather</strong> to reconstruct a full tensor from
+                shards
+                right before it's needed, and <strong>reduce-scatter</strong> to both average gradients and immediately
+                shard
+                the result, combining what would otherwise be an all-reduce followed by a separate partition step into
+                one
+                communication call.
             </p>
+
+
+            <!-- ─────────────────────────────────────────────────────────── -->
+            <h2>Putting It Together: 3D Parallelism</h2>
+            <!-- ─────────────────────────────────────────────────────────── -->
+
+            <p>
+                In practice, large model training combines all three axes rather than picking one:
+            </p>
+
             <ul>
-                <li><strong>TP=8:</strong> Fits within a single 8-GPU NVLink node to handle the high-frequency <code class="inline">All-Reduce</code> communications at 900 GB/s.</li>
-                <li><strong>PP=4:</strong> Splits 80 transformer layers across 4 nodes (20 layers/node), communicating activations across InfiniBand.</li>
-                <li><strong>DP=8 + ZeRO-1:</strong> Replicates the 32-GPU TP+PP model 8 times to scale global batch size while sharding Adam optimizer states.</li>
+                <li><strong>Tensor parallelism</strong> within a node (fast NVLink), splitting individual layers across
+                    a
+                    handful of GPUs to fit a single transformer block's weights.</li>
+                <li><strong>Pipeline parallelism</strong> across nodes, splitting the model's depth (its stack of
+                    layers) so
+                    each node only needs to hold a fraction of the total layers.</li>
+                <li><strong>Data parallelism</strong> across replicas of the entire tensor+pipeline group, scaling
+                    throughput
+                    by processing more batches in parallel - often combined with ZeRO to avoid redundantly storing
+                    optimizer
+                    states within each data-parallel replica.</li>
             </ul>
+
+            <p>
+                Each axis solves a different bottleneck: tensor parallelism solves "this one layer doesn't fit,"
+                pipeline
+                parallelism solves "this whole model doesn't fit," and data parallelism (with ZeRO) solves "we want more
+                throughput without redundantly storing what we don't have to." Combining all three is often called
+                <strong>3D parallelism</strong>, and it's the standard recipe behind training the largest publicly known
+                language models.
+            </p>
+
 
             <!-- ─────────────────────────────────────────────────────────── -->
             <h2>Key Takeaways</h2>
             <!-- ─────────────────────────────────────────────────────────── -->
 
             <p>
-                <strong>1. Model states (16 bytes/param) dominate memory.</strong> A 7.5B model needs 120GB before holding a single activation buffer.
+                <strong>1. Model states, not just weights, are the real memory bill.</strong> A 7.5B parameter model in
+                mixed
+                precision with Adam needs roughly 16 bytes per parameter across FP16 weights, FP16 gradients, and FP32
+                master
+                weights + momentum + variance - 120GB before a single activation is stored.
             </p>
+
             <p>
-                <strong>2. Column-parallel paired with Row-parallel is the core of Megatron-LM.</strong> Column splitting avoids mid-layer non-linear synchronization, reducing communication to 1 <code class="inline">All-Reduce</code> per MLP block.
+                <strong>2. Data parallelism scales throughput but not model size.</strong> It replicates the entire
+                model on
+                every GPU and averages gradients via all-reduce - simple and effective, but useless once the model
+                itself
+                doesn't fit on one GPU.
             </p>
+
             <p>
-                <strong>3. Sequence Parallelism (SP) shards non-tensor regions for free.</strong> By replacing <code class="inline">All-Reduce</code> with <code class="inline">All-Gather</code> + <code class="inline">Reduce-Scatter</code>, SP shards LayerNorm/Dropout activations with zero extra network traffic.
+                <strong>3. Tensor parallelism splits inside a layer.</strong> Column-wise splitting of the first MLP
+                matrix
+                avoids a mid-layer synchronization by keeping GELU's nonlinearity independent per GPU; pairing it with a
+                row-wise split of the second matrix collapses the whole MLP block down to a single all-reduce.
             </p>
+
             <p>
-                <strong>4. Interconnect speed dictates parallelism layout.</strong> High-frequency TP requires NVLink (900 GB/s), while PP and DP tolerate lower-bandwidth InfiniBand (100 GB/s).
+                <strong>4. Pipeline parallelism splits across layers, and lives or dies on micro-batching.</strong>
+                Naive
+                layer-splitting wastes most of your GPU time in bubbles; GPipe's micro-batch pipelining with M &ge; 4K
+                keeps
+                the bubble overhead small enough for near-linear scaling.
             </p>
+
             <p>
-                <strong>5. 3D Parallelism is the production standard.</strong> TP handles intra-node layer splitting, PP handles inter-node depth splitting, and DP+ZeRO scales global throughput across thousands of GPUs.
+                <strong>5. Activation checkpointing trades compute for memory</strong> by only storing activations at
+                block
+                boundaries and recomputing everything in between during the backward pass - essential once pipelining
+                keeps
+                multiple micro-batches in flight simultaneously.
+            </p>
+
+            <p>
+                <strong>6. Mixed precision training roughly halves memory and speeds up matmuls</strong>, provided you
+                keep an
+                FP32 master weight copy and use loss scaling to stop small FP16 gradients from underflowing to zero.
+            </p>
+
+            <p>
+                <strong>7. ZeRO removes data parallelism's biggest inefficiency</strong> - full model-state redundancy
+                across
+                GPUs - by partitioning optimizer states, gradients, and eventually parameters across the data-parallel
+                group,
+                shrinking per-GPU memory in direct proportion to the number of GPUs, with zero change to the training
+                math.
+            </p>
+
+            <p>
+                <strong>8. Real large-scale training combines all of the above</strong> as 3D parallelism: tensor
+                parallelism
+                within a node, pipeline parallelism across nodes, and data parallelism (usually with ZeRO) across
+                replicas of
+                the whole setup.
             </p>
 
             <!-- ─────────────────────────────────────────────────────────── -->
             <h2>References</h2>
             <!-- ─────────────────────────────────────────────────────────── -->
             <ul>
-                <li>Shoeybi et al.: <a href="https://arxiv.org/abs/1909.08053" target="_blank">Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism</a></li>
-                <li>Korthikanti et al.: <a href="https://arxiv.org/abs/2205.05198" target="_blank">Reducing Activation Recomputation in Large Transformer Models (Sequence Parallelism)</a></li>
-                <li>Rajbhandari et al.: <a href="https://arxiv.org/abs/1910.02054v3" target="_blank">ZeRO: Memory Optimizations Toward Training Trillion Parameter Models</a></li>
-                <li>Huang et al.: <a href="https://arxiv.org/abs/1811.06965" target="_blank">GPipe: Efficient Training of Giant Neural Networks Using Pipeline Parallelism</a></li>
-                <li>Micikevicius et al.: <a href="https://arxiv.org/abs/1710.03740" target="_blank">Mixed Precision Training</a></li>
+                <li>Video walkthrough: <a href="https://www.youtube.com/watch?v=hc0u4avAkuM" target="_blank">Scaling ML
+                        Models (YouTube)</a></li>
+                <li>Shoeybi et al.: <a href="https://arxiv.org/abs/1909.08053" target="_blank">Megatron-LM: Training
+                        Multi-Billion Parameter Language Models Using Model Parallelism</a></li>
+                <li>Rajbhandari et al.: <a href="https://arxiv.org/abs/1910.02054v3" target="_blank">ZeRO: Memory
+                        Optimizations Toward Training Trillion Parameter Models</a></li>
+                <li>Micikevicius et al.: <a href="https://arxiv.org/abs/1710.03740" target="_blank">Mixed Precision
+                        Training</a></li>
+                <li>Huang et al.: <a href="https://arxiv.org/abs/1811.06965" target="_blank">GPipe: Efficient Training
+                        of
+                        Giant Neural Networks Using Pipeline Parallelism</a></li>
+                <li>Wikipedia: <a href="https://en.wikipedia.org/wiki/Collective_operation" target="_blank">Collective
+                        Operations</a></li>
+                <li>Wikipedia: <a href="https://en.wikipedia.org/wiki/Half-precision_floating-point_format"
+                        target="_blank">IEEE
+                        Half-Precision Floating-Point Format</a></li>
+                <li>Google Cloud Blog: <a
+                        href="https://cloud.google.com/blog/products/ai-machine-learning/bfloat16-the-secret-to-high-performance-on-cloud-tpus"
+                        target="_blank">BF16: The Secret to High Performance on Cloud TPUs</a></li>
             </ul>
 
-            <p style="margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px dashed var(--blog-border); font-size: 0.95rem; color: var(--blog-muted);">
-                Have questions, corrections, or want to discuss distributed training? Feel free to reach out via email at
+            <p
+                style="margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px dashed var(--blog-border); font-size: 0.95rem; color: var(--blog-muted);">
+                Have questions, corrections, or want to discuss distributed training? Feel free to reach out via email
+                at
                 <a href="mailto:vinayrjumani@gmail.com">vinayrjumani@gmail.com</a> or connect with me on
                 <a href="https://www.linkedin.com/in/vinay-r-jumani-39489a210/" target="_blank">LinkedIn</a>.
             </p>

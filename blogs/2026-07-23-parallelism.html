@@ -451,8 +451,18 @@
 
             <p>
                 The step that makes this work is the <strong>all-reduce</strong> - a collective communication operation
-                where
-                every GPU sends its gradient to every other GPU and receives the sum back, do            <!-- ─────────────────────────────────────────────────────────── -->
+                where every GPU sends its gradient to every other GPU and receives the sum back, done efficiently in a ring or
+                tree pattern rather than N&sup2; point-to-point messages. This is the only communication DP needs per step,
+                which is why it scales so well up to a point.
+            </p>
+
+            <div class="callout warn">
+                <strong>The wall DP hits:</strong> Data parallelism copies the <em>entire model</em> onto every GPU. If the
+                model itself does not fit on one GPU - the 120GB example above on an 80GB A100 - DP alone cannot help, no
+                matter how many GPUs you add. This is exactly the problem model parallelism solves.
+            </div>
+
+            <!-- ─────────────────────────────────────────────────────────── -->
             <h2>Tensor (Model) Parallelism: Megatron-LM</h2>
             <!-- ─────────────────────────────────────────────────────────── -->
 
@@ -895,96 +905,6 @@ Total Allocation = 8 (TP) × 4 (PP) × 8 (DP) = 256 GPUs</code></pre>
 
             <p style="margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px dashed var(--blog-border); font-size: 0.95rem; color: var(--blog-muted);">
                 Have questions, corrections, or want to discuss distributed training? Feel free to reach out via email at
-                <a href="mailto:vinayrjumani@gmail.com">vinayrjumani@gmail.com</a> or connect with me on
-                <a href="https://www.linkedin.com/in/vinay-r-jumani-39489a210/" target="_blank">LinkedIn</a>.
-            </p>          precision with Adam needs roughly 16 bytes per parameter across FP16 weights, FP16 gradients, and FP32
-                master
-                weights + momentum + variance - 120GB before a single activation is stored.
-            </p>
-
-            <p>
-                <strong>2. Data parallelism scales throughput but not model size.</strong> It replicates the entire
-                model on
-                every GPU and averages gradients via all-reduce - simple and effective, but useless once the model
-                itself
-                doesn't fit on one GPU.
-            </p>
-
-            <p>
-                <strong>3. Tensor parallelism splits inside a layer.</strong> Column-wise splitting of the first MLP
-                matrix
-                avoids a mid-layer synchronization by keeping GELU's nonlinearity independent per GPU; pairing it with a
-                row-wise split of the second matrix collapses the whole MLP block down to a single all-reduce.
-            </p>
-
-            <p>
-                <strong>4. Pipeline parallelism splits across layers, and lives or dies on micro-batching.</strong>
-                Naive
-                layer-splitting wastes most of your GPU time in bubbles; GPipe's micro-batch pipelining with M &ge; 4K
-                keeps
-                the bubble overhead small enough for near-linear scaling.
-            </p>
-
-            <p>
-                <strong>5. Activation checkpointing trades compute for memory</strong> by only storing activations at
-                block
-                boundaries and recomputing everything in between during the backward pass - essential once pipelining
-                keeps
-                multiple micro-batches in flight simultaneously.
-            </p>
-
-            <p>
-                <strong>6. Mixed precision training roughly halves memory and speeds up matmuls</strong>, provided you
-                keep an
-                FP32 master weight copy and use loss scaling to stop small FP16 gradients from underflowing to zero.
-            </p>
-
-            <p>
-                <strong>7. ZeRO removes data parallelism's biggest inefficiency</strong> - full model-state redundancy
-                across
-                GPUs - by partitioning optimizer states, gradients, and eventually parameters across the data-parallel
-                group,
-                shrinking per-GPU memory in direct proportion to the number of GPUs, with zero change to the training
-                math.
-            </p>
-
-            <p>
-                <strong>8. Real large-scale training combines all of the above</strong> as 3D parallelism: tensor
-                parallelism
-                within a node, pipeline parallelism across nodes, and data parallelism (usually with ZeRO) across
-                replicas of
-                the whole setup.
-            </p>
-
-            <!-- ─────────────────────────────────────────────────────────── -->
-            <h2>References</h2>
-            <!-- ─────────────────────────────────────────────────────────── -->
-            <ul>
-                <li>Video walkthrough: <a href="https://www.youtube.com/watch?v=hc0u4avAkuM" target="_blank">Scaling ML
-                        Models (YouTube)</a></li>
-                <li>Shoeybi et al.: <a href="https://arxiv.org/abs/1909.08053" target="_blank">Megatron-LM: Training
-                        Multi-Billion Parameter Language Models Using Model Parallelism</a></li>
-                <li>Rajbhandari et al.: <a href="https://arxiv.org/abs/1910.02054v3" target="_blank">ZeRO: Memory
-                        Optimizations Toward Training Trillion Parameter Models</a></li>
-                <li>Micikevicius et al.: <a href="https://arxiv.org/abs/1710.03740" target="_blank">Mixed Precision
-                        Training</a></li>
-                <li>Huang et al.: <a href="https://arxiv.org/abs/1811.06965" target="_blank">GPipe: Efficient Training
-                        of
-                        Giant Neural Networks Using Pipeline Parallelism</a></li>
-                <li>Wikipedia: <a href="https://en.wikipedia.org/wiki/Collective_operation" target="_blank">Collective
-                        Operations</a></li>
-                <li>Wikipedia: <a href="https://en.wikipedia.org/wiki/Half-precision_floating-point_format"
-                        target="_blank">IEEE
-                        Half-Precision Floating-Point Format</a></li>
-                <li>Google Cloud Blog: <a
-                        href="https://cloud.google.com/blog/products/ai-machine-learning/bfloat16-the-secret-to-high-performance-on-cloud-tpus"
-                        target="_blank">BF16: The Secret to High Performance on Cloud TPUs</a></li>
-            </ul>
-
-            <p
-                style="margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px dashed var(--blog-border); font-size: 0.95rem; color: var(--blog-muted);">
-                Have questions, corrections, or want to discuss distributed training? Feel free to reach out via email
-                at
                 <a href="mailto:vinayrjumani@gmail.com">vinayrjumani@gmail.com</a> or connect with me on
                 <a href="https://www.linkedin.com/in/vinay-r-jumani-39489a210/" target="_blank">LinkedIn</a>.
             </p>

@@ -69,6 +69,16 @@
             background: rgba(130, 212, 138, 0.06);
         }
 
+        .callout.puzzle {
+            border-left-color: #c99bf7;
+            background: rgba(201, 155, 247, 0.06);
+        }
+
+        .callout.factory {
+            border-left-color: #f79e9e;
+            background: rgba(247, 158, 158, 0.06);
+        }
+
         .bar-group {
             margin: 0.35rem 0;
         }
@@ -129,6 +139,13 @@
 
         .bar-val.c {
             color: #f7c97e;
+        }
+
+        .bar-label-wide {
+            width: 160px;
+            font-size: 0.8rem;
+            color: #ccc;
+            flex-shrink: 0;
         }
 
         .legend {
@@ -225,6 +242,15 @@
             color: #f7c97e;
         }
 
+        .perf-row .perf-multiply {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: #555;
+            padding: 0 0.2rem;
+        }
+
         .gpu-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
@@ -252,13 +278,36 @@
             font-size: 0.75rem;
         }
 
+        .cluster-total {
+            text-align: center;
+            border: 1px dashed #444;
+            border-radius: 8px;
+            padding: 0.9rem;
+            margin: 0.6rem 0 1.4rem;
+            font-size: 1rem;
+            color: #fff;
+        }
+
+        .cluster-total strong {
+            color: #f7c97e;
+            font-size: 1.3rem;
+        }
+
         @media (max-width: 600px) {
             .perf-row {
                 flex-direction: column;
             }
 
+            .perf-row .perf-multiply {
+                display: none;
+            }
+
             .bar-val {
                 width: 54px;
+            }
+
+            .bar-label-wide {
+                width: 110px;
             }
         }
     </style>
@@ -293,7 +342,7 @@
                 <div class="blog-post-meta">
                     <span><i class="fa-regular fa-calendar"></i> July 23, 2026</span>
                     <span><i class="fa-solid fa-tag"></i> Distributed Training, LLMs, Systems, GPU</span>
-                    <span><i class="fa-regular fa-clock"></i> 18 min read</span>
+                    <span><i class="fa-regular fa-clock"></i> 24 min read</span>
                 </div>
             </header>
 
@@ -329,7 +378,8 @@
                 <strong>activation checkpointing</strong> and <strong>mixed precision training</strong>. The goal is to
                 go from
                 "what does data parallel mean" to "why does Megatron-LM split the weight matrix column-wise instead of
-                row-wise" in one sitting.
+                row-wise" in one sitting - starting from the simplest idea and building up, step by step, to the exact
+                configuration real clusters run today.
             </p>
 
 
@@ -472,6 +522,15 @@
             <h2>Tensor (Model) Parallelism: Megatron-LM</h2>
             <!-- ─────────────────────────────────────────────────────────── -->
 
+            <div class="callout puzzle">
+                <strong>A puzzle before the solution:</strong> Suppose NVIDIA hands you 8 GPUs and says "great - now
+                train a model whose single MLP weight matrix is too big to fit in any one of them." A matrix multiply
+                normally expects the entire matrix to live in one place to produce a correct answer. So the real
+                question is: <em>how do you split one matrix multiplication across multiple devices without changing
+                    the answer, and without every GPU stalling while it waits on the others?</em> Everything below is
+                the answer to exactly that question.
+            </div>
+
             <p>
                 Tensor parallelism, introduced in the <a href="https://arxiv.org/abs/1909.08053"
                     target="_blank">Megatron-LM
@@ -561,6 +620,34 @@ GPU 2: Y2 = GELU(X · A2)</code></pre>
                 </p>
             </div>
 
+            <h3>Seeing it with real dimensions</h3>
+
+            <p>
+                Labels like A1 and A2 can hide what's actually happening on each device. Picture a batch of activations
+                X with shape <code class="inline">[batch, 4096]</code> feeding into a weight matrix A with shape
+                <code class="inline">[4096, 16384]</code> - a realistic MLP up-projection ratio. Splitting A by columns
+                across 2 GPUs looks like this:
+            </p>
+
+            <div class="gpu-grid">
+                <div class="gpu-box">
+                    <div class="gpu-title">GPU 1</div>
+                    <div class="gpu-sub">A1: [4096, 8192]<br>Y1: [batch, 8192]</div>
+                </div>
+                <div class="gpu-box">
+                    <div class="gpu-title">GPU 2</div>
+                    <div class="gpu-sub">A2: [4096, 8192]<br>Y2: [batch, 8192]</div>
+                </div>
+            </div>
+
+            <p>
+                Each GPU keeps the full, unsplit X, but holds only half of A's columns - 8192 out of 16384. Each GPU's
+                output is a genuine, complete <code class="inline">[batch, 8192]</code> slice of the final
+                <code class="inline">[batch, 16384]</code> answer, computed entirely independently. Concatenating Y1
+                and Y2 along the column dimension gives back exactly what a single GPU holding the full 16384-wide A
+                would have produced - just computed by two GPUs working on non-overlapping columns at the same time.
+            </p>
+
             <h3>Splitting self-attention</h3>
 
             <p>
@@ -575,6 +662,25 @@ GPU 2: Y2 = GELU(X · A2)</code></pre>
                 row-wise so the final all-reduce happens once, after the heads are concatenated back together.
             </p>
 
+            <h3>The gap basic tensor parallelism leaves: sequence parallelism</h3>
+
+            <p>
+                Splitting the attention and MLP blocks column/row-wise covers most of a transformer layer's heavy
+                compute, but not all of it. Operations like LayerNorm and Dropout sit between these blocks and are
+                normally left <strong>replicated</strong> - every GPU redundantly runs and stores the exact same
+                LayerNorm output, quietly giving back some of the activation memory tensor parallelism was supposed to
+                be saving.
+            </p>
+
+            <p>
+                <strong>Sequence parallelism</strong> closes this gap by sharding those replicated regions along the
+                sequence dimension instead of duplicating them: each GPU handles LayerNorm/Dropout for only its own
+                slice of the sequence, using an <code class="inline">all-gather</code> to reassemble the full sequence
+                right before a tensor-parallel region needs it, and a <code class="inline">reduce-scatter</code> to
+                shard it again immediately after. This keeps the memory savings intact across the entire layer, not
+                just inside the attention and MLP sub-blocks.
+            </p>
+
             <div class="callout good">
                 <strong>Key takeaway:</strong> tensor parallelism needs exactly 2 all-reduces per transformer block
                 during the
@@ -584,6 +690,51 @@ GPU 2: Y2 = GELU(X · A2)</code></pre>
                 where GPUs
                 are connected by fast NVLink rather than slower inter-node networking.
             </div>
+
+            <h3>Why this communication pattern forces tensor parallelism to stay local</h3>
+
+            <p>
+                Two all-reduces per layer sounds cheap until real bandwidth numbers are attached to it - this
+                communication fires on every forward and backward pass, for every layer, on every training step, so the
+                link it travels over matters enormously:
+            </p>
+
+            <div class="bar-group">
+                <div class="bar-label">Interconnect bandwidth by link type (approximate peak)</div>
+                <div class="bar-row">
+                    <div class="bar-label-wide">NVLink 4 (H100)</div>
+                    <div class="bar-track">
+                        <div class="bar-fill-b" style="width:100%"></div>
+                    </div>
+                    <div class="bar-val b">~900 GB/s</div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label-wide">PCIe Gen5</div>
+                    <div class="bar-track">
+                        <div class="bar-fill-a" style="width:14%"></div>
+                    </div>
+                    <div class="bar-val a">~128 GB/s</div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label-wide">InfiniBand NDR (inter-node)</div>
+                    <div class="bar-track">
+                        <div class="bar-fill-c" style="width:9%"></div>
+                    </div>
+                    <div class="bar-val c">~50-100 GB/s</div>
+                </div>
+            </div>
+            <p style="font-size:0.85rem; color:var(--blog-muted); margin-top:-0.6rem;">
+                Peak theoretical bandwidths; achieved bandwidth in practice is lower and depends on topology and
+                workload.
+            </p>
+
+            <p>
+                This is the concrete reason tensor parallelism almost always stays confined to the GPUs inside a single
+                node: firing an all-reduce roughly every layer needs NVLink's ~900GB/s, not the ~50-100GB/s available
+                between nodes over InfiniBand. Pipeline parallelism, covered next, only needs to pass one activation
+                tensor at each stage boundary - far less frequent traffic - which is exactly why it is the strategy
+                used to cross node boundaries instead.
+            </p>
 
 
             <!-- ─────────────────────────────────────────────────────────── -->
@@ -613,6 +764,16 @@ GPU 2: Y2 = GELU(X · A2)</code></pre>
                 called <strong>bubbles</strong>, and in the naive scheme they can waste more than half of every GPU's
                 time.
             </p>
+
+            <div class="callout factory">
+                <strong>A factory analogy:</strong> Suppose building one car takes 4 stations in sequence, and the
+                factory needs to build 4 cars. Without pipelining, Station 2 sits idle until Station 1 finishes
+                <em>all four</em> cars, then Station 3 waits for Station 2 to finish all four, and so on - most of the
+                factory floor is idle most of the time. Micro-batching is exactly the fix of letting Station 2 start on
+                car 1 the instant Station 1 finishes it, while Station 1 has already moved on to car 2. Once the line
+                fills up, every station is working on a different car at the same moment - that's the identical trick
+                GPipe applies to layers instead of stations, and micro-batches instead of cars in progress.
+            </div>
 
             <h3>The fix: micro-batching</h3>
 
@@ -702,7 +863,8 @@ GPU 4 (L25-32): -    -     -    mb1   mb2   mb3</code></pre>
                 <li>Discards everything in between the checkpoints during the forward pass.</li>
                 <li>During the backward pass, when gradients for a discarded region are needed,
                     <strong>recomputes</strong>
-                    that region's forward pass on the fly, starting from the nearest earlier checkpoint.</li>
+                    that region's forward pass on the fly, starting from the nearest earlier checkpoint.
+                </li>
             </ol>
 
             <p>
@@ -943,6 +1105,43 @@ FP16 working copy  ──► forward pass (FP16) ──► loss
                 language models.
             </p>
 
+            <h3>A concrete cluster configuration</h3>
+
+            <p>
+                These three axes multiply together rather than simply add up, and that multiplication is what turns a
+                cluster size into an explainable engineering decision instead of a headline number. A plausible
+                configuration on a cluster built from 8-GPU nodes:
+            </p>
+
+            <div class="perf-row">
+                <div class="perf-card a">
+                    <p class="pnum">2</p>
+                    <div class="plabel">Tensor Parallel</div>
+                </div>
+                <div class="perf-multiply">&times;</div>
+                <div class="perf-card b">
+                    <p class="pnum">4</p>
+                    <div class="plabel">Pipeline Parallel</div>
+                </div>
+                <div class="perf-multiply">&times;</div>
+                <div class="perf-card c">
+                    <p class="pnum">32</p>
+                    <div class="plabel">Data Parallel</div>
+                </div>
+            </div>
+
+            <div class="cluster-total">
+                2 &times; 4 &times; 32 = <strong>256 GPUs</strong> training one model together
+            </div>
+
+            <p>
+                Reading it this way - TP degree &times; PP degree &times; DP degree = total GPUs - makes the choice
+                legible: 2-way TP because that's how many GPUs can share fast NVLink within a small group, 4-way PP
+                because that's how many stages the model's depth was cut into, and 32-way DP layered on top purely for
+                raw throughput, ideally paired with ZeRO so those 32 replicas aren't redundantly storing full optimizer
+                states.
+            </p>
+
 
             <!-- ─────────────────────────────────────────────────────────── -->
             <h2>Key Takeaways</h2>
@@ -968,7 +1167,8 @@ FP16 working copy  ──► forward pass (FP16) ──► loss
                 <strong>3. Tensor parallelism splits inside a layer.</strong> Column-wise splitting of the first MLP
                 matrix
                 avoids a mid-layer synchronization by keeping GELU's nonlinearity independent per GPU; pairing it with a
-                row-wise split of the second matrix collapses the whole MLP block down to a single all-reduce.
+                row-wise split of the second matrix collapses the whole MLP block down to a single all-reduce - and
+                sequence parallelism extends the same savings to the LayerNorm/Dropout regions in between.
             </p>
 
             <p>
@@ -1005,9 +1205,9 @@ FP16 working copy  ──► forward pass (FP16) ──► loss
             <p>
                 <strong>8. Real large-scale training combines all of the above</strong> as 3D parallelism: tensor
                 parallelism
-                within a node, pipeline parallelism across nodes, and data parallelism (usually with ZeRO) across
-                replicas of
-                the whole setup.
+                within a node (bounded by NVLink bandwidth), pipeline parallelism across nodes, and data parallelism
+                (usually with ZeRO) across replicas of the whole setup - with the TP &times; PP &times; DP product
+                explaining exactly why a cluster is sized the way it is.
             </p>
 
             <!-- ─────────────────────────────────────────────────────────── -->

@@ -355,7 +355,9 @@
                 gradient
                 descent update are. No prior distributed-systems knowledge is needed - every collective operation and
                 every
-                splitting strategy is built up from scratch.
+                splitting strategy is built up from scratch.<br><br>
+                <em>This blog post is inspired by the video walkthrough by <a
+                        href="https://www.youtube.com/watch?v=hc0u4avAkuM" target="_blank">Aleksa Gordić</a>.</em>
             </div>
 
             <p>
@@ -463,7 +465,10 @@
             </p>
 
             <p>
-                A quick note on terminology before we begin: <strong>replicating</strong> copies the entire tensor identically onto every GPU (high memory redundancy, zero communication during forward compute), whereas <strong>sharding</strong> splits a tensor into N distinct slices across N GPUs so each GPU stores only 1/N of the data.
+                A quick note on terminology before we begin: <strong>replicating</strong> copies the entire tensor
+                identically onto every GPU (high memory redundancy, zero communication during forward compute), whereas
+                <strong>sharding</strong> splits a tensor into N distinct slices across N GPUs so each GPU stores only
+                1/N of the data.
             </p>
 
 
@@ -472,7 +477,9 @@
             <!-- ─────────────────────────────────────────────────────────── -->
 
             <p>
-                Before splitting models across multiple GPUs, it helps to establish the fundamental communication building blocks. Distributed training libraries like NVIDIA NCCL rely on a set of standardized <strong>collective communication primitives</strong> to exchange data between devices:
+                Before splitting models across multiple GPUs, it helps to establish the fundamental communication
+                building blocks. Distributed training libraries like NVIDIA NCCL rely on a set of standardized
+                <strong>collective communication primitives</strong> to exchange data between devices:
             </p>
 
             <table class="metric-table">
@@ -489,7 +496,8 @@
                         <td><strong>Point-to-Point (P2P)</strong></td>
                         <td>1 GPU holds tensor</td>
                         <td>1 target GPU receives tensor</td>
-                        <td><strong>Pipeline Parallelism</strong> (passing boundary activations between adjacent stages)</td>
+                        <td><strong>Pipeline Parallelism</strong> (passing boundary activations between adjacent stages)
+                        </td>
                     </tr>
                     <tr>
                         <td><strong>Broadcast</strong></td>
@@ -507,7 +515,8 @@
                         <td><strong>All-Gather</strong></td>
                         <td>Each GPU holds a shard</td>
                         <td><strong>All</strong> GPUs receive full concatenated tensor</td>
-                        <td><strong>ZeRO-3</strong> (reconstructing full parameters) &amp; <strong>Sequence Parallelism</strong></td>
+                        <td><strong>ZeRO-3</strong> (reconstructing full parameters) &amp; <strong>Sequence
+                                Parallelism</strong></td>
                     </tr>
                     <tr>
                         <td><strong>Reduce</strong></td>
@@ -519,13 +528,15 @@
                         <td class="col-a"><strong>All-Reduce</strong></td>
                         <td class="col-a">Each GPU holds a tensor</td>
                         <td class="col-a"><strong>All</strong> GPUs receive reduced (summed) tensor</td>
-                        <td class="col-a"><strong>Data Parallelism</strong> (averaging gradients) &amp; <strong>Tensor Parallelism</strong></td>
+                        <td class="col-a"><strong>Data Parallelism</strong> (averaging gradients) &amp; <strong>Tensor
+                                Parallelism</strong></td>
                     </tr>
                     <tr>
                         <td class="col-b"><strong>Reduce-Scatter</strong></td>
                         <td class="col-b">Each GPU holds a tensor</td>
                         <td class="col-b">Each GPU receives 1/N shard of reduced tensor</td>
-                        <td class="col-b"><strong>ZeRO-2</strong> (gradient sharding) &amp; <strong>Sequence Parallelism</strong></td>
+                        <td class="col-b"><strong>ZeRO-2</strong> (gradient sharding) &amp; <strong>Sequence
+                                Parallelism</strong></td>
                     </tr>
                     <tr>
                         <td class="col-c"><strong>All-to-All</strong></td>
@@ -538,11 +549,20 @@
 
             <h3>Key Terms to Know</h3>
             <ul>
-                <li><strong>Ring / Tree All-Reduce:</strong> Efficient topologies implemented by libraries like NCCL so that every GPU exchanges data with only a few immediate neighbors rather than sending N&sup2; messages across the network.</li>
-                <li><strong>NVLink vs. InfiniBand:</strong> NVLink is an ultra-fast intra-node GPU interconnect (up to 900 GB/s on H100), whereas InfiniBand connects separate server chassis/nodes over networking switches (50–100 GB/s).</li>
-                <li><strong>Pipeline Bubble:</strong> The idle execution time where downstream GPUs wait for upstream GPUs to finish processing micro-batches during pipeline fill and drain phases.</li>
-                <li><strong>Sequence Parallelism (Megatron-SP):</strong> Sharding non-tensor-parallel activation regions (LayerNorm &amp; Dropout) along the sequence dimension (S/N) to eliminate activation memory redundancy.</li>
-                <li><strong>Expert Parallelism (MoE):</strong> Partitioning sparse "Expert" feed-forward layers across GPUs in Mixture-of-Experts models, using All-to-All collectives to dispatch tokens to assigned experts.</li>
+                <li><strong>Ring / Tree All-Reduce:</strong> Efficient topologies implemented by libraries like NCCL so
+                    that every GPU exchanges data with only a few immediate neighbors rather than sending N&sup2;
+                    messages across the network.</li>
+                <li><strong>NVLink vs. InfiniBand:</strong> NVLink is an ultra-fast intra-node GPU interconnect (up to
+                    900 GB/s on H100), whereas InfiniBand connects separate server chassis/nodes over networking
+                    switches (50–100 GB/s).</li>
+                <li><strong>Pipeline Bubble:</strong> The idle execution time where downstream GPUs wait for upstream
+                    GPUs to finish processing micro-batches during pipeline fill and drain phases.</li>
+                <li><strong>Sequence Parallelism (Megatron-SP):</strong> Sharding non-tensor-parallel activation regions
+                    (LayerNorm &amp; Dropout) along the sequence dimension (S/N) to eliminate activation memory
+                    redundancy.</li>
+                <li><strong>Expert Parallelism (MoE):</strong> Partitioning sparse "Expert" feed-forward layers across
+                    GPUs in Mixture-of-Experts models, using All-to-All collectives to dispatch tokens to assigned
+                    experts.</li>
             </ul>
 
 
@@ -583,7 +603,11 @@
             </ol>
 
             <p>
-                The step that makes this work is the <strong>all-reduce</strong> - a collective communication operation where every GPU sends its gradient to every other GPU and receives the sum back. Modern libraries such as NCCL implement all-reduce using efficient communication topologies like rings or trees so every GPU exchanges data with only a few neighbors rather than every other GPU. This is the only communication DP needs per step, which is why it scales so well up to a point.
+                The step that makes this work is the <strong>all-reduce</strong> - a collective communication operation
+                where every GPU sends its gradient to every other GPU and receives the sum back. Modern libraries such
+                as NCCL implement all-reduce using efficient communication topologies like rings or trees so every GPU
+                exchanges data with only a few neighbors rather than every other GPU. This is the only communication DP
+                needs per step, which is why it scales so well up to a point.
             </p>
 
             <div class="callout warn">
@@ -1123,7 +1147,9 @@ FP16 working copy  ──► forward pass (FP16) ──► loss
             </table>
 
             <p style="font-size:0.9rem; color:var(--blog-muted); margin-top:-0.4rem;">
-                The exact memory formulas depend on the bookkeeping convention used (e.g., how FP32 master weights are accounted for), but the qualitative trend is consistent: each ZeRO stage shards more of the model state, reducing per-GPU memory, with ZeRO-3 approaching a 1/N reduction in model-state memory.
+                The exact memory formulas depend on the bookkeeping convention used (e.g., how FP32 master weights are
+                accounted for), but the qualitative trend is consistent: each ZeRO stage shards more of the model state,
+                reducing per-GPU memory, with ZeRO-3 approaching a 1/N reduction in model-state memory.
             </p>
 
             <p>
@@ -1295,7 +1321,8 @@ FP16 working copy  ──► forward pass (FP16) ──► loss
             <h2>References</h2>
             <!-- ─────────────────────────────────────────────────────────── -->
             <ul>
-                <li>Video walkthrough: <a href="https://www.youtube.com/watch?v=hc0u4avAkuM" target="_blank">Scaling ML
+                <li>Video by Aleksa Gordic: <a href="https://www.youtube.com/watch?v=hc0u4avAkuM"
+                        target="_blank">Scaling ML
                         Models (YouTube)</a></li>
                 <li>Shoeybi et al.: <a href="https://arxiv.org/abs/1909.08053" target="_blank">Megatron-LM: Training
                         Multi-Billion Parameter Language Models Using Model Parallelism</a></li>

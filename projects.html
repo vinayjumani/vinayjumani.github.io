@@ -37,6 +37,16 @@
 
       <div class="item-block">
         <div class="item-header">
+          <div class="item-title">Enterprise Text-to-SQL Interface</div>
+          <div class="item-meta">TCS Research &amp; BITS Goa · Dec 2025 – May 2026 · <a href="https://github.com/Vinay12345-neutron/NL-SQL" target="_blank">code</a></div>
+        </div>
+        <p class="small">
+          Co-architected a Python text-to-SQL pipeline (schema retrieval, ambiguity resolution, SQL generation, execution) for enterprise databases, with Profs. <a href="https://scholar.google.com/citations?user=CFkxQ6cAAAAJ&amp;hl=en" target="_blank">Tanmay Verlekar</a> and <a href="https://scholar.google.com/citations?user=zpNTeogAAAAJ&amp;hl=en" target="_blank">Ashwin Srinivasan</a>.
+        </p>
+      </div>
+
+      <div class="item-block">
+        <div class="item-header">
           <div class="item-title">FlashAttention-2 Implementation — CUDA & Triton</div>
           <div class="item-meta">
             2025 · CUDA
@@ -51,15 +61,16 @@
 
       <div class="item-block">
         <div class="item-header">
-          <div class="item-title">CUDA MatMul Optimization</div>
+          <div class="item-title">CUDA GEMM Optimization &amp; LLM Inference</div>
           <div class="item-meta">
-            2025 · CUDA ·
+            Mar – Apr 2026 · CUDA ·
             <a href="https://github.com/Vinay12345-neutron/DaSH-Lab-Induction-Assignment-2025" target="_blank">code</a>
           </div>
         </div>
         <p class="small">
           Designed & implemented a full CUDA GEMM optimization pipeline, and achieved close to 92% performance of
-          cuBLAS. Also analysed vLLM with Paged Attention paper.
+          cuBLAS. Also studied the vLLM codebase and PagedAttention, FlashAttention, KV-cache management and
+          memory-efficient inference.
         </p>
       </div>
 
@@ -155,7 +166,27 @@
 
     <section class="card">
       <div class="section-title"><i class="fa-regular fa-circle-dot"></i> In progress</div>
+      <div class="section-subtitle">LLM serving and inference tooling I'm currently building.</div>
 
+      <div class="item-block">
+        <div class="item-header">
+          <div class="item-title">SGLens: Benchmarking &amp; Profiling Suite for SGLang</div>
+          <div class="item-meta">Jul 2026 – present · <a href="https://github.com/Vinay12345-neutron/sglens" target="_blank">code</a></div>
+        </div>
+        <p class="small">
+          Benchmarking and profiling suite for SGLang on multi-GPU infrastructure: workload models (chat, long-context RAG, shared-prefix reuse, agentic tool-use) and automated TTFT, TPOT, ITL and percentile latency. Includes a resumable 96-experiment benchmark matrix and a GPU telemetry pipeline to study throughput, latency and VRAM under different serving workloads.
+        </p>
+      </div>
+
+      <div class="item-block">
+        <div class="item-header">
+          <div class="item-title">PressureScope: LLM Serving Telemetry Harness</div>
+          <div class="item-meta">Aug 2026 – present</div>
+        </div>
+        <p class="small">
+          Engine-agnostic harness correlating application metrics (TTFT, TPOT, throughput), scheduler metrics and GPU/NVML telemetry to characterize near-OOM serving, with deterministic, Poisson and burst workloads. Established a reproducible Qwen2.5-0.5B-Instruct baseline on an RTX A6000 with &lt; 1% cross-run variance; validated joint Prometheus/NVML telemetry over 876 correlated samples.
+        </p>
+      </div>
 
     </section>
 

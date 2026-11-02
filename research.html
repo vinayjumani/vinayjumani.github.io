@@ -39,8 +39,50 @@
 
       <div class="item-block">
         <div class="item-header">
+          <div class="item-title">TierMoE: Expert Placement for Batched MoE Decode</div>
+          <div class="item-meta">Aug – Oct 2026 · Under review, MLSys 2027</div>
+        </div>
+        <p class="small">
+          Systems study of expert placement for MoE inference under batched decode, built on routing traces and a Belady-oracle simulator.
+        </p>
+        <ul class="small">
+          <li>Characterized expert demand on OLMoE-1B-7B, Qwen3-30B-A3B and DeepSeek-V2-Lite. Batching makes each step touch 51% of Qwen3 experts at B=16, so recency-based caches thrash: llama.cpp’s expert cache ran 1.5–3.0× slower than a layer split.</li>
+          <li>Designed a static per-expert placement in llama.cpp that keeps frequency-selected hot experts on the GPU and runs cold experts in place on the CPU (avoiding PCIe transfers) with a sparse cold-expert operator. Up to 1.34× end-to-end speedup at B=4 on Qwen3-30B-A3B (1.60× with a 50% GPU budget) and 1.15× at B=16.</li>
+          <li>Pre-registered evaluation (thread pinning, interleaved repeats) with correctness gates and a GSM8K check; reports where gains reverse (B=32, coarser MoEs).</li>
+        </ul>
+      </div>
+
+      <div class="item-block">
+        <div class="item-header">
+          <div class="item-title">QIRA-L: Training-Free Token Halting via Closed-Form K/V Transport</div>
+          <div class="item-meta">Dr. <a href="https://scholar.google.com/citations?hl=en&amp;user=HYpfhaEAAAAJ&amp;view_op=list_works&amp;sortby=pubdate" target="_blank">Amitava Das</a> · Aug 2026 – present</div>
+        </div>
+        <p class="small">
+          Training-free intermediate-layer token-halting method that predicts later-layer keys and values with closed-form, layer-specific ridge transport, without modifying the LLM backbone.
+        </p>
+        <ul class="small">
+          <li>Retained 89.1% of dense LongBench quality on Qwen2.5-7B-Instruct at 89% of prompt tokens halted (+25.7 pts over the best drop baseline).</li>
+          <li>Measured 1.50× prefill speedup; retained 98.3% of dense quality on Llama-3.1-8B-Instruct at the same budget.</li>
+        </ul>
+      </div>
+
+      <div class="item-block">
+        <div class="item-header">
+          <div class="item-title">Energy-Efficient GPU Autotuning</div>
+          <div class="item-meta">Dr. <a href="https://scholar.google.com/citations?user=L1f1S_MAAAAJ&amp;hl=en" target="_blank">Gargi Alavani Prabhu</a>, BITS Goa · Aug 2026 – present</div>
+        </div>
+        <p class="small">
+          Developing an energy-aware GPU autotuning framework to find efficient execution configurations across ML/DL workloads and hardware.
+        </p>
+        <ul class="small">
+          <li>Building learned performance models that predict kernel execution metrics to guide configuration search, reducing reliance on exhaustive GPU profiling.</li>
+        </ul>
+      </div>
+
+      <div class="item-block">
+        <div class="item-header">
           <div class="item-title">EEG-LLM Cognitive Decoding</div>
-          <div class="item-meta">Research intern · NTU/NIE Singapore &amp; BITS Goa · Dec 2025 – present</div>
+          <div class="item-meta">Undergraduate researcher · NTU Singapore &amp; BITS Goa · Nov 2025 – present · <a href="https://github.com/Vinay12345-neutron/LaBraM/tree/boredom-finetuning" target="_blank">code</a></div>
         </div>
         <p class="small">
           Working on EEG-to-language decoding using large language models to study cognitive signal representations
@@ -53,21 +95,22 @@
             (transformers, contrastive learning, calibration metrics).</li>
           <li>Running experiments on benchmarking EEG datasets; tracking model accuracy, calibration (ECE) and
             robustness.</li>
-          <li>Target outcome: Q1 journal publication under Dr. Yuvaraj Rajamanickam (NTU/NIE) and Dr. Amalin Prince
+          <li>Fine-tuned the LaBraM Transformer in PyTorch, achieving 96.9% LOSO accuracy across 73 subjects, and built
+            an attention-based interpretability framework using Grad-CAM with feature-level analysis of EEG
+            representations.</li>
+          <li>Manuscript under review at a Q1 journal, with Dr. <a href="https://scholar.google.com/citations?user=b_Lt-u4AAAAJ&amp;hl=en" target="_blank">Yuvaraj Rajamanickam</a> (NTU/NIE) and Dr. <a href="https://scholar.google.com/citations?user=8S-6FCQAAAAJ&amp;hl=en" target="_blank">Amalin Prince</a>
             (BITS Goa).</li>
         </ul>
       </div>
 
       <div class="item-block">
         <div class="item-header">
-          <div class="item-title">Database Routing using LLMs on Enterprise Data</div>
-          <div class="item-meta">SOP research project · TCS Research &amp; BITS Goa · Nov 2025 – May 2026</div>
+          <div class="item-title">Enterprise Text-to-SQL Interface</div>
+          <div class="item-meta">TCS Research &amp; BITS Goa · Dec 2025 – May 2026 · <a href="https://github.com/Vinay12345-neutron/NL-SQL" target="_blank">code</a></div>
         </div>
         <p class="small">
-          Designing an LLM-assisted system to detect and resolve ambiguous natural language queries in enterprise search
-          spanning databases, documents, and knowledge graphs.
+          Co-architected a Python text-to-SQL pipeline (schema retrieval, ambiguity resolution, SQL generation, execution) for enterprise databases, with Profs. <a href="https://scholar.google.com/citations?user=CFkxQ6cAAAAJ&amp;hl=en" target="_blank">Tanmay Verlekar</a> and <a href="https://scholar.google.com/citations?user=zpNTeogAAAAJ&amp;hl=en" target="_blank">Ashwin Srinivasan</a>.
         </p>
-
       </div>
 
       <div class="item-block">
